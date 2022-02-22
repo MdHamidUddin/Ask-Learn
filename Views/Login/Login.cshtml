@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/MyLayout3.cshtml";
+}
+
+<h2>Login</h2>
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #d3eafd;
+    }
+
+    .grid-item {
+        /*background-color: rgba(255, 255, 255, 0.8);*/
+        /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <div class="grid-container">
+        <div class="grid-item"></div>
+        <div class="grid-item">
+            <fieldset>
+
+                <form>
+
+
+                    <div class="form-group" style="margin-top:10px;">
+                        <div class="input-group" justify-content: center">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input class="form-control  " type="text" name="UserName" id="user" placeholder=" Username" />
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" style="margin-top:10px">
+                        <div class="input-group" justify-content: center">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input class="form-control" type="password" name="Password" id="Password" placeholder=" Password" />
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group" style="margin-top: 10px; margin-bottom: 500px">
+                        <div class="input-group" justify-content: center">
+                            <span class="input-group-addon">
+                        <button class="form-control" type="submit" onclick="SignIn()"> <i class="glyphicon glyphicon-log-in"> Login</i></button>
+                            </span>
+                          
+                           
+                        </div>
+                    </div>
+                </form>
+
+
+            </fieldset>
+
+
+        </div>
+        <div class="grid-item"></div>
+    </div>
+
+</body>
+
+
+
+<script>
+
+    function SignUp()
+    {
+        $("#ShowModal").modal();
+        $("#message1").hide();
+        $("#message2").hide();
+    }
+
+    function SaveForm() {
+        var name = $("#user").val();
+        var pwd = $("#Password").val();
+        var email = $("#Email").val();
+        if (name == "" || pwd == ""||email=="") {
+            $("#message1").hide();
+            $("#message2").show();
+            return false;
+        }
+        var data = $("#Registration").serialize();
+        $.ajax({
+            type: "post",
+            data: data,
+            url: "/Register/SaveData",
+            success: function (result) {
+
+                $("#message1").show();
+                $("#message2").hide();
+                $("#Registration")[0].reset();
+            }
+        });
+    }
+
+    function SignIn() {
+
+        $('#message3').hide();
+        $('#message4').hide();
+        var pwd = $("#logPassword").val();
+        var email = $("#logEmail").val();
+        if (pwd == "" || email == "") {
+            $("#message3").hide();
+            $("#message4").show();
+            return false;
+
+        }
+        var data = $("#loginForm").serialize();
+        $.ajax({
+            type: "post",
+            data: data,
+            url: "/Register/Login",
+            success: function (result) {
+
+                if (result == "Success") {
+                    $("#message3").show();
+                    $("#message4").hide();
+                    $("#loginForm")[0].reset();
+                    window.location.replace("/Home/MainPage");
+                }
+                else if (result == "Fail"){
+                    $("#message5").show();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                }
+
+                else if (result == "InValid") {
+                    $("#message6").show();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                }
+                else if (result == "InvalidEmail") {
+                    $("#message7").show();
+                    $("#message6").hide();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                }
+
+                else if (result == "NULL") {
+                    $("#message7").hide();
+                    $("#message6").hide();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                    $("#message8").show();
+                }
+
+
+
+
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+

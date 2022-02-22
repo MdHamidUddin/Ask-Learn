@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Ratio";
+    Layout = "~/Views/Shared/MyLayout2.cshtml";
+}
+
+<div class="jumbotron" id="wrapper" style="margin-top:20px">
+    <div id="container" style="min-width:210px; height:300px; max-width:400px; margin: 0 auto; float:inline-end">
+
+    </div>
+</div>
+
+
+
+<script>
+    function refresh() {
+        window.location.reload();
+    }
+
+    $(document).ready(function () {
+        window.setInterval('refresh()', 3000);
+
+        $.getJSON("/Dashboard/ShowChart", function (data) {
+
+
+            Highcharts.chart('container', {
+                chart: {
+                    plotBackgroundColor: "skyblue",
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Our Systenm Users'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                        }
+                    }
+                },
+                series: [{
+
+                    name: 'Brands',
+                    colorByPoint: true,
+
+                    data: [{
+
+                        name: 'Male',
+                        y: data.Male,
+                        sliced: true,
+                        selected: true
+                    }, {
+                        name: 'Female',
+                        y: data.Female
+                    }, {
+                        name: 'Other',
+                        y: data.Other
+
+                    }]
+                }]
+            });
+        });
+    });
+
+
+
+</script>
+

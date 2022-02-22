@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AskNLearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Comment">
+    <Key>
+      <PropertyRef Name="cid" />
+    </Key>
+    <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pid" Type="Int32" Nullable="false" />
+    <Property Name="uid" Type="Int32" Nullable="false" />
+    <Property Name="comment1" Type="Binary" MaxLength="500" FixedLength="false" Nullable="false" />
+    <Property Name="upVote" Type="Int32" />
+    <Property Name="downVote" Type="Int32" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Post" Relationship="Self.FK_Comments_Posts" FromRole="Comments" ToRole="Posts" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Comments_Users" FromRole="Comments" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Cours">
+    <Key>
+      <PropertyRef Name="coid" />
+    </Key>
+    <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="Int32" Nullable="false" />
+    <Property Name="vLink" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="documents" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="price" Type="Double" />
+    <Property Name="upVote" Type="Int32" />
+    <Property Name="downVote" Type="Int32" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
+    <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+  </EntityType>
+  <EntityType Name="EnrolledUser">
+    <Key>
+      <PropertyRef Name="eid" />
+    </Key>
+    <Property Name="eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="Int32" Nullable="false" />
+    <Property Name="coid" Type="Int32" Nullable="false" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_EnrolledUser_Courses" FromRole="EnrolledUser" ToRole="Courses" />
+    <NavigationProperty Name="User" Relationship="Self.FK_EnrolledUser_Users" FromRole="EnrolledUser" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="pid" />
+    </Key>
+    <Property Name="pid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="details" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="upVote" Type="Int32" />
+    <Property Name="downVote" Type="Int32" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="uid" />
+    </Key>
+    <Property Name="uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="proPic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="eduInfo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK_Courses_Users" FromRole="Users" ToRole="Courses" />
+    <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Users" FromRole="Users" ToRole="EnrolledUser" />
+    <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
+  </EntityType>
+  <Association Name="FK_Comments_Posts">
+    <End Role="Posts" Type="Self.Post" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Posts">
+        <PropertyRef Name="pid" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="pid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Comments_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="Comments">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Courses_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Courses" Type="Self.Cours" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EnrolledUser_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+    <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="coid" />
+      </Principal>
+      <Dependent Role="EnrolledUser">
+        <PropertyRef Name="coid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EnrolledUser_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="EnrolledUser">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Posts_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="Posts">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AskNLearnEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
+      <End Role="Posts" EntitySet="Posts" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Comments_Users" Association="Self.FK_Comments_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Comments" EntitySet="Comments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Courses_Users" Association="Self.FK_Courses_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EnrolledUser_Courses" Association="Self.FK_EnrolledUser_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EnrolledUser_Users" Association="Self.FK_EnrolledUser_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AskNLearnModelStoreContainer" CdmEntityContainer="AskNLearnEntities">
+    <EntitySetMapping Name="Comments">
+      <EntityTypeMapping TypeName="AskNLearnModel.Comment">
+        <MappingFragment StoreEntitySet="Comments">
+          <ScalarProperty Name="cid" ColumnName="cid" />
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="comment1" ColumnName="comment" />
+          <ScalarProperty Name="upVote" ColumnName="upVote" />
+          <ScalarProperty Name="downVote" ColumnName="downVote" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Courses">
+      <EntityTypeMapping TypeName="AskNLearnModel.Cours">
+        <MappingFragment StoreEntitySet="Courses">
+          <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="vLink" ColumnName="vLink" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="documents" ColumnName="documents" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="upVote" ColumnName="upVote" />
+          <ScalarProperty Name="downVote" ColumnName="downVote" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EnrolledUsers">
+      <EntityTypeMapping TypeName="AskNLearnModel.EnrolledUser">
+        <MappingFragment StoreEntitySet="EnrolledUser">
+          <ScalarProperty Name="eid" ColumnName="eid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="AskNLearnModel.Post">
+        <MappingFragment StoreEntitySet="Posts">
+          <ScalarProperty Name="pid" ColumnName="pid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="upVote" ColumnName="upVote" />
+          <ScalarProperty Name="downVote" ColumnName="downVote" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="AskNLearnModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="AskNLearnModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="occupation" ColumnName="occupation" />
+          <ScalarProperty Name="proPic" ColumnName="proPic" />
+          <ScalarProperty Name="eduInfo" ColumnName="eduInfo" />
+          <ScalarProperty Name="approval" ColumnName="approval" />
+          <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
