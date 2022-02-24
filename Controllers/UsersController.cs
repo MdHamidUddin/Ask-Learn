@@ -47,9 +47,9 @@ namespace AskNLearn.Controllers
                 //'uch' will be the charecter which will define which controller to redirect.
                 if (Data != null && uch.Equals('A'))
                 {
-                    //FormsAuthentication.SetAuthCookie(data.Username, false);
-                    //Session["Username"] = data.Username;
-                    return RedirectToAction("../Dashboard/Dashboard");
+                    FormsAuthentication.SetAuthCookie(data.username, false);
+                    Session["username"] = data.username;
+                    return RedirectToAction("../Admin/Dashboard");
                 }
                 else if (Data != null && uch.Equals('I'))
                 {
