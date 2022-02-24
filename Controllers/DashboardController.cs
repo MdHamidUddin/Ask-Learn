@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AskNLearn.Models;
+using AskNLearn.Models.Entity;
+using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +12,7 @@ namespace AskNLearn.Controllers
     public class DashboardController : Controller
     {
         // GET: Dashboard
+        AskNLearnEntities dbObj = new AskNLearnEntities();
         public ActionResult Index()
         {
             return View();
@@ -21,9 +25,21 @@ namespace AskNLearn.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Profile()
         {
-            return View();
+            // User data = dbObj.Users.Where(x => x.username == Session["Username"]).FirstOrDefault();
+            var user = (string)Session["Username"];
+            var data = (from u in dbObj.Users
+                        where u.username.Equals(user)
+                        select u).FirstOrDefault();
+
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UsersProfile>());
+
+            var mapper = new Mapper(config);
+
+            var Data = mapper.Map<UsersProfile>(data);
+            return View(data);
         }
 
         public ActionResult Ratio()

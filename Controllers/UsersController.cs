@@ -46,7 +46,7 @@ namespace AskNLearn.Controllers
                 if (Data != null)
                 {
                     //FormsAuthentication.SetAuthCookie(data.Username, false);
-                    //Session["Username"] = data.Username;
+                    //Session["Username"] = Data.username;
                     return RedirectToAction("../Dashboard/Dashboard");
                 }
                 else if (Data == null)

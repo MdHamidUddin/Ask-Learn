@@ -148,6 +148,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
+    <Compile Include="Models\Entity\UsersProfile.cs" />
     <Compile Include="Models\Mark.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
