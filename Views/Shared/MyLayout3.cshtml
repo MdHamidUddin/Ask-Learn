@@ -22,8 +22,6 @@
           href="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/assets/images/logos/pixel-favicon.png">
     <!-- Bootstrap Core CSS -->
     <link href="../../Theme/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Menu CSS -->
-    <link href="../../Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- toast CSS -->
     <link href="../../Theme/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- morris CSS -->
@@ -34,18 +32,14 @@
     <link href="../../Theme/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="../../Theme/css/colors/blue-dark.css" id="theme" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
-    @*<script src="~/Scripts/ChartFile/exporting.js"></script>
-    <script src="~/Scripts/ChartFile/highcharts.js"></script>
-    <script src="~/Scripts/ChartFile/export-data.js"></script>
-    <script src="~/Scripts/ChartFile/accessibility.js"></script>*@
+    @* ---------------------------------------------------------------------------------- *@
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
 </head>
 <body>
-    <div id="wrapper">
+    @*<div id="wrapper">*@
         <nav class="navbar navbar-default navbar-static-top m-b-0" style="position: fixed;">
             <div class="navbar-header">
                 <a class="navbar-toggle hidden-sm hidden-md hidden-lg"
@@ -68,88 +62,22 @@
                         </form>
                     </li>
                 </ul>
-                @*<ul class="nav navbar-top-links navbar-right pull-right">
-                    <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../../Theme/plugins/images/users/varun.jpg" alt="user-img"
-                                 width="36" class="img-circle"><b class="hidden-xs">Steave</b>
-                        </a>
-                    </li>
-                </ul>*@
             </div>
 
         </nav>
-    </div>
+    @*</div>*@
 
-    <!--<div  id="wrapper">
-        <div class="navbar-default sidebar" role="navigation" style="position: fixed;">
-            <div class="sidebar-nav navbar-collapse slimscrollsidebar">
-                <ul class="nav" id="side-menu">
-                    <li style="padding: 10px 0 0;">
-                      
-                        @Html.ActionLink("Dashboard", "Dashboard", "Dashboard", new { @class = "waves-effect"  },  new { @class = "fa fa-clock-o fa-fw" })
-                    </li>
+   
+    @*<div class="container body-content">*@
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Ask And Learn</p>
+        </footer>
+    @*</div>*@
 
-
-                    <li>
-                        <span class="waves-effect">
-                            <i class="fa fa-user fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
-                        </span>
-                    </li>
-
-                    <li>
-                        <a href="basic-table.html" class="waves-effect">
-                            <i class="fa fa-table fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Basic Table</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="fontawesome.html" class="waves-effect">
-                            <i class="fa fa-font fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Icons</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="map-google.html" class="waves-effect">
-                            <i class="fa fa-globe fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Google Map</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="blank.html" class="waves-effect">
-                            <i class="fa fa-columns fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Blank Page</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="404.html" class="waves-effect">
-                            <i class="fa fa-info-circle fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Error 404</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="center p-20">
-                    <span class="hide-menu">-->
-                        @*<a href="http://wrappixel.com/templates/pixeladmin/" target="_blank"
-                           class="btn btn-danger btn-block btn-rounded waves-effect waves-light">
-                            Upgrade to
-                            Pro
-                        </a>*@
-                    <!--</span>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
-
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>
-@RenderBody()
-   <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
-@*<footer>
-    <p>&copy; @DateTime.Now.Year - Ask &Aacute; Learn</p>
-</footer>*@
