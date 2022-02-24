@@ -9,7 +9,8 @@ using System.Web.Mvc;
 
 namespace AskNLearn.Controllers
 {
-    public class DashboardController : Controller
+    [Authorize]
+    public class AdminController : Controller
     {
         // GET: Dashboard
         AskNLearnEntities dbObj = new AskNLearnEntities();

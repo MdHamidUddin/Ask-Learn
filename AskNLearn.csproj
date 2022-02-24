@@ -129,8 +129,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -264,6 +265,13 @@
     <Content Include="packages\EntityFramework.5.0.0\tools\EntityFramework.PowerShell.dll" />
     <Content Include="packages\EntityFramework.5.0.0\tools\EntityFramework.PowerShell.Utility.dll" />
     <Content Include="packages\EntityFramework.5.0.0\tools\migrate.exe" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.min.js" />
@@ -372,13 +380,6 @@
     <Content Include="packages\WebGrease.1.6.0\tools\WG.EXE" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="packages\Antlr.3.5.0.2\.signature.p7s" />
     <Content Include="packages\Antlr.3.5.0.2\Antlr.3.5.0.2.nupkg" />
     <Content Include="packages\AutoMapper.10.1.1\.signature.p7s" />
@@ -962,13 +963,15 @@
     <Content Include="Theme\plugins\bower_components\sidebar-nav\package.json" />
     <Content Include="Theme\plugins\bower_components\sidebar-nav\README.md" />
     <Content Include="Views\Shared\MyLayout.cshtml" />
-    <Content Include="Views\Dashboard\Dashboard.cshtml" />
-    <Content Include="Views\Dashboard\Profile.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Admin\Profile.cshtml" />
     <Content Include="Views\Shared\MyLayout2.cshtml" />
-    <Content Include="Views\Dashboard\Ratio.cshtml" />
+    <Content Include="Views\Admin\Ratio.cshtml" />
     <Content Include="Views\Shared\MyLayout3.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
+    <Content Include="Views\Shared\InstructorDashboard.cshtml" />
+    <Content Include="Views\Instructor\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
