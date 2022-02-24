@@ -80,29 +80,42 @@
         <div class="navbar-default sidebar" role="navigation" style="position: fixed;">
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 10px 0 0;">
-                      
-                        @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { @class = "waves-effect", area = " " },  new { @class = "fa fa-clock-o fa-fw", area = " " })
+                    @*<li style="padding: 10px 0 0;">
+
+                        @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { @class = "waves-effect", area = " " }, new { @class = "fa fa-clock-o fa-fw", area = " " })
+                    </li>*@
+
+
+                    @*<li>
+            <span class="waves-effect">
+                <i class="fa fa-user fa-fw"
+                   aria-hidden="true"></i>
+                <span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
+            </span>
+        </li>*@
+                    @*<li>
+            <span class="waves-effect">
+                <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                <span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
+            </span>
+        </li>*@
+                    @*<li>
+                        @Html.ActionLink("Profile  ", "Profile", "Admin", new { @class = "waves-effect" }, new { @class = " btn-def fa fa-save", area = " " })
+                    </li>*@
+                    <li>
+                        <a href="/Admin/Dashboard" class="waves-effect">
+                            <i class="fa fa-clock-o fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Dashboard</span>
+                        </a>
                     </li>
 
+                    <li>
+                        <a href="/Admin/Profile" class="waves-effect">
+                            <i class="btn-def fa fa-save fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Profile</span>
+                        </a>
+                    </li>
 
-                    @*<li>
-                        <span class="waves-effect">
-                            <i class="fa fa-user fa-fw"
-                               aria-hidden="true"></i>
-                            <span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
-                        </span>
-                    </li>*@
-                    @*<li>
-                        <span class="waves-effect">
-                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                            <span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
-                        </span>
-                    </li>*@
-                <li>
-                    @Html.ActionLink("Profile  ", "Profile", "Admin", new { @class = "waves-effect" }, new { @class = " btn-def fa fa-save", area = " " })
-                </li>
-                   
 
 
 

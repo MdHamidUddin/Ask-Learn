@@ -40,6 +40,8 @@ namespace AskNLearn.Controllers
             var mapper = new Mapper(config);
 
             var Data = mapper.Map<UsersProfile>(data);
+
+
             return View(data);
         }
 

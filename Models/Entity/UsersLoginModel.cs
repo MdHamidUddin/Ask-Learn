@@ -9,10 +9,10 @@ namespace AskNLearn.Models.Entity
     public class UsersLoginModel
     {
   
-        [Required(ErrorMessage ="Enter Your Username")]
+        [Required(ErrorMessage ="Username Cannot Be Empty")]
         public string username { get; set; }
 
-        [Required(ErrorMessage = "Enter Your Password")]
+        [Required(ErrorMessage = "Password Cannot Be Empty")]
         public string password { get; set; }
     }
 }
