@@ -79,3 +79,5 @@ E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLe
 E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLearn\obj\Debug\AskNLearn.pdb
 E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLearn\bin\EntityFramework.dll
 E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLearn\bin\EntityFramework.xml
+E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLearn\bin\AutoMapper.dll
+E:\Books & Notes\10th Semester\Advanced Programming With .Net\Mid_Project\AskNLearn\bin\AutoMapper.xml

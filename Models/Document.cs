@@ -12,20 +12,14 @@ namespace AskNLearn.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class EnrolledUser
+    public partial class Document
     {
-        public EnrolledUser()
-        {
-            this.Marks = new HashSet<Mark>();
-        }
-    
-        public int eid { get; set; }
-        public int uid { get; set; }
+        public int did { get; set; }
         public int coid { get; set; }
-        public System.DateTime dateTime { get; set; }
+        public string image { get; set; }
+        public string videoLink { get; set; }
+        public string docs { get; set; }
     
         public virtual Cours Cours { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<Mark> Marks { get; set; }
     }
 }
