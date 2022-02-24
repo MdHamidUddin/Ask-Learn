@@ -4,31 +4,31 @@
     Layout = "~/Views/Shared/MyLayout3.cshtml";
 }
 <br /><br />
-<div class="container-lg col-8 border rounded">
-    <div class="container col-11">
-        <br />
-        <h2>Login</h2>
-        <center><label class="text-danger">@ViewBag.Message</label></center>
-        <form class="row g-3" action="/Users/Login" method="Post">
+      <div class="container-lg col-4 border rounded" style="margin-top: 50px;">
+          <div class="container col-8">
+              <br />
+              <h2>Login</h2>
+              <center><label class="text-danger">@ViewBag.Message</label></center>
+              <form class="row g-3" action="/Users/Login" method="Post">
 
-            <div class="col-12">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
-                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
-            </div>
+                  <div class="col-12">
+                      <label for="username" class="form-label">Username</label>
+                      <input type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                      @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                  </div>
 
-            <div class="col-12">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
+                  <div class="col-12">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                      @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                  </div>
 
-            <div class="col-12">
-                <center><input type="submit" class="btn btn-lg btn-dark" value="Login" /></center>
-            </div><hr />
-        </form>
-    </div>
-</div>
+                  <div class="col-12">
+                      <center><input type="submit" class="btn btn-lg btn-dark" value="Login" /></center>
+                  </div><hr />
+              </form>
+          </div>
+      </div>
 
 
 
