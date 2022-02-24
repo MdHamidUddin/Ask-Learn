@@ -35,7 +35,6 @@ namespace AskNLearn.Controllers
                             where u.username.Equals(user.username) &&
                             u.password.Equals(user.password)
                             select u).FirstOrDefault();
-                var uch = data.username.FirstOrDefault();
 
                 //User data = dbObj.Users.Where(x => x.username == Model.username && x.password == Model.password).FirstOrDefault();
 
@@ -44,28 +43,28 @@ namespace AskNLearn.Controllers
                 var mapper = new Mapper(config);
 
                 var Data = mapper.Map<UsersLoginModel>(data);
-                //'uch' will be the charecter which will define which controller to redirect.
-                if (Data != null && uch.Equals('A'))
-                {
-                    //FormsAuthentication.SetAuthCookie(data.Username, false);
-                    //Session["Username"] = data.Username;
-                    return RedirectToAction("../Dashboard/Dashboard");
-                }
-                else if (Data != null && uch.Equals('I'))
+
+                if (Data != null && data.username.FirstOrDefault().Equals('A'))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
+                    return RedirectToAction("../Dashboard/Dashboard");
+                }
+                else if (Data != null && data.username.FirstOrDefault().Equals('I'))
+                {
+                    FormsAuthentication.SetAuthCookie(data.username, false);
+                    Session["name"] = data.name;
                     Session["uid"] = data.uid;
                     return RedirectToAction("../Instructor/Dashboard");
                 }
-                else if (Data != null && uch.Equals('M'))
+                else if (Data != null && data.username.FirstOrDefault().Equals('M'))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["uid"] = data.uid;
                     return RedirectToAction("../gg/Dashboard");
                 }
-                else if (Data != null && uch.Equals('L'))
+                else if (Data != null && data.username.FirstOrDefault().Equals('L'))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
