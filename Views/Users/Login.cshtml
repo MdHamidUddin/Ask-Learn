@@ -5,34 +5,34 @@
 }
 <br /><br />
       <div class="container-lg col-4 border rounded" style="margin-top: 50px;">
-          <div class="container col-10">
+          <div class="container">
               <br />
-              <h2>Login</h2>
-              <center><label style="font-size: 15px" class="text-danger">@ViewBag.Message</label></center>
-              <form class="row g-3" action="/Users/Login" method="Post" style="font-size: 20px">
-
+              <center><h2>Login</h2></center>
+              <center><label style="font-size: 13px" class="text-danger">@ViewBag.Message</label></center>
+              <form class="row g-3" action="/Users/Login" method="Post" style="font-size: 15px">
                   <div class="col-12">
-                      <label for="username" class="form-label">Username</label>
-                      <input style="font-size: 13px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                  <span><img src="https://img.icons8.com/external-becris-flat-becris/29/000000/external-user-business-management-becris-flat-becris.png" /></span>
+                              </span>
+                          </div>
+                          <input style="font-size: 14px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                      </div>
                       @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                   </div>
-
                   <div class="col-12">
-                      <label for="password" class="form-label">Password</label>
-                      <input style="font-size: 13px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                      <div class="input-group">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                  <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
+                              </span>
+                          </div>
+                          <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                      </div>
                       @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                   </div>
-
-                  <div class="col-12">
-                      <center><input type="submit" class="btn btn-lg btn-dark" value="Login" /></center>
-                  </div><hr />
+                  <center><input style="font-size: 18px" class="col-6 btn-info btn-lg" type="submit" value="Login" /></center><hr />
               </form>
           </div>
       </div>
-
-
-
-
-
-
-
