@@ -20,6 +20,7 @@ namespace AskNLearn.Models
             this.Courses = new HashSet<Cours>();
             this.EnrolledUsers = new HashSet<EnrolledUser>();
             this.Posts = new HashSet<Post>();
+            this.UsersInfoes = new HashSet<UsersInfo>();
         }
     
         public int uid { get; set; }
@@ -30,9 +31,7 @@ namespace AskNLearn.Models
         public System.DateTime dob { get; set; }
         public string gender { get; set; }
         public string userType { get; set; }
-        public string occupation { get; set; }
         public string proPic { get; set; }
-        public string eduInfo { get; set; }
         public string approval { get; set; }
         public System.DateTime dateTime { get; set; }
     
@@ -40,5 +39,6 @@ namespace AskNLearn.Models
         public virtual ICollection<Cours> Courses { get; set; }
         public virtual ICollection<EnrolledUser> EnrolledUsers { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<UsersInfo> UsersInfoes { get; set; }
     }
 }

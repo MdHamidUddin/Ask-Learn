@@ -20,13 +20,22 @@
           <ScalarProperty Name="coid" ColumnName="coid" />
           <ScalarProperty Name="uid" ColumnName="uid" />
           <ScalarProperty Name="title" ColumnName="title" />
-          <ScalarProperty Name="vLink" ColumnName="vLink" />
-          <ScalarProperty Name="image" ColumnName="image" />
-          <ScalarProperty Name="documents" ColumnName="documents" />
+          <ScalarProperty Name="details" ColumnName="details" />
           <ScalarProperty Name="price" ColumnName="price" />
           <ScalarProperty Name="upVote" ColumnName="upVote" />
           <ScalarProperty Name="downVote" ColumnName="downVote" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="AskNLearnModel.Document">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="did" ColumnName="did" />
+          <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+          <ScalarProperty Name="docs" ColumnName="docs" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -37,6 +46,17 @@
           <ScalarProperty Name="uid" ColumnName="uid" />
           <ScalarProperty Name="coid" ColumnName="coid" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Marks">
+      <EntityTypeMapping TypeName="AskNLearnModel.Mark">
+        <MappingFragment StoreEntitySet="Marks">
+          <ScalarProperty Name="mid" ColumnName="mid" />
+          <ScalarProperty Name="eid" ColumnName="eid" />
+          <ScalarProperty Name="qName" ColumnName="qName" />
+          <ScalarProperty Name="marks" ColumnName="marks" />
+          <ScalarProperty Name="detaTime" ColumnName="detaTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -75,11 +95,20 @@
           <ScalarProperty Name="dob" ColumnName="dob" />
           <ScalarProperty Name="gender" ColumnName="gender" />
           <ScalarProperty Name="userType" ColumnName="userType" />
-          <ScalarProperty Name="occupation" ColumnName="occupation" />
           <ScalarProperty Name="proPic" ColumnName="proPic" />
-          <ScalarProperty Name="eduInfo" ColumnName="eduInfo" />
           <ScalarProperty Name="approval" ColumnName="approval" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersInfoes">
+      <EntityTypeMapping TypeName="AskNLearnModel.UsersInfo">
+        <MappingFragment StoreEntitySet="UsersInfo">
+          <ScalarProperty Name="u_info_id" ColumnName="u_info_id" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="eduInfo" ColumnName="eduInfo" />
+          <ScalarProperty Name="currentPosition" ColumnName="currentPosition" />
+          <ScalarProperty Name="reputation" ColumnName="reputation" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

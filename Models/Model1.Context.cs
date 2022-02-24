@@ -27,9 +27,12 @@ namespace AskNLearn.Models
     
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Cours> Courses { get; set; }
+        public DbSet<Document> Documents { get; set; }
         public DbSet<EnrolledUser> EnrolledUsers { get; set; }
+        public DbSet<Mark> Marks { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UsersInfo> UsersInfoes { get; set; }
     }
 }

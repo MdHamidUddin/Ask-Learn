@@ -16,21 +16,21 @@ namespace AskNLearn.Models
     {
         public Cours()
         {
+            this.Documents = new HashSet<Document>();
             this.EnrolledUsers = new HashSet<EnrolledUser>();
         }
     
         public int coid { get; set; }
         public int uid { get; set; }
         public int title { get; set; }
-        public string vLink { get; set; }
-        public string image { get; set; }
-        public string documents { get; set; }
-        public Nullable<double> price { get; set; }
+        public string details { get; set; }
+        public double price { get; set; }
         public Nullable<int> upVote { get; set; }
         public Nullable<int> downVote { get; set; }
         public System.DateTime dateTime { get; set; }
     
         public virtual User User { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<EnrolledUser> EnrolledUsers { get; set; }
     }
 }

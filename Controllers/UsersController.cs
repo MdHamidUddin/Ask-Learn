@@ -1,4 +1,6 @@
 ﻿using AskNLearn.Models;
+using AskNLearn.Models.Entity;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,16 @@ using System.Web.Mvc;
 
 namespace AskNLearn.Controllers
 {
-    public class HomeController : Controller
+    public class UsersController : Controller
     {
+        // GET: Users
         AskNLearnEntities dbObj = new AskNLearnEntities();
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -17,41 +26,37 @@ namespace AskNLearn.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User Model)
+        public ActionResult Login(UsersLoginModel user)
         {
             if (ModelState.IsValid)
             {
                 var data = (from u in dbObj.Users
-                            where u.username.Equals(Model.username) &&
-                            u.password.Equals(Model.password)
+                            where u.username.Equals(user.username) &&
+                            u.password.Equals(user.password)
                             select u).FirstOrDefault();
 
                 //User data = dbObj.Users.Where(x => x.username == Model.username && x.password == Model.password).FirstOrDefault();
 
-                //var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UsersLoginModel>());
+                var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UsersLoginModel>());
 
-                //var mapper = new Mapper(config);
+                var mapper = new Mapper(config);
 
-                //var Data = mapper.Map<UsersLoginModel>(data);
+                var Data = mapper.Map<UsersLoginModel>(data);
 
-                if (data != null)
+                if (Data != null)
                 {
                     //FormsAuthentication.SetAuthCookie(data.Username, false);
                     //Session["Username"] = data.Username;
                     return RedirectToAction("../Dashboard/Dashboard");
                 }
-                else if (data == null)
+                else if (Data == null)
                 {
                     ViewBag.Message = "Your Username Or Password May Be Incorrect";
                 }
             }
-            else
-            {
-                ViewBag.Message = "Your model state is not correct";
-            }
+
             return View();
         }
-
 
 
     }

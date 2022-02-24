@@ -21,15 +21,25 @@
     <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="uid" Type="Int32" Nullable="false" />
     <Property Name="title" Type="Int32" Nullable="false" />
-    <Property Name="vLink" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="documents" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="price" Type="Double" />
+    <Property Name="details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
     <Property Name="upVote" Type="Int32" />
     <Property Name="downVote" Type="Int32" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
+    <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
     <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="did" />
+    </Key>
+    <Property Name="did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="coid" Type="Int32" Nullable="false" />
+    <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="videoLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="docs" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Documents_Courses" FromRole="Documents" ToRole="Courses" />
   </EntityType>
   <EntityType Name="EnrolledUser">
     <Key>
@@ -41,6 +51,18 @@
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_EnrolledUser_Courses" FromRole="EnrolledUser" ToRole="Courses" />
     <NavigationProperty Name="User" Relationship="Self.FK_EnrolledUser_Users" FromRole="EnrolledUser" ToRole="Users" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Marks" FromRole="EnrolledUser" ToRole="Marks" />
+  </EntityType>
+  <EntityType Name="Mark">
+    <Key>
+      <PropertyRef Name="mid" />
+    </Key>
+    <Property Name="mid" Type="Int32" Nullable="false" />
+    <Property Name="eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="qName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="marks" Type="Double" Nullable="false" />
+    <Property Name="detaTime" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_Marks" FromRole="Marks" ToRole="EnrolledUser" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -78,15 +100,25 @@
     <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="proPic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="eduInfo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
     <NavigationProperty Name="Courses" Relationship="Self.FK_Courses_Users" FromRole="Users" ToRole="Courses" />
     <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Users" FromRole="Users" ToRole="EnrolledUser" />
     <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
+    <NavigationProperty Name="UsersInfoes" Relationship="Self.FK_UsersInfo_UsersInfo" FromRole="Users" ToRole="UsersInfo" />
+  </EntityType>
+  <EntityType Name="UsersInfo">
+    <Key>
+      <PropertyRef Name="u_info_id" />
+    </Key>
+    <Property Name="u_info_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="uid" Type="Int32" Nullable="false" />
+    <Property Name="eduInfo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentPosition" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reputation" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK_UsersInfo_UsersInfo" FromRole="UsersInfo" ToRole="Users" />
   </EntityType>
   <Association Name="FK_Comments_Posts">
     <End Role="Posts" Type="Self.Post" Multiplicity="1" />
@@ -124,6 +156,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Documents_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+    <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="coid" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="coid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EnrolledUser_Courses">
     <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
     <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="*" />
@@ -148,6 +192,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Marks_Marks">
+    <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EnrolledUser">
+        <PropertyRef Name="eid" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="eid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Posts_Users">
     <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="Posts" Type="Self.Post" Multiplicity="*" />
@@ -160,13 +216,28 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UsersInfo_UsersInfo">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="UsersInfo" Type="Self.UsersInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="uid" />
+      </Principal>
+      <Dependent Role="UsersInfo">
+        <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="AskNLearnEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Comments" EntityType="Self.Comment" />
     <EntitySet Name="Courses" EntityType="Self.Cours" />
+    <EntitySet Name="Documents" EntityType="Self.Document" />
     <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
+    <EntitySet Name="Marks" EntityType="Self.Mark" />
     <EntitySet Name="Posts" EntityType="Self.Post" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <EntitySet Name="UsersInfoes" EntityType="Self.UsersInfo" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
       <End Role="Posts" EntitySet="Posts" />
       <End Role="Comments" EntitySet="Comments" />
@@ -179,6 +250,10 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Courses" EntitySet="Courses" />
     </AssociationSet>
+    <AssociationSet Name="FK_Documents_Courses" Association="Self.FK_Documents_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
     <AssociationSet Name="FK_EnrolledUser_Courses" Association="Self.FK_EnrolledUser_Courses">
       <End Role="Courses" EntitySet="Courses" />
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
@@ -187,9 +262,17 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
     </AssociationSet>
+    <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+      <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
     <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsersInfo_UsersInfo" Association="Self.FK_UsersInfo_UsersInfo">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="UsersInfo" EntitySet="UsersInfoes" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

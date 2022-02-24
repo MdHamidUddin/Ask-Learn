@@ -1,0 +1,214 @@
+﻿@model AskNLearn.Models.Entity.UsersLoginModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/MyLayout3.cshtml";
+}
+
+<h2>Login</h2>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #d3eafd;
+    }
+
+    .grid-item {
+        /*background-color: rgba(255, 255, 255, 0.8);*/
+        /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+        justify-content: center;
+    }
+    .error{
+        font-size:15px;
+        color:red;
+        width:100%;
+        max-height:10%;
+
+    }
+    .er{
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+</style>
+
+<body>
+    <div class="grid-container">
+        <div class="grid-item"></div>
+        <div class="grid-item">
+            <fieldset>
+
+                <center>
+                    <h3 class="text-center"><strong>Admin Login</strong></h3>
+
+                </center>
+                <div class="grid-item">
+
+                    <center>
+                        <div id="message3" hidden>
+                            <div class="alert alert-success">
+                                <span class="glyphicon glyphicon-ok"></span><span>
+                                    Login Success!!
+                                </span>
+                            </div>
+                        </div>
+
+                        <div id="message4" hidden>
+                            <div class="alert alert-danger" style="font-size: 15px; height: 10%; width: 70%;">
+                                <span class="glyphicon glyphicon-remove"></span><span> Enter Email & Password to Continue</span>
+                            </div>
+                        </div>
+
+
+                        <div id="message5" hidden>
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove"></span><span>Email or Password is incorrect!!</span>
+                            </div>
+                        </div>
+
+                        <div id="message6" hidden>
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove"></span><span>Confirm your Email Address Please! </span>
+                            </div>
+                        </div>
+
+                        <div id="message7" hidden>
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove"></span><span>Invalid Email Address </span>
+                            </div>
+                        </div>
+                        <div id="message8" hidden>
+                            <div class="alert alert-danger">
+                                <span class="glyphicon glyphicon-remove"></span><span>Account Not Found!!</span>
+                            </div>
+                        </div>
+
+                        <center  class="error">@ViewBag.Message</center>
+
+                    </center>
+
+                    <form action="/Users/Login" method="post">
+                        <div class="form-group" style="margin-top: 10px;margin-left:90px; width: 70%;">
+                            <div class="input-group" justify-content: center">
+
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+
+                                <input class="form-control" type="text" name="username" id="logUser" placeholder=" Username" />
+
+
+                            </div>
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "error" })
+                        </div>
+
+
+                        <div class="form-group" style="margin-top: 10px; width: 70%; margin-left: 90px; ">
+                            <div class="input-group" justify-content: center">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input class="form-control" type="password" name="password" id="logPassword" placeholder=" Password" />
+
+                            </div>
+                            <div class="er">
+                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "error" })
+                            </div>
+                           
+                        </div>
+
+
+                        <div class="form-group" style="margin-top: 10px; margin-bottom: 500px; margin-left: 90px; width: 70%; ">
+                            <div class="input-group" justify-content: center">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-log-in"></i></span>
+                                @* <button class="btn btn-info form-control" type="submit" onclick="SignIn()"><i class="glyphicon glyphicon-log-in"> Login</i></button>*@
+                                <input class="btn btn-info form-control " type="submit" value=" Login" />
+                                @*onclick="SignIn()"*@
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </fieldset>
+
+
+        </div>
+        <div class="grid-item"></div>
+    </div>
+
+</body>
+
+
+
+<script>
+
+    function SignIn() {
+
+        var user = $("#logUser").val();
+        var pwd = $("#logPassword").val();
+
+        if (pwd == "" || user == "") {
+            $("#message4").show();
+            console.log(x);
+            return false;
+        }
+        var data = $("#loginForm").serialize();
+        console.log(data);
+        $.ajax({
+            type: "post",
+            data: data,
+            url: "/Login/LoginCheck",
+            success: function (result) {
+
+                if (result == "Success") {
+                    $("#message3").show();
+                    $("#message4").hide();
+                    $("#loginForm")[0].reset();
+                    window.location.replace("/Dashboard/Dashboard");
+                }
+                else if (result == "Fail") {
+                    $("#message5").show();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                }
+
+                else if (result == "InValid") {
+                    $("#message6").show();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                }
+                else if (result == "InvalidEmail") {
+                    $("#message7").show();
+                    $("#message6").hide();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                }
+
+                else if (result == "NULL") {
+                    $("#message7").hide();
+                    $("#message6").hide();
+                    $("#message3").hide();
+                    $("#message4").hide();
+                    $("#message5").hide();
+                    $("#message8").show();
+                }
+
+
+
+
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
