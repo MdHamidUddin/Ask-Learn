@@ -22,15 +22,36 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
-            var data = dbObj.Users.ToList();
-            return View(data);
+            //var data = dbObj.Users.ToList();
+            List<AdminDashboardModel> dashboardList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name,u.uid, u.userType,u.username,u.email,u.gender,u.dateTime,ui.reputation }).ToList();
+
+            
+            foreach(var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                obj.uid = u.uid;
+                obj.name = u.name;
+                obj.userType = u.userType;
+                obj.username = u.username;
+                obj.email = u.email;
+                obj.gender = u.gender;
+                obj.dateTime = u.dateTime;
+                obj.reputation = u.reputation;
+                dashboardList.Add(obj);
+
+            }
+
+            return View(dashboardList);
         }
 
         [HttpGet]
         public ActionResult Profile()
         {
             // User data = dbObj.Users.Where(x => x.username == Session["Username"]).FirstOrDefault();
-            var user = (string)Session["Username"];
+            var user = (string)Session["username"];
             var data = (from u in dbObj.Users
                         where u.username.Equals(user)
                         select u).FirstOrDefault();
