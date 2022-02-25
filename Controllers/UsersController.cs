@@ -48,7 +48,8 @@ namespace AskNLearn.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
-                    return RedirectToAction("../Dashboard/Dashboard");
+                    Session["name"] = data.name;
+                    return RedirectToAction("../Admin/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('I'))
                 {
@@ -79,7 +80,13 @@ namespace AskNLearn.Controllers
 
             return View();
         }
-
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            //FormsAuthentication.RedirectToLoginPage();
+            return RedirectToAction("Login", "Users");
+        }
 
     }
 }
