@@ -80,7 +80,13 @@ namespace AskNLearn.Controllers
 
             return View();
         }
-
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            FormsAuthentication.SignOut();
+            //FormsAuthentication.RedirectToLoginPage();
+            return RedirectToAction("Login", "Users");
+        }
 
     }
 }

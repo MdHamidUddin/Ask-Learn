@@ -78,16 +78,6 @@
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
     <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
   </EntityType>
-  <EntityType Name="sysdiagram">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="uid" />
@@ -235,7 +225,6 @@
     <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
     <EntitySet Name="Marks" EntityType="Self.Mark" />
     <EntitySet Name="Posts" EntityType="Self.Post" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UsersInfoes" EntityType="Self.UsersInfo" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
