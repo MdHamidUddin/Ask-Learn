@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -34,10 +33,14 @@
     <link href="../../Theme/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="../../Theme/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+
+   @* <link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <script src="~/Scripts/bootstrap.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
+
 </head>
 <body>
     <div id="wrapper">
@@ -48,10 +51,10 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="top-left-part">
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="/Dashboard">
                         <b>
                             <img src="../../Theme/plugins/images/pixeladmin-logo.png" alt="home" />
-                        </b><span class="hidden-xs"><img src="../../Theme/plugins/images/pixeladmin-text.png" alt="home" /></span>
+                        </b><span class="hidden-xs">ASK AND LEARN</span>
                     </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
@@ -65,9 +68,9 @@
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../../Theme/plugins/images/users/varun.jpg" alt="user-img"
-                                 width="36" class="img-circle"><b class="hidden-xs">Steave</b>
+                        <a class="profile-pic" href="/Admin/Dashboard">
+                            <img src="../../Theme/plugins/images/users/hamid.jpg" alt="user-img"
+                                 width="36" class="img-circle"><b class="hidden-xs">@Session["name"]</b>
                         </a>
                     </li>
                 </ul>

@@ -22,8 +22,8 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
-
-            return View();
+            var data = dbObj.Users.ToList();
+            return View(data);
         }
 
         [HttpGet]

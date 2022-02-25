@@ -48,6 +48,7 @@ namespace AskNLearn.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
+                    Session["name"] = data.name;
                     return RedirectToAction("../Admin/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('I'))
