@@ -1,13 +1,15 @@
-﻿@*@model AskNLearn.Models.User*@
+﻿@model AskNLearn.Models.User
+@*@model AskNLearn.Models.Instructor.InstructorProfile*@
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
+    string msg = "checked";
 }
-
-<br>
+<br />
+<br />
 <br />
 
-<input type="text" name="name" value=@*@Model.name*@ style="color:red">
+
 <!-- Preloader -->
 <div class="preloader">
     <div class="cssload-speeding-wheel"></div>
@@ -22,7 +24,7 @@
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="/Instructor/Dashboard">Dashboard</a></li>
+                        <li><a href="#">Dashboard</a></li>
                         <li class="active">Profile page</li>
                     </ol>
                 </div>
@@ -40,8 +42,8 @@
                                         <img src="../../Theme/plugins/images/users/hamid.jpg"
                                              class="thumb-lg img-circle" alt="img">
                                     </a>
-                                    <h4 class="text-white">@*@Model.username*@</h4>
-                                    <h5 class="text-white">@*@Model.name*@</h5>
+                                    <h4 class="text-white">@Model.username</h4>
+                                    <h5 class="text-white">@Model.email</h5>
                                 </div>
                             </div>
                         </div>
@@ -64,45 +66,90 @@
 
                 <div class="col-md-8 col-xs-12">
                     <div class="white-box">
-                        <form class="form-horizontal form-material">
+                        <form class="form-horizontal form-material" action="/Instructor/Profile" method="post">
+                            <input type="hidden" class="form-control" name="uid" placeholder="Full Name" value="@Model.uid">
                             <div class="form-group">
                                 <label class="col-md-12">Full Name</label>
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="name" value=@*@Model.name*@>
+                                    <input type="text" class="form-control" name="name" placeholder="Full Name" value="@Model.name">
+                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-12">Username</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="username" placeholder="Full Name" value=@Model.username>
+                                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                                 </div>
 
                             </div>
+
+
                             <div class="form-group">
                                 <label for="example-email" class="col-md-12">Email</label>
                                 <div class="col-md-12">
-                                    <input type="email" value=@*@Model.email*@
-                                           class="form-control form-control-line" name="example-email"
+                                    <input type="email" value=@Model.email
+                                           class="form-control form-control-line" name="email"
                                            id="example-email">
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-12">Password</label>
+                                <div class="col-md-8">
+                                    <span>
+                                        <input type="password" name="password" id="showPass" value=@Model.password class="form-control form-control-line">
+                                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            @{ System.TimeSpan diff = DateTime.Now.Date.Subtract(Model.dob);
+                                int age = (int)diff.Days;
+                                age = age / 365;
+
+                            }
+                            <div class="form-group">
+                                <label class="col-md-12">Age</label>
                                 <div class="col-md-12">
-                                    <input type="password" value=@*@Model.password*@ class="form-control form-control-line">
+                                    @age
                                 </div>
                             </div>
+
                             <div class="form-group">
-                                <label class="col-md-12">Phone No</label>
+                                <label class="col-md-12">DOB</label>
                                 <div class="col-md-12">
-                                    <input type="text" placeholder="01711355787"
+                                    <input type="date" name="dob" value="@Model.dob.ToString("yyyy-MM-dd")"
                                            class="form-control form-control-line">
+                                    @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-12">Message</label>
+                                <label class="col-md-12">Gender</label>
                                 <div class="col-md-12">
-                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                    @*<input type="text" value=@Model.gender placeholder="Gender"
+                                        class="form-control form-control-line">*@
+                                    <input type="radio" class="form-check-input" id="Male" name="gender" value="Male" @if (@Model.gender == "Male") { @msg } />
+
+                                    <label for="Male">Male</label>&nbsp &nbsp
+                                    <input type="radio" class="form-check-input" id="Female" name="gender" value="Female" @if (@Model.gender == "Female") { @msg } />
+                                    <label for="Female">Female</label>&nbsp &nbsp
+                                    <input type="radio" class="form-check-input" id="Other" name="gender" value="Other" @if (@Model.gender == "Other") { @msg } />
+                                    <label for="Other">Other</label> &nbsp;<br />
+                                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-12">Select Country</label>
                                 <div class="col-sm-12">
                                     <select class="form-control form-control-line">
+                                        <option>Bangladesh</option>
                                         <option>London</option>
                                         <option>India</option>
                                         <option>Usa</option>
@@ -142,3 +189,5 @@
 <script src="../../Theme/js/waves.js"></script>
 <!-- Custom Theme JavaScript -->
 <script src="../../Theme/js/custom.min.js"></script>
+
+

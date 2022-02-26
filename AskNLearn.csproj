@@ -151,6 +151,7 @@
     <Compile Include="Models\Entity\AdminDashboardModel.cs" />
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
     <Compile Include="Models\Entity\UsersProfile.cs" />
+    <Compile Include="Models\Instructor\InstructorProfile.cs" />
     <Compile Include="Models\Mark.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -974,6 +975,7 @@
     <Content Include="Views\Shared\InstructorDashboard.cshtml" />
     <Content Include="Views\Instructor\Dashboard.cshtml" />
     <Content Include="Views\Instructor\Profile.cshtml" />
+    <Content Include="Views\Admin\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
