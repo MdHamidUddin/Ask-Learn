@@ -23,7 +23,13 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Dashboard", (string)Session["userType"]);
+            }
             return View();
+
+
         }
 
         [HttpPost]
@@ -49,6 +55,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["name"] = data.name;
+                    Session["userType"] = "Admin";
                     return RedirectToAction("../Admin/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('I'))
@@ -56,6 +63,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["name"] = data.name;
                     Session["uid"] = data.uid;
+                    Session["userType"] = "Instructor";
                     return RedirectToAction("../Instructor/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('M'))
@@ -63,6 +71,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["uid"] = data.uid;
+                    Session["userType"] = "Moderator";
                     return RedirectToAction("../gg/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('L'))
@@ -70,6 +79,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["uid"] = data.uid;
+                    Session["userType"] = "Learner";
                     return RedirectToAction("../gg/Dashboard");
                 }
                 else if (Data == null)

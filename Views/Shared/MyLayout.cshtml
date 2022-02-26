@@ -35,7 +35,7 @@
     <link href="../../Theme/css/colors/blue-dark.css" id="theme" rel="stylesheet">
 
    @* <link href="~/Content/bootstrap.css" rel="stylesheet" />*@
-    <script src="~/Scripts/bootstrap.js"></script>
+    @*<script src="~/Scripts/bootstrap.js"></script>*@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -85,8 +85,8 @@
                 <ul class="nav" id="side-menu">
                     @*<li style="padding: 10px 0 0;">
 
-                        @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { @class = "waves-effect", area = " " }, new { @class = "fa fa-clock-o fa-fw", area = " " })
-                    </li>*@
+            @Html.ActionLink("Dashboard", "Dashboard", "Admin", new { @class = "waves-effect", area = " " }, new { @class = "fa fa-clock-o fa-fw", area = " " })
+        </li>*@
 
 
                     @*<li>
@@ -103,8 +103,8 @@
             </span>
         </li>*@
                     @*<li>
-                        @Html.ActionLink("Profile  ", "Profile", "Admin", new { @class = "waves-effect" }, new { @class = " btn-def fa fa-save", area = " " })
-                    </li>*@
+            @Html.ActionLink("Profile  ", "Profile", "Admin", new { @class = "waves-effect" }, new { @class = " btn-def fa fa-save", area = " " })
+        </li>*@
                     <li>
                         <a href="/Admin/Dashboard" class="waves-effect">
                             <i class="fa fa-clock-o fa-fw"
@@ -118,6 +118,14 @@
                                aria-hidden="true"></i><span class="hide-menu">Profile</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="/Admin/UserList" class="waves-effect">
+                            <i class="btn-def fa fa-save fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Users List</span>
+                        </a>
+                    </li>
+
 
 
 
@@ -155,11 +163,10 @@
                 </ul>
                 <div class="center p-20">
                     <span class="hide-menu">
-                        @*<a href="http://wrappixel.com/templates/pixeladmin/" target="_blank"
+                        <a href="/Users/Logout"
                            class="btn btn-danger btn-block btn-rounded waves-effect waves-light">
-                            Upgrade to
-                            Pro
-                        </a>*@
+                            Logout
+                        </a>
                     </span>
                 </div>
             </div>

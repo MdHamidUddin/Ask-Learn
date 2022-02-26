@@ -3,36 +3,38 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/MyLayout3.cshtml";
 }
-<br /><br />
-      <div class="container-lg col-4 border rounded" style="margin-top: 50px;">
-          <div class="container">
-              <br />
-              <center><h2>Login</h2></center>
-              <center><label style="font-size: 13px" class="text-danger">@ViewBag.Message</label></center>
-              <form class="row g-3" action="/Users/Login" method="Post" style="font-size: 15px">
-                  <div class="col-12">
-                      <div class="input-group">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                  <span><img src="https://img.icons8.com/external-becris-flat-becris/29/000000/external-user-business-management-becris-flat-becris.png" /></span>
-                              </span>
-                          </div>
-                          <input style="font-size: 14px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
-                      </div>
-                      @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
-                  </div>
-                  <div class="col-12">
-                      <div class="input-group">
-                          <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                  <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
-                              </span>
-                          </div>
-                          <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
-                      </div>
-                      @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                  </div>
-                  <center><input style="font-size: 18px" class="col-6 btn-info btn-lg" type="submit" value="Login" /></center><hr />
-              </form>
-          </div>
-      </div>
+
+        <br />
+        <br />
+        <div class="container-lg col-4 border rounded" style="margin-top: 50px;">
+            <div class="container">
+                <br />
+                <center><h2>Login</h2></center>
+                <center><label style="font-size: 13px" class="text-danger">@ViewBag.Message</label></center>
+                <form class="row g-3" action="/Users/Login" method="Post" style="font-size: 15px">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <span><img src="https://img.icons8.com/external-becris-flat-becris/29/000000/external-user-business-management-becris-flat-becris.png" /></span>
+                                </span>
+                            </div>
+                            <input style="font-size: 14px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
+                                </span>
+                            </div>
+                            <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                    <center><input style="font-size: 18px" class="col-6 btn-info btn-lg" type="submit" value="Login" /></center><hr />
+                </form>
+            </div>
+        </div>

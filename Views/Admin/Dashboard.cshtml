@@ -1,4 +1,4 @@
-﻿@model List<AskNLearn.Models.User>
+﻿@model List<AskNLearn.Models.Entity.AdminDashboardModel>
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/MyLayout.cshtml";
@@ -6,16 +6,20 @@
 
 <br>
 @{
+    int r = 0;
+    int n = 0;
     int Instructor=0; int Learner=0; int Moderator=0;
     if(Model!=null)
     {
+
         foreach (var user in Model)
         {
-            if (user.userType == "Learner")
+
+            if (user.userType.Equals("Learner"))
             {
                 Learner++;
             }
-            else if (user.userType == "Instructor")
+            else if (user.userType.Equals("Instructor"))
             {
                 Instructor++;
             }
@@ -23,6 +27,8 @@
             {
                 Moderator++;
             }
+            r = user.reputation;
+            n++;
 
         }
     }
@@ -32,6 +38,61 @@
     double ins = ((double)Instructor / (double) TotalUser) * 100;
     double learner = ((double)Learner / (double)TotalUser) * 100;
     double moderator = ((double)Moderator/(double)TotalUser) * 100;
+
+    /// Finding 3 largest number from User Info database
+    /// 
+    int large1 =Model[0].reputation;
+    int large2 = 0;
+    int large3 = 0;
+    int totalReputation=0;
+    int uid1 = Model[0].uid;
+    int uid2 = 0;
+    int uid3=0;
+    string uname1 = Model[0].name; ;
+    string uname2 = "";
+    string uname3="";
+    string email1 = Model[0].email;
+    string email2 = "";
+    string email3="";
+    string uType1="";
+    string uType2 = "";
+    string uType3 = "";
+    for (int i=0;i<n;i++)
+    {
+        if(Model[i].reputation>large1)
+        {
+            large3 = large2;
+            large2 = large1;
+            large1 = Model[i].reputation;
+            uid1 = Model[i].uid;
+            uname1 = Model[i].name;
+            email1 = Model[i].email;
+            uType1 = Model[i].userType;
+        }
+        else if(Model[i].reputation>large2)
+        {
+            large3 = large2;
+            large2 = Model[i].reputation;
+            uid2 = Model[i].uid;
+            uname2 = Model[i].name;
+            email2 = Model[i].email;
+            uType2= Model[i].userType;
+
+        }
+
+        else if(Model[i].reputation>large3)
+        {
+            large3 = Model[i].reputation;
+            uid3 = Model[i].uid;
+            uname3 = Model[i].name;
+            email3 = Model[i].email;
+            uType3= Model[i].userType;
+        }
+        totalReputation += Model[i].reputation;
+    }
+    // totalReputation = large1 + large2 + large3;
+
+
 
 
 }
@@ -65,19 +126,19 @@
                 <div class="row">
                     @*col*@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:lightpink">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <i data-icon="e"
                                        class="linea-icon linea-basic"></i>
-                                    <h5 class="text-muted vb">New Instrcutors</h5>
+                                    <h4><b>New Instrcutors</b></h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger">@Instructor</h3>
+                                    <h3 class="counter text-right m-t-15 text-black">@Instructor</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-danger " role="progressbar"
+                                        <div class="progress-bar progress-bar-black " role="progressbar"
                                              aria-valuenow=@(Instructor/TotalUser) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(ins+"%")">
                                             <span class="sr-only">@(ins)% complete (success)</span>
                                         </div>
@@ -88,19 +149,19 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:lightpink">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <i class="linea-icon linea-basic"
                                        data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">New Learners</h5>
+                                    <h4><b>New Learners</b></h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-megna">@Learner</h3>
+                                    <h3 class="counter text-right m-t-15 text-black">@Learner</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-megna" role="progressbar"
+                                        <div class="progress-bar progress-bar-black" role="progressbar"
                                              aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:@(learner+"%")">
                                             <span class="sr-only">40% Complete (success)</span>
                                         </div>
@@ -112,19 +173,19 @@
                     <!-- /.col -->
                     <!--col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:lightpink">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <i class="linea-icon linea-basic"
                                        data-icon="&#xe00b;"></i>
-                                    <h5 class="text-muted vb">New Moderators</h5>
+                                    <h4><b>New Moderators</b></h4>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-primary">@Moderator</h3>
+                                    <h3 class="counter text-right m-t-15 text-black">@Moderator</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-primary" role="progressbar"
+                                        <div class="progress-bar progress-bar-black" role="progressbar"
                                              aria-valuenow="30" aria-valuemin="30" aria-valuemax="100" style="width:@(moderator+"%")">
                                             <span class="sr-only">10% Complete (success)</span>
                                         </div>
@@ -135,9 +196,13 @@
                     </div>
                     <!-- /.col -->
                 </div>
+
+                @*<h1>Users Reputation : @uid1+@uid2+@uid3 </h1>
+                <h1>Users Reputation : @uname1 </h1>
+                <h1>Users Email : @email1 </h1>*@
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Top Users</h4>
+                        <h4 class="page-title">Top Rated Users</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     </div>
@@ -146,22 +211,28 @@
                 <div class="row">
                     @*col*@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:aquamarine">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                     <i data-icon="e"
                                        class="linea-icon linea-basic"></i>
-                                    <h5 class="text-muted vb">New Instrcutors</h5>
+                                    <h4 ><b>@uname1</b></h4>
+                                    <h5 ><b>@uType1</b></h5>
+                                    <h5><b>@email2</b></h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger">@Instructor</h3>
+                                    <h3 class="counter text-right m-t-15 text-black">@large1</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-danger " role="progressbar"
-                                             aria-valuenow=@(Instructor/TotalUser) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(ins+"%")">
-                                            <span class="sr-only">@(ins)% complete (success)</span>
+                                        <div class="progress-bar progress-bar-black " role="progressbar"
+                                             aria-valuenow=@((float)large1/(float)totalReputation*100) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(((float)large1/(float)totalReputation*100)+"%")">
+                                            <span class="sr-only">@(((float)large1 / (float)totalReputation * 100))% complete (success)</span>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                       
+                                        <h4 style="padding-left:60px"><b>First Top Rated User</b></h4>
                                     </div>
                                 </div>
                             </div>
@@ -169,22 +240,29 @@
                     </div>
 
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:aquamarine">
                             <div class="col-in row">
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <i class="linea-icon linea-basic"
-                                       data-icon="&#xe01b;"></i>
-                                    <h5 class="text-muted vb">New Learners</h5>
+                                    <i data-icon="e"
+                                       class="linea-icon linea-basic"></i>
+                                    <h4 ><b>@uname2</b></h4>
+                                    <h5 ><b>@uType2</b></h5>
+                                    <h5 ><b>@email2</b></h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-megna">@Learner</h3>
+                                    <h3 class="counter text-right m-t-15 text-black">@large2</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-megna" role="progressbar"
-                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:@(learner+"%")">
-                                            <span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress-bar progress-bar-black " role="progressbar"
+                                             aria-valuenow=@((float)large2/(float)totalReputation*100) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(((float)large2/(float)totalReputation*100)+"%")">
+                                            <span class="sr-only">@(((float)large2 / (float)totalReputation * 100))% complete (success)</span>
                                         </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <h4  style="padding-left:60px"><b>Second Top Rated User</b></h4>
                                     </div>
                                 </div>
                             </div>
@@ -193,23 +271,29 @@
                     <!-- /.col -->
                     <!--col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                        <div class="white-box">
+                        <div class="white-box" style="background-color:aquamarine">
                             <div class="col-in row">
-                                <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <i class="linea-icon linea-basic"
-                                       data-icon="&#xe00b;"></i>
-                                    <h5 class="text-muted vb">New Moderators</h5>
+                                <div class="col-md-6 col-sm-6 col-xs-6" style="color:black">
+                                   
+                                    <h4 ><b>@uname3</b></h4>
+                                    <h5 ><b>@uType3</b></h5>
+                                    <h5 ><b>@email3</b></h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-primary">@Moderator</h3>
+                                    <h3 class="counter text-right m-t-40 text-black">@large3</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-primary" role="progressbar"
-                                             aria-valuenow="30" aria-valuemin="30" aria-valuemax="100" style="width:@(moderator+"%")">
-                                            <span class="sr-only">10% Complete (success)</span>
+                                        <div class="progress-bar progress-bar-black" role="progressbar"
+                                             aria-valuenow=@((float)large3/(float)totalReputation*100) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(((float)large3/(float)totalReputation*100)+"%")">
+                                            <span class="sr-only">@(((float)large3 / (float)totalReputation * 100))% complete (success)</span>
                                         </div>
                                     </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                        <h4  style="padding-left:60px"><b>Third Top Rated User</b></h4>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
