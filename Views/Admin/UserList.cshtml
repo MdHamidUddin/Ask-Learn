@@ -27,11 +27,14 @@
                             <script type="text/javascript">
 
                                 function update() {
-                                    var select = document.getElementById('filtering');
-                                    var Getvalue = select.options[select.selectedIndex].value;
+                                    //var select = document.getElementById('filtering');
+                                    //var Getvalue = select.options[select.selectedIndex].value;
+
+                                    var e = document.getElementById("filtering");
+                                    var strUser = e.options[e.selectedIndex].text;
 
                                     //console.log(select);
-                                    console.log(Getvalue);
+                                    console.log(strUser);
                                 }
 
                                update();
@@ -43,6 +46,7 @@
 
                                         <tr>
                                             <th>SL</th>
+                                            <th>UID</th>
                                             <th>Name </th>
                                             <th>Username</th>
                                             <th>Email</th>
@@ -52,7 +56,8 @@
                                             <th>Curr Position</th>
                                             <th>UserType</th>
                                             <th>Reputation</th>
-                                            <th>Approval</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,67 +70,134 @@
                                                 difference = difference / 365;
                                                 if (user.userType.Equals("Admin"))
                                                 {
-                                                    <tr style="color:red;font-weight:500">
-                                                        <td>@(++i)</td>
-                                                        <td>@user.name</td>
-                                                        <td>@user.username</td>
-                                                        <td>@user.email</td>
-                                                        <td>@difference</td>
-                                                        <td>@user.gender</td>
-                                                        <td>@user.eduInfo</td>
-                                                        <td>@user.currentPosition</td>
-                                                        <td>@user.userType</td>
-                                                        <td>@user.reputation</td>
-                                                        <td>@user.approval</td>
-                                                    </tr>
+                                                 <tr style="color:darkgoldenrod;font-weight:500">
+
+                                                    <td>@(++i)</td>
+                                                    <td>@user.uid</td>
+                                                    <td>@user.name</td>
+                                                    <td>@user.username</td>
+                                                    <td>@user.email</td>
+                                                    <td>@difference</td>
+                                                    <td>@user.gender</td>
+                                                    <td>@user.eduInfo</td>
+                                                    <td>@user.currentPosition</td>
+                                                    <td>@user.userType</td>
+                                                    <td>@user.reputation</td>
+                                                    <td>@user.approval</td>
+                                                    <td>
+                                                        <a href="@Url.Action("EditUser", new { @user.uid })" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>
+
+                                                        <a href="@Url.Action("DeleteUser", new { @user.uid })" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+                                                        @{ if (user.approval.Equals("blocked"))
+                                                            {
+                                                            <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color: dodgerblue; color: white; border-radius: 6px">UnBlock</a>
+                                                            }
+                                                            else
+                                                            {
+                                                              <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
+                                                            }
+                                                         }
+
+
+                                                    </td>
+                                             </tr>
                                                 }
                                                 else if (user.userType.Equals("Instructor"))
                                                 {
-                                                    <tr style="color: indigo; font-weight: 500">
-                                                        <td>@(++i)</td>
-                                                        <td>@user.name</td>
-                                                        <td>@user.username</td>
-                                                        <td>@user.email</td>
-                                                        <td>@difference</td>
-                                                        <td>@user.gender</td>
-                                                        <td>@user.eduInfo</td>
-                                                        <td>@user.currentPosition</td>
-                                                        <td>@user.userType</td>
-                                                        <td>@user.reputation</td>
-                                                        <td>@user.approval</td>
-                                                    </tr>
+                                    <tr style="color: indigo; font-weight: 500">
+                                        <td>@(++i)</td>
+                                        <td>@user.uid</td>
+                                        <td>@user.name</td>
+                                        <td>@user.username</td>
+                                        <td>@user.email</td>
+                                        <td>@difference</td>
+                                        <td>@user.gender</td>
+                                        <td>@user.eduInfo</td>
+                                        <td>@user.currentPosition</td>
+                                        <td>@user.userType</td>
+                                        <td>@user.reputation</td>
+                                        <td>@user.approval</td>
+                                        <td>
+                                            <a href="@Url.Action("EditUser",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>
+
+                                            <a href="@Url.Action("DeleteUser",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+
+                                            @{ if (user.approval.Equals("blocked"))
+                                                {
+                                                    <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color: dodgerblue; color: white; border-radius: 6px">UnBlock</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
                                                 }
                                                 else if (user.userType.Equals("Moderator"))
                                                 {
-                                                    <tr style="color: #096d9a; font-weight: 500">
-                                                        <td>@(++i)</td>
-                                                        <td>@user.name</td>
-                                                        <td>@user.username</td>
-                                                        <td>@user.email</td>
-                                                        <td>@difference</td>
-                                                        <td>@user.gender</td>
-                                                        <td>@user.eduInfo</td>
-                                                        <td>@user.currentPosition</td>
-                                                        <td>@user.userType</td>
-                                                        <td>@user.reputation</td>
-                                                        <td>@user.approval</td>
-                                                    </tr>
+                                    <tr style="color: #096d9a; font-weight: 500">
+                                        <td>@(++i)</td>
+                                        <td>@user.uid</td>
+                                        <td>@user.name</td>
+                                        <td>@user.username</td>
+                                        <td>@user.email</td>
+                                        <td>@difference</td>
+                                        <td>@user.gender</td>
+                                        <td>@user.eduInfo</td>
+                                        <td>@user.currentPosition</td>
+                                        <td>@user.userType</td>
+                                        <td>@user.reputation</td>
+                                        <td>@user.approval</td>
+                                        <td>
+                                            <a href="@Url.Action("EditUser",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>
+
+                                            <a href="@Url.Action("DeleteUser",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+
+                                            @{ if (user.approval.Equals("blocked"))
+                                                {
+                                                    <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color: dodgerblue; color: white; border-radius: 6px">UnBlock</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
                                                 }
                                                 else if (user.userType.Equals("Learner"))
                                                 {
-                                                    <tr style="color:#3d9d51; font-weight: 500">
-                                                        <td>@(++i)</td>
-                                                        <td>@user.name</td>
-                                                        <td>@user.username</td>
-                                                        <td>@user.email</td>
-                                                        <td>@difference</td>
-                                                        <td>@user.gender</td>
-                                                        <td>@user.eduInfo</td>
-                                                        <td>@user.currentPosition</td>
-                                                        <td>@user.userType</td>
-                                                        <td>@user.reputation</td>
-                                                        <td>@user.approval</td>
-                                                    </tr>
+                                    <tr style="color:#3d9d51; font-weight: 500">
+                                        <td>@(++i)</td>
+                                        <td>@user.uid</td>
+                                        <td>@user.name</td>
+                                        <td>@user.username</td>
+                                        <td>@user.email</td>
+                                        <td>@difference</td>
+                                        <td>@user.gender</td>
+                                        <td>@user.eduInfo</td>
+                                        <td>@user.currentPosition</td>
+                                        <td>@user.userType</td>
+                                        <td>@user.reputation</td>
+                                        <td>@user.approval</td>
+                                        <td>
+                                            <a href="@Url.Action("EditUser",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>
+
+                                            <a href="@Url.Action("DeleteUser",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+
+                                            @{ if (user.approval.Equals("blocked"))
+                                                {
+                                                    <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:dodgerblue;color:white;border-radius:6px">UnBlock</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
+                                                }
+                                            }
+
+                                        </td>
+                                    </tr>
                                                 }
 
                                             }

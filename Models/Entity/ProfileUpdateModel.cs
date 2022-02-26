@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace AskNLearn.Models.Instructor
+namespace AskNLearn.Models.Entity
 {
-    public class InstructorProfile
+    public class ProfileUpdateModel
     {
         public int uid { get; set; }
         [Required]

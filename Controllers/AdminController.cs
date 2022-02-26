@@ -3,6 +3,7 @@ using AskNLearn.Models.Entity;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -50,20 +51,50 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult Profile()
         {
-            // User data = dbObj.Users.Where(x => x.username == Session["Username"]).FirstOrDefault();
-            var user = (string)Session["username"];
-            var data = (from u in dbObj.Users
-                        where u.username.Equals(user)
-                        select u).FirstOrDefault();
-
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<User, UsersProfile>());
-
-            var mapper = new Mapper(config);
-
-            var Data = mapper.Map<UsersProfile>(data);
 
 
-            return View(data);
+            ProfileUpdateModel ip = new ProfileUpdateModel();
+
+            var user = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new
+                        {
+                            u.uid,
+                            u.name,
+                            u.username,
+                            u.email,
+                            u.password,
+                            u.dob,
+                            u.gender,
+                            u.proPic,
+                            u.dateTime,
+                            ui.eduInfo,
+                            ui.reputation,
+                            ui.currentPosition
+                        }).ToList();
+
+
+            foreach (var item in user)
+            {
+                if (item.username.Equals(Session["username"]))
+                {
+                    ip.uid = item.uid;
+                    ip.name = item.name;
+                    ip.username = item.username;
+                    ip.email = item.email;
+                    ip.password = item.password;
+                    ip.dob = item.dob;
+                    ip.gender = item.gender;
+                    ip.proPic = item.proPic;
+                    ip.dateTime = item.dateTime;
+                    ip.eduInfo = item.eduInfo;
+                    ip.reputation = item.reputation;
+                    ip.currentPosition = item.currentPosition;
+                }
+
+            }
+            return View(ip);
+
         }
 
         public ActionResult Ratio()
@@ -118,7 +149,140 @@ namespace AskNLearn.Controllers
             return View(UserList);
         }
 
-   
+
+        [HttpGet]
+        public ActionResult EditUser(int uid)
+        {
+
+            ProfileUpdateModel ip = new ProfileUpdateModel();
+          
+            var user = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new
+                        {
+                            u.uid,
+                            u.name,
+                            u.username,
+                            u.email,
+                            u.password,
+                            u.dob,
+                            u.gender,
+                            u.proPic,
+                            u.dateTime,
+                            ui.eduInfo,
+                            ui.reputation,
+                            ui.currentPosition
+                        }).ToList();
+
+            
+            foreach (var item in user)
+            {
+                if(item.uid.Equals(uid))
+                {
+                    ip.uid = item.uid;
+                    ip.name = item.name;
+                    ip.username = item.username;
+                    ip.email = item.email;
+                    ip.password = item.password;
+                    ip.dob = item.dob;
+                    ip.gender = item.gender;
+                    ip.proPic = item.proPic;
+                    ip.dateTime = item.dateTime;
+                    ip.eduInfo = item.eduInfo;
+                    ip.reputation = item.reputation;
+                    ip.currentPosition = item.currentPosition;
+                }
+             
+            }
+            return View(ip);
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(ProfileUpdateModel profile)
+        {
+            int id = 0;
+            if (ModelState.IsValid)
+            {
+                AskNLearnEntities db = new AskNLearnEntities();
+                var obj = db.Users.Where(value => value.uid == profile.uid).FirstOrDefault();
+                obj.name = profile.name;
+                obj.username = profile.username;
+                obj.email = profile.email;
+                obj.password = profile.password;
+                obj.dob = profile.dob;
+                obj.gender = profile.gender;
+                //obj = profile;
+                db.Entry(obj).State = EntityState.Modified;
+                db.SaveChanges();
+                id = obj.uid;
+                if(obj.userType.Equals("Admin"))
+                {
+                    //Session["username"] = obj.name;
+                    return RedirectToAction("Profile");
+                    
+                }
+                else
+                {
+                    return RedirectToAction("UserList");
+                }
+              
+            }
+            return View("EditUser", profile.uid);
+        }
+        [HttpPost]
+        public ActionResult EditAdmin(ProfileUpdateModel profile)
+        {
+
+            if (ModelState.IsValid)
+            {
+                AskNLearnEntities db = new AskNLearnEntities();
+                var obj = db.Users.Where(value => value.uid == profile.uid).FirstOrDefault();
+                obj.name = profile.name;
+                obj.username = profile.username;
+                obj.email = profile.email;
+                obj.password = profile.password;
+                obj.dob = profile.dob;
+                obj.gender = profile.gender;
+                //obj = profile;
+                db.Entry(obj).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Profile");
+            }
+            return RedirectToAction("Profile");
+        }
+        [HttpGet]
+        public ActionResult DeleteUser(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            dbObj.UsersInfoes.Remove(ui);
+            dbObj.SaveChanges();
+            dbObj.Users.Remove(u);
+            dbObj.SaveChanges();
+            return RedirectToAction("UserList");
+        }
+
+        public ActionResult BlockUser(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "blocked";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserList");
+        }
+
+        public ActionResult UnBlockUser(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "approved";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserList");
+        }
+
+
 
         public class getValue
         {

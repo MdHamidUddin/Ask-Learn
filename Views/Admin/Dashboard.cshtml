@@ -48,13 +48,13 @@
     int uid1 = Model[0].uid;
     int uid2 = 0;
     int uid3=0;
-    string uname1 = Model[0].name; ;
+    string uname1 = Model[0].name; 
     string uname2 = "";
     string uname3="";
     string email1 = Model[0].email;
     string email2 = "";
     string email3="";
-    string uType1="";
+    string uType1=Model[0].userType;
     string uType2 = "";
     string uType3 = "";
     for (int i=0;i<n;i++)
@@ -73,6 +73,9 @@
         {
             large3 = large2;
             large2 = Model[i].reputation;
+            uname3 = uname2;
+            uType3 = uType2;
+            email3 = email2;
             uid2 = Model[i].uid;
             uname2 = Model[i].name;
             email2 = Model[i].email;
