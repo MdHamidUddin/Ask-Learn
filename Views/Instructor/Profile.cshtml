@@ -39,10 +39,10 @@
                             <div class="overlay-box">
                                 <div class="user-content">
                                     <a href="javascript:void(0)">
-                                        <img src="../../Theme/plugins/images/users/hamid.jpg"
+                                        <img src="@Model.proPic"
                                              class="thumb-lg img-circle" alt="img">
                                     </a>
-                                    <h4 class="text-white">@Model.username</h4>
+                                    <h4 class="text-white">@Model.name</h4>
                                     <h5 class="text-white">@Model.email</h5>
                                 </div>
                             </div>
@@ -134,8 +134,6 @@
                             <div class="form-group">
                                 <label class="col-md-12">Gender</label>
                                 <div class="col-md-12">
-                                    @*<input type="text" value=@Model.gender placeholder="Gender"
-                                        class="form-control form-control-line">*@
                                     <input type="radio" class="form-check-input" id="Male" name="gender" value="Male" @if (@Model.gender == "Male") { @msg } />
 
                                     <label for="Male">Male</label>&nbsp &nbsp
