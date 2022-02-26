@@ -1,5 +1,5 @@
-﻿@model AskNLearn.Models.User
-@*@model AskNLearn.Models.Instructor.InstructorProfile*@
+﻿@*@model AskNLearn.Models.User*@
+@model AskNLearn.Models.Instructor.InstructorProfile
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
@@ -71,6 +71,7 @@
                             <div class="form-group">
                                 <label class="col-md-12">Full Name</label>
                                 <div class="col-md-12">
+                                    <input type="hidden" name="uid" value="@Model.uid">
                                     <input type="text" class="form-control" name="name" placeholder="Full Name" value="@Model.name">
                                     @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                                 </div>
