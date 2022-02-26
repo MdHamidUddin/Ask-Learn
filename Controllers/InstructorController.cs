@@ -22,9 +22,28 @@ namespace AskNLearn.Controllers
         public ActionResult Profile()
         {
             AskNLearnEntities dbObj = new AskNLearnEntities();
+            InstructorProfile ip = new InstructorProfile(); 
             var uid = (int)Session["uid"];
-            var user = dbObj.Users.Find(uid);
-            return View(user);
+            var user = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.uid, u.name, u.username, u.email, u.password, u.dob, u.gender, u.proPic, u.dateTime,
+                            ui.eduInfo, ui.reputation, ui.currentPosition}).ToList();
+            foreach (var item in user)
+            {
+                ip.uid = item.uid;
+                ip.name=item.name;
+                ip.username=item.username;
+                ip.email=item.email;
+                ip.password=item.password;
+                ip.dob=item.dob;
+                ip.gender=item.gender;
+                ip.proPic=item.proPic;
+                ip.dateTime=item.dateTime;
+                ip.eduInfo=item.eduInfo;
+                ip.reputation=item.reputation;
+                ip.currentPosition=item.currentPosition;
+            }
+            return View(ip);
         }
         [HttpPost]
         public ActionResult Profile(InstructorProfile profile)
