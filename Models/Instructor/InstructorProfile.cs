@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -28,5 +29,7 @@ namespace AskNLearn.Models.Instructor
         public string currentPosition { get; set; }
         public int reputation { get; set; }
         public System.DateTime dateTime { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

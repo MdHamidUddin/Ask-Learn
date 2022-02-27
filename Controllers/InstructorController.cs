@@ -3,6 +3,7 @@ using AskNLearn.Models.Instructor;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,7 +23,9 @@ namespace AskNLearn.Controllers
         public ActionResult Profile()
         {
             AskNLearnEntities dbObj = new AskNLearnEntities();
-            InstructorProfile ip = new InstructorProfile(); 
+            InstructorProfile ip = new InstructorProfile();
+            if (Session["uid"] != null)
+            {
             var uid = (int)Session["uid"];
             var user = (from u in dbObj.Users
                         join ui in dbObj.UsersInfoes on u.uid equals ui.uid
@@ -42,6 +45,7 @@ namespace AskNLearn.Controllers
                 ip.eduInfo=item.eduInfo;
                 ip.reputation=item.reputation;
                 ip.currentPosition=item.currentPosition;
+            }
             }
             return View(ip);
         }
@@ -65,5 +69,38 @@ namespace AskNLearn.Controllers
             }
             return View(profile);
         }
+        [HttpPost]
+        public ActionResult UpdateProPic(InstructorProfile profile)
+        {
+            if (ModelState.IsValid)
+            {
+                if (profile.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(profile.ImageFile.FileName);
+                    string extension = Path.GetExtension(profile.ImageFile.FileName);
+                    fileName = fileName + "-" + profile.username + "-" + DateTime.Now.ToString("yyy-MM-d") + extension;
+                    profile.proPic = "/Content/Instructor/ProPic/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Content/Instructor/ProPic/"), fileName);
+                    profile.ImageFile.SaveAs(fileName);
+                }
+                else
+                {
+                    profile.proPic = "/Content/Instructor/ProPic/noPropic.png";
+                }
+                AskNLearnEntities db = new AskNLearnEntities();
+                var obj = db.Users.Where(value => value.uid == profile.uid).First();
+                obj.name = profile.name;
+                obj.username = profile.username;
+                obj.email = profile.email;
+                obj.password = profile.password;
+                obj.dob = profile.dob;
+                obj.gender = profile.gender;
+                obj.proPic = profile.proPic;
+                db.Entry(obj).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Profile", "Instructor");
+        }
+
     }
 }
