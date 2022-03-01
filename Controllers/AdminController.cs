@@ -282,6 +282,59 @@ namespace AskNLearn.Controllers
             return RedirectToAction("UserList");
         }
 
+        public ActionResult UserRequest()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if(u.approval.Equals("pending"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+               
+
+            }
+
+            return View(UserList);
+        }
+
+        public ActionResult Approved(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "approved";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserRequest");
+        }
+        public ActionResult Rejected(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "rejected";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserRequest");
+        }
 
 
         public class getValue
