@@ -21,8 +21,8 @@
 
                         <select id="UserSelect" onchange="selectUser()">
                             <option value="All">All USer</option>
-                            <option value="Moderator">Moderators</option>
-                            <option value="Admin" selected>Admin</option>
+                            <option value="Moderator" selected>Moderators</option>
+                            <option value="Admin" >Admin</option>
                             <option value="Instructor">Instructors</option>
                             <option value="Learner">Learners</option>
                         </select>
@@ -40,12 +40,12 @@
                                     window.location.href = url;
                                 }
 
-                                else if (strUser == "Instructor") {
-                                    var url = "/Admin/InstructorList";
+                                else if (strUser == "Admin") {
+                                    var url = "/Admin/AdminList";
                                     window.location.href = url;
                                 }
-                                else if (strUser == "Moderator") {
-                                    var url = "/Admin/AdminList";
+                                else if (strUser == "Instructor") {
+                                    var url = "/Admin/InstructorList";
                                     window.location.href = url;
                                 }
                                 else if (strUser == "Learner") {
@@ -94,7 +94,7 @@
 
                                             if (user.userType.Equals("Moderator"))
                                             {
-                                                <tr style="color:darkgoldenrod;font-weight:500">
+                                                <tr style="color: #096d9a; font-weight: 500">
 
                                                     <td>@(++i)</td>
                                                     <td>@user.uid</td>
