@@ -1,9 +1,9 @@
-﻿@model List<AskNLearn.Models.Entity.AdminDashboardModel>
+﻿
+@model List<AskNLearn.Models.Entity.AdminDashboardModel>
 @{
-    ViewBag.Title = "UserRequest";
+    ViewBag.Title = "RejectedUsers";
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
-
 
 <br>
 <br>
@@ -47,10 +47,9 @@
                                             System.TimeSpan diff = DateTime.Now.Date.Subtract(user.dob);
                                             int difference = (int)diff.Days;
                                             difference = difference / 365;
-                                          
-                                           
-                                            if (user.userType.Equals("Moderator"))
-                                            {
+
+
+                                        
                                                 <tr style="color: #096d9a; font-weight: 500">
                                                     <td>@(++i)</td>
                                                     <td>@user.uid</td>
@@ -65,16 +64,16 @@
                                                     <td>@user.reputation</td>
                                                     <td>@user.approval</td>
                                                     <td>
-                                                        <a href="@Url.Action("Approved",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Approve</a>
+                                                       @* <a href="@Url.Action("Approved",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Approve</a>*@
 
-                                                    @*    <a href="@Url.Action("DeleteUser",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>*@
+                                                            <a href="@Url.Action("DeleteUser",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
 
-                                                        <a href="@Url.Action("Rejected",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Reject</a>
+                                                     @*   <a href="@Url.Action("Rejected",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Reject</a>*@
 
                                                     </td>
                                                 </tr>
-                                            }
-                                         
+                                           
+
 
                                         }
                                     }
@@ -92,6 +91,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

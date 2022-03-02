@@ -35,141 +35,144 @@
                 <div class="col-md-4 col-xs-12">
                     <div class="white-box">
                         <div class="user-bg">
-                            <img width="100%" alt="user" src="../../Theme/plugins/images/large/img1.jpg">
+                            @*<img width="100%" alt="user" src="../../Theme/plugins/images/large/img1.jpg">*@
                             <div class="overlay-box">
-                                <div class="user-content">
-                                    <a href="javascript:void(0)">
-                                        <img src="../../Theme/plugins/images/users/hamid.jpg"
-                                             class="thumb-lg img-circle" alt="img">
-                                    </a>
-                                    <h4 class="text-white">@Model.username</h4>
-                                    <h5 class="text-white">@Model.email</h5>
+                                <div class="">
+                                    <img src="@Model.proPic" class="img-circle" alt="/Content/Instructor/ProPic/noPropic.png" width="250" height="240">
                                 </div>
                             </div>
                         </div>
                         <div class="user-btm-box">
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-purple"><i class="ti-facebook"></i></p>
-                                <h1>258</h1>
-                            </div>
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-blue"><i class="ti-twitter"></i></p>
-                                <h1>125</h1>
-                            </div>
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-danger"><i class="ti-dribbble"></i></p>
-                                <h1>556</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-8 col-xs-12">
-                    <div class="white-box">
-                        <form class="form-horizontal form-material" action="/Instructor/Profile" method="post">
-                            <input type="hidden" class="form-control" name="uid" placeholder="Full Name" value="@Model.uid">
-                            <div class="form-group">
-                                <label class="col-md-12">Full Name</label>
-                                <div class="col-md-12">
+                            <div class="col-md-12 col-sm-4 text-center">
+                                <form action="/Instructor/UpdateProPic" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="uid" value="@Model.uid">
-                                    <input type="text" class="form-control" name="name" placeholder="Full Name" value="@Model.name">
-                                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="col-md-12">Username</label>
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control" name="username" placeholder="Full Name" value=@Model.username>
-                                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="example-email" class="col-md-12">Email</label>
-                                <div class="col-md-12">
-                                    <input type="email" value=@Model.email
-                                           class="form-control form-control-line" name="email"
-                                           id="example-email">
-                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Password</label>
-                                <div class="col-md-8">
-                                    <span>
-                                        <input type="password" name="password" id="showPass" value=@Model.password class="form-control form-control-line">
-                                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                                    </span>
-
-                                </div>
-
-
-                            </div>
-
-
-                            @{ System.TimeSpan diff = DateTime.Now.Date.Subtract(Model.dob);
-                                int age = (int)diff.Days;
-                                age = age / 365;
-
-                            }
-                            <div class="form-group">
-                                <label class="col-md-12">Age</label>
-                                <div class="col-md-12">
-                                    @age
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-md-12">DOB</label>
-                                <div class="col-md-12">
-                                    <input type="date" name="dob" value="@Model.dob.ToString("yyyy-MM-dd")"
-                                           class="form-control form-control-line">
-                                    @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-12">Gender</label>
-                                <div class="col-md-12">
-                                    @*<input type="text" value=@Model.gender placeholder="Gender"
-                                        class="form-control form-control-line">*@
-                                    <input type="radio" class="form-check-input" id="Male" name="gender" value="Male" @if (@Model.gender == "Male") { @msg } />
-
-                                    <label for="Male">Male</label>&nbsp &nbsp
-                                    <input type="radio" class="form-check-input" id="Female" name="gender" value="Female" @if (@Model.gender == "Female") { @msg } />
-                                    <label for="Female">Female</label>&nbsp &nbsp
-                                    <input type="radio" class="form-check-input" id="Other" name="gender" value="Other" @if (@Model.gender == "Other") { @msg } />
-                                    <label for="Other">Other</label> &nbsp;<br />
-                                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-                                    <select class="form-control form-control-line">
-                                        <option>Bangladesh</option>
-                                        <option>London</option>
-                                        <option>India</option>
-                                        <option>Usa</option>
-                                        <option>Canada</option>
-                                        <option>Thailand</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <button class="btn btn-success">Update Profile</button>
-                                </div>
-                            </div>
-                        </form>
+                                    <input type="hidden" name="name" value="@Model.name">
+                                    <input type="hidden" name="username" value=@Model.username>
+                                    <input type="hidden" name="email" value=@Model.email>
+                                    <input type="hidden" name="password" value=@Model.password>
+                                    <input type="hidden" name="dob" value="@Model.dob.ToString("yyyy-MM-dd")">
+                                    <input type="hidden" name="gender" value="@Model.gender" />
+                                    <input type="file" name="ImageFile" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                                    <input class="btn btn-sm btn-info" type="submit" value="Update Profile Picture" />
+                                </form>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-purple"><i class="ti-facebook"></i></p>
+                        <h1>258</h1>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-blue"><i class="ti-twitter"></i></p>
+                        <h1>125</h1>
+                    </div>
+                    <div class="col-md-4 col-sm-4 text-center">
+                        <p class="text-danger"><i class="ti-dribbble"></i></p>
+                        <h1>556</h1>
                     </div>
                 </div>
             </div>
-            <!-- /.row -->
         </div>
+
+        <div class="col-md-8 col-xs-12">
+            <div class="white-box">
+                <form class="form-horizontal form-material" action="/Instructor/Profile" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-md-12">Full Name</label>
+                        <div class="col-md-12">
+                            <input type="hidden" name="uid" value="@Model.uid">
+                            <input type="text" class="form-control" name="name" placeholder="Full Name" value="@Model.name">
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-12">Username</label>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="username" placeholder="Full Name" value=@Model.username>
+                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="example-email" class="col-md-12">Email</label>
+                        <div class="col-md-12">
+                            <input type="email" value=@Model.email class="form-control form-control-line" name="email" id="example-email">
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Password</label>
+                        <div class="col-md-8">
+                            <span>
+                                <input type="password" name="password" id="showPass" value=@Model.password class="form-control form-control-line">
+                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    @{ System.TimeSpan diff = DateTime.Now.Date.Subtract(Model.dob);
+                        int age = (int)diff.Days;
+                        age = age / 365;
+
+                    }
+                    <div class="form-group">
+                        <label class="col-md-12">Age</label>
+                        <div class="col-md-12">
+                            @age
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-12">DOB</label>
+                        <div class="col-md-12">
+                            <input type="date" name="dob" value="@Model.dob.ToString("yyyy-MM-dd")"
+                                   class="form-control form-control-line">
+                            @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-12">Gender</label>
+                        <div class="col-md-12">
+                            <input type="radio" class="form-check-input" id="Male" name="gender" value="Male" @if (@Model.gender == "Male") { @msg } />
+
+                            <label for="Male">Male</label>&nbsp &nbsp
+                            <input type="radio" class="form-check-input" id="Female" name="gender" value="Female" @if (@Model.gender == "Female") { @msg } />
+                            <label for="Female">Female</label>&nbsp &nbsp
+                            <input type="radio" class="form-check-input" id="Other" name="gender" value="Other" @if (@Model.gender == "Other") { @msg } />
+                            <label for="Other">Other</label> &nbsp;<br />
+                            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-12">Select Country</label>
+                        <div class="col-sm-12">
+                            <select class="form-control form-control-line">
+                                <option>Bangladesh</option>
+                                <option>London</option>
+                                <option>India</option>
+                                <option>Usa</option>
+                                <option>Canada</option>
+                                <option>Thailand</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button class="btn btn-success">Update Profile</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
         <!-- /.container-fluid -->
         <footer class="footer text-center">
             2020 &copy; Pixel Admin brought to you by <a href="https://www.wrappixel.com/">wrappixel.com</a>

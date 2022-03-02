@@ -1014,9 +1014,15 @@
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\UserRequest.cshtml" />
+    <Content Include="Views\Admin\RejectedUsers.cshtml" />
+    <Content Include="Views\Admin\AdminList.cshtml" />
+    <Content Include="Views\Admin\ModeratorList.cshtml" />
+    <Content Include="Views\Admin\InstructorList.cshtml" />
+    <Content Include="Views\Admin\LearnerList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Instructor\ProPic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
