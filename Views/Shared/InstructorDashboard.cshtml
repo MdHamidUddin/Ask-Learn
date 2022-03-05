@@ -16,17 +16,17 @@
     <link rel="icon" type="image/png" sizes="16x16"
           href="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/assets/images/logos/pixel-favicon.png">
     <!-- Bootstrap Core CSS -->
-    <link href="../../Theme/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Theme/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Menu CSS -->
-    <link href="../../Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="~/Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
     <!-- toast CSS -->
-    <link href="../../Theme/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="~/Theme/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
     <!-- morris CSS -->
-    <link href="../../Theme/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="~/Theme/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
     <!-- animation CSS -->
-    <link href="../../Theme/css/animate.css" rel="stylesheet">
+    <link href="~/Theme/css/animate.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="../../Theme/css/style.css" rel="stylesheet">
+    <link href="~/Theme/css/style.css" rel="stylesheet">
     <!-- color CSS -->
     <link href="../../Theme/css/colors/blue-dark.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -60,8 +60,8 @@
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../../Theme/plugins/images/users/varun.jpg" alt="user-img"
+                        <a class="profile-pic" href="/Instructor/Profile">
+                            <img src="../../@Session["proPic"]" alt="../../Content/Instructor/ProPic/noPropic.png"
                                  width="36" class="img-circle"><b class="hidden-xs">@Session["name"]</b>
                             </a>
                         </li>
@@ -90,15 +90,15 @@
                         </li>
 
                         <li>
-                            <a href="basic-table.html" class="waves-effect">
+                            <a href="/Instructor/CourseList" class="waves-effect">
                                 <i class="fa fa-table fa-fw"
-                                   aria-hidden="true"></i><span class="hide-menu">Basic Table</span>
+                                   aria-hidden="true"></i><span class="hide-menu">Course List</span>
                             </a>
                         </li>
                         <li>
                             <a href="fontawesome.html" class="waves-effect">
                                 <i class="fa fa-font fa-fw"
-                                   aria-hidden="true"></i><span class="hide-menu">Icons</span>
+                                   aria-hidden="true"></i><span class="hide-menu">Courses</span>
                             </a>
                         </li>
                         <li>
@@ -108,11 +108,11 @@
                             </a>
                         </li>
                         @*<li>
-                            <a href="/" class="waves-effect">
-                                <i class="fa fa-columns fa-fw"
-                                   aria-hidden="true"></i><span class="hide-menu">Blank Page</span>
-                            </a>
-                        </li>*@
+                                <a href="/" class="waves-effect">
+                                    <i class="fa fa-columns fa-fw"
+                                       aria-hidden="true"></i><span class="hide-menu">Blank Page</span>
+                                </a>
+                            </li>*@
                         <li>
                             <a href="404.html" class="waves-effect">
                                 <i class="fa fa-info-circle fa-fw"
@@ -131,6 +131,25 @@
                 </div>
             </div>
         </div>
+        @RenderBody()
+        <script src="~/Theme/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="~/Theme/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- Menu Plugin JavaScript -->
+        <script src="~/Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+        <!--slimscroll JavaScript -->
+        <script src="~/Theme/js/jquery.slimscroll.js"></script>
+        <!--Wave Effects -->
+        <script src="~/Theme/js/waves.js"></script>
+        <!--Counter js -->
+        <script src="~/Theme/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+        <script src="~/Theme/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+        <!--Morris JavaScript -->
+        <script src="~/Theme/plugins/bower_components/raphael/raphael-min.js"></script>
+        <script src="~/Theme/plugins/bower_components/morrisjs/morris.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="~/Theme/js/custom.min.js"></script>
+        <script src="~/Theme/js/dashboard1.js"></script>
+        <script src="~/Theme/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
     </body>
 </html>
-@RenderBody()

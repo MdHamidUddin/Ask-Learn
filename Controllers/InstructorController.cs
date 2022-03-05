@@ -1,5 +1,6 @@
 ﻿using AskNLearn.Models;
 using AskNLearn.Models.Instructor;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -62,7 +63,6 @@ namespace AskNLearn.Controllers
                 obj.password = profile.password;
                 obj.dob = profile.dob;
                 obj.gender = profile.gender;
-                //obj = profile;
                 db.Entry(obj).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Profile");
@@ -89,17 +89,22 @@ namespace AskNLearn.Controllers
                 }
                 AskNLearnEntities db = new AskNLearnEntities();
                 var obj = db.Users.Where(value => value.uid == profile.uid).First();
-                obj.name = profile.name;
-                obj.username = profile.username;
-                obj.email = profile.email;
-                obj.password = profile.password;
-                obj.dob = profile.dob;
-                obj.gender = profile.gender;
                 obj.proPic = profile.proPic;
                 db.Entry(obj).State = EntityState.Modified;
                 db.SaveChanges();
             }
             return RedirectToAction("Profile", "Instructor");
+        }
+        public ActionResult CourseView() 
+        {
+            return View();
+        }
+        public ActionResult CourseList()
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var courses = db.Courses.ToList();
+
+            return View(courses);
         }
 
     }

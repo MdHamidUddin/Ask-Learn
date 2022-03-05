@@ -18,7 +18,7 @@
     </Key>
     <Property Name="coid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="uid" Type="int" Nullable="false" />
-    <Property Name="title" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="details" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="price" Type="float" Nullable="false" />
     <Property Name="upVote" Type="int" />
@@ -78,7 +78,7 @@
     <Property Name="dob" Type="date" Nullable="false" />
     <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="userType" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="proPic" Type="varchar" MaxLength="50" />
+    <Property Name="proPic" Type="varchar" MaxLength="500" />
     <Property Name="approval" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
   </EntityType>
