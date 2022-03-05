@@ -63,6 +63,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["name"] = data.name;
                     Session["uid"] = data.uid;
+                    Session["proPic"] = data.proPic;
                     Session["userType"] = "Instructor";
                     return RedirectToAction("../Instructor/Dashboard");
                 }

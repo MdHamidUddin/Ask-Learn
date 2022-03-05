@@ -20,7 +20,7 @@
     </Key>
     <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="uid" Type="Int32" Nullable="false" />
-    <Property Name="title" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="price" Type="Double" Nullable="false" />
     <Property Name="upVote" Type="Int32" />
@@ -90,7 +90,7 @@
     <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="proPic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="proPic" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
