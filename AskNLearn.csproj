@@ -1015,8 +1015,17 @@
     <Content Include="Views\Instructor\Profile.cshtml" />
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Instructor\CourseView.cshtml" />
     <Content Include="Views\Instructor\CourseList.cshtml" />
+=======
+    <Content Include="Views\Admin\UserRequest.cshtml" />
+    <Content Include="Views\Admin\RejectedUsers.cshtml" />
+    <Content Include="Views\Admin\AdminList.cshtml" />
+    <Content Include="Views\Admin\ModeratorList.cshtml" />
+    <Content Include="Views\Admin\InstructorList.cshtml" />
+    <Content Include="Views\Admin\LearnerList.cshtml" />
+>>>>>>> 1c0748ef0020e1435bee4d792c38db2be8b86683
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

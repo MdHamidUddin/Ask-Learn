@@ -99,9 +99,9 @@ namespace AskNLearn.Controllers
 
         public ActionResult Ratio()
         {
-            //int male = dbObj.charts.Where(x => x.Gender == "Male").Count();
-            //int female = dbObj.charts.Where(x => x.Gender == "Female").Count();
-            //int other = dbObj.charts.Where(x => x.Gender == "Other").Count();
+            //int male = dbobj.charts.where(x => x.gender == "male").count();
+            //int female = dbobj.charts.where(x => x.gender == "female").count();
+            //int other = dbobj.charts.where(x => x.gender == "other").count();
            
             return View();
           
@@ -118,31 +118,176 @@ namespace AskNLearn.Controllers
             return Json(obj, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult UserList()
         {
 
             List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
             var data = (from u in dbObj.Users
-                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid 
                         select new { u.name, u.uid, u.userType, u.username, u.email,u.approval, u.gender,u.dob, u.dateTime, ui.reputation,ui.eduInfo,ui.currentPosition }).ToList();
 
 
             foreach (var u in data)
             {
                 AdminDashboardModel obj = new AdminDashboardModel();
-                obj.uid = u.uid;
-                obj.name = u.name;
-                obj.userType = u.userType;
-                obj.username = u.username;
-                obj.email = u.email;
-                obj.gender = u.gender;
-                obj.dateTime = u.dateTime;
-                obj.dob = u.dob;
-                obj.reputation = u.reputation;
-                obj.eduInfo = u.eduInfo;
-                obj.currentPosition = u.currentPosition;
-                obj.approval = u.approval;
-                UserList.Add(obj);
+                if(u.approval.Equals("active")|| u.approval.Equals("blocked"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+               
+
+            }
+
+            return View(UserList);
+        }
+
+      
+        public ActionResult AdminList()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Admin"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
+
+            }
+
+            return View(UserList);
+        }
+        public ActionResult ModeratorList()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Moderator"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
+
+            }
+
+            return View(UserList);
+        }
+
+        public ActionResult InstructorList()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Instructor"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
+
+            }
+
+            return View(UserList);
+        }
+
+        public ActionResult LearnerList()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Learner"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
 
             }
 
@@ -276,12 +421,65 @@ namespace AskNLearn.Controllers
         {
             var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
             var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
-            u.approval = "approved";
+            u.approval = "active";
             dbObj.SaveChanges();
 
             return RedirectToAction("UserList");
         }
 
+        public ActionResult UserRequest()
+        {
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if(u.approval.Equals("pending"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+               
+
+            }
+
+            return View(UserList);
+        }
+
+        public ActionResult Approved(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "active";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserRequest");
+        }
+        public ActionResult Rejected(int uid)
+        {
+            var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            u.approval = "rejected";
+            dbObj.SaveChanges();
+
+            return RedirectToAction("UserRequest");
+        }
 
 
         public class getValue
@@ -289,6 +487,76 @@ namespace AskNLearn.Controllers
             public int Male { get; set; }
             public int Female { get; set; }
             public int Other { get; set; }
+        }
+
+        public ActionResult RejectedUsers()
+        {
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("rejected"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
+
+            }
+
+            return View(UserList);
+        }
+
+        public ActionResult FilterUser()
+        {
+
+
+            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            var data = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
+
+
+            foreach (var u in data)
+            {
+                AdminDashboardModel obj = new AdminDashboardModel();
+                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Admin"))
+                {
+                    obj.uid = u.uid;
+                    obj.name = u.name;
+                    obj.userType = u.userType;
+                    obj.username = u.username;
+                    obj.email = u.email;
+                    obj.gender = u.gender;
+                    obj.dateTime = u.dateTime;
+                    obj.dob = u.dob;
+                    obj.reputation = u.reputation;
+                    obj.eduInfo = u.eduInfo;
+                    obj.currentPosition = u.currentPosition;
+                    obj.approval = u.approval;
+                    UserList.Add(obj);
+                }
+
+
+            }
+
+            return View(UserList);
         }
     }
 }

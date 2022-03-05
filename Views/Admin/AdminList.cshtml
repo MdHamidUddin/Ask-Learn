@@ -1,0 +1,156 @@
+﻿@model List<AskNLearn.Models.Entity.AdminDashboardModel>
+@{
+    ViewBag.Title = "AdminList";
+    Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+
+<br>
+<br>
+<br>
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="white-box" id="wrapper">
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Users List</h3>
+
+                        <select id="UserSelect" onchange="selectUser()">
+                            <option value="All">All USer</option>
+                            <option value="Moderator" >Moderators</option>
+                            <option value="Admin" selected>Admin</option>
+                            <option value="Instructor">Instructors</option>
+                            <option value="Learner">Learners</option>
+                        </select>
+
+
+                        <script type="text/javascript">
+
+                            function selectUser() {
+                                var strUser = document.getElementById("UserSelect").value;
+
+                                //var url = "/Admin/UserList?UserType=" + strUser;
+                                //window.location.href = url;
+                                if (strUser == "All") {
+                                    var url = "/Admin/UserList";
+                                    window.location.href = url;
+                                }
+
+                                else if (strUser == "Instructor") {
+                                    var url = "/Admin/InstructorList";
+                                    window.location.href = url;
+                                }
+                                else if (strUser == "Moderator") {
+                                    var url = "/Admin/ModeratorList";
+                                    window.location.href = url;
+                                }
+                                else if (strUser == "Learner") {
+                                    var url = "/Admin/LearnerList";
+                                    window.location.href = url;
+                                }
+                                console.log(strUser);
+                            }
+                            selectUser();
+
+                        </script>
+
+
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>UID</th>
+                                        <th>Name </th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
+                                        <th>Edu Info</th>
+                                        <th>Curr Position</th>
+                                        <th>UserType</th>
+                                        <th>Reputation</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @{
+
+                                        int i = 0;
+
+                                        foreach (var user in Model)
+                                        {
+                                            System.TimeSpan diff = DateTime.Now.Date.Subtract(user.dob);
+                                            int difference = (int)diff.Days;
+                                            difference = difference / 365;
+
+                                            if (user.userType.Equals("Admin"))
+                                            {
+                                                <tr style="color:darkgoldenrod;font-weight:500">
+
+                                                    <td>@(++i)</td>
+                                                    <td>@user.uid</td>
+                                                    <td>@user.name</td>
+                                                    <td>@user.username</td>
+                                                    <td>@user.email</td>
+                                                    <td>@difference</td>
+                                                    <td>@user.gender</td>
+                                                    <td>@user.eduInfo</td>
+                                                    <td>@user.currentPosition</td>
+                                                    <td>@user.userType</td>
+                                                    <td>@user.reputation</td>
+                                                    <td>@user.approval</td>
+                                                    <td>
+                                                        @* <a href="@Url.Action("EditUser", new { @user.uid })" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>*@
+
+                                                        <a href="@Url.Action("DeleteUser", new { @user.uid })" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+                                                        @{ if (user.approval.Equals("blocked"))
+                                                            {
+                                                                <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color: #21cc21; color: white; border-radius: 6px">UnBlock</a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
+                                                            }
+                                                        }
+
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                           
+                                        }
+                                    }
+                                </tbody>
+
+
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,7 +20,7 @@
     $(document).ready(function () {
         window.setInterval('refresh()', 3000);
 
-        $.getJSON("/Dashboard/ShowChart", function (data) {
+        $.getJSON("/Admin/ShowChart", function (data) {
 
 
             Highcharts.chart('container', {
