@@ -3,6 +3,17 @@
     ViewBag.Title = "Dashboard";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
+@{ 
+    int totalLearners = Model.LernerCount;
+    int PostedCourseCount = Model.PostedCourseCount;
+    //foreach (var item in Model)
+    //{
+    //    if (item.userType.Equals("Learner"))
+    //    {
+    //        totalLearners++;
+    //    }
+    //}
+}
 <br /><br />
 <input type="text" name="name" value=@*@Model.name*@ style="color:red">
 <!-- Preloader -->
@@ -34,13 +45,13 @@
                                 <h5 class="text-muted vb">Offered Courses By You</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-danger">@*@Instructor*@</h3>
+                                <h3 class="counter text-right m-t-15 text-danger">@PostedCourseCount</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger " role="progressbar"
-                                         aria-valuenow=@*@(Instructor/TotalUser)*@ aria-valuemin="0" aria-valuemax=10 style="width:10%">
-                                        <span class="sr-only">@*@(ins)*@% complete (success)</span>
+                                         aria-valuenow=0 aria-valuemin="0" aria-valuemax=100 style="width:@(PostedCourseCount+"%")">
+                                        <span class="sr-only">@PostedCourseCount% complete (success)</span>
                                     </div>
                                 </div>
                             </div>
@@ -81,12 +92,12 @@
                                 <h5 class="text-muted vb">Total Learners</h5>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                <h3 class="counter text-right m-t-15 text-primary">@*aModeratora*@</h3>
+                                <h3 class="counter text-right m-t-15 text-primary">@totalLearners</h3>
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-primary" role="progressbar"
-                                         aria-valuenow="30" aria-valuemin="30" aria-valuemax="100" style="width:a(moderator+" %")">
+                                         aria-valuenow="30" aria-valuemin="30" aria-valuemax="100" style="width:@(totalLearners+"%")">
                                         <span class="sr-only">10% Complete (success)</span>
                                     </div>
                                 </div>
@@ -100,7 +111,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="white-box">
-                        asdawdasM <br />
+                        @Session["uid"] <br />
                         Total Courses Offered By You
                     </div>
                 </div>

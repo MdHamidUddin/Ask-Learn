@@ -3,12 +3,62 @@
     ViewBag.Title = "CourseView";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
-
+@{
+    int coid=0;
+    int uid=0;
+    string title="";
+    string details="";
+    double price=0;
+    int upVote=0;
+    int downVote=0;
+    string dateTime="";
+    foreach (var item in Model)
+    {
+        coid = item.coid;
+        uid = item.uid;
+        title = item.title;
+        details = item.details;
+        price = item.price;
+        upVote = item.upVote;
+        downVote = item.downVote;
+        dateTime = item.dateTime.ToString();
+    }
+}
 <h2>CourseView</h2>
 <div id="wrapper">
 
     <div id="page-wrapper">
-        @*<iframe width="942" height="530" src="https://www.youtube.com/embed/1wqOkSHVCn8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>*@
-        <center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
-    </div>
+        @*<center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>*@
+        <div class="container-fluid">
+            <h1>@title</h1>
+            @if (price.Equals(0))
+            {<p style="float: left; font-size: 16px; color: green;">Free!</p>}
+            @if (price>0)
+            {<p style="float: left; font-size: 17px; color: darkorange;">Price: @price ৳</p>}
+
+            <p style="float: right; font-size:18px;">&nbsp;&nbsp;Last Update: @dateTime</p>&nbsp;
+
+            @if (downVote.Equals(0))
+            {<b><a style="float: right; font-size:22px; color:lightgray;" href="/Instructor/CourseDownvote/@coid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/000000/down.png" />@downVote</a></b>}
+
+            @if (downVote > 0)
+            {<b><a style="float: right; font-size:22px; color:red;" href="/Instructor/CourseDownvote/@coid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/fa314a/down.png" />@downVote</a></b>}
+
+            @if (upVote.Equals(0))
+            {<a style="float: right; font-size: 22px; color: gray;" href="/Instructor/CourseUpvote/@coid"><img src="https://img.icons8.com/dotty/25/000000/up.png" />@upVote</a>}
+
+            @if (upVote > 0)
+            {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@coid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@upVote</a></b>}
+
+            <br /><br />
+            <h3>@details</h3>
+            @foreach (var item in Model)
+            {
+        <center><img src="@item.image" /></center> <br /><br />
+                <center><iframe width="600" height="337" src="https://youtube.com/embed/@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+                @*@item.videoLink <br />*@
+                @item.docs
+            }
+        </div>
+        </div>
     </div>
