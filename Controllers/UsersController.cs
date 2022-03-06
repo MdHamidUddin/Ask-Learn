@@ -94,6 +94,7 @@ namespace AskNLearn.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
+            Session.RemoveAll();
             FormsAuthentication.SignOut();
             //FormsAuthentication.RedirectToLoginPage();
             return RedirectToAction("Login", "Users");

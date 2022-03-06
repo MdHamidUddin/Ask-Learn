@@ -1,14 +1,14 @@
-﻿@*@model List<AskNLearn.Models.Instructor.CourseModel>*@
-
+﻿
 @{
     ViewBag.Title = "CourseList";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
 
+<h2>CourseList</h2>
+
 <div id="wrapper">
 
     <div id="page-wrapper">
-        <h2>CourseList</h2>
         <div class="container-fluid">
             <h2>Posted Courses</h2>
 
@@ -20,6 +20,7 @@
                         <th><center>Price(৳)</center></th>
                         <th><center>Upvote</center></th>
                         <th><center>Downvote</center></th>
+                        <th><center>Updated At</center></th>
                         <th><center>Action</center></th>
                     </tr>
                 </thead>
@@ -27,22 +28,23 @@
                 <tbody>
 
                     @foreach (var item in Model)
-                    { 
-                        <tr>
-                            <td>@item.coid</td>
-                            <td>@item.title</td>
-                            <td>@item.price ৳</td>
-                            <td>@item.upVote</td>
-                            <td>@item.downVote</td>
-                            <td>
-                                <a href="/Instructor/UpdateCourse/@item.coid"><img src="https://img.icons8.com/material-rounded/24/000000/edit--v1.png" /></a>&nbsp;
-                                <a href="/Product/DeleteCourse/@item.coid"><img src="https://img.icons8.com/material-outlined/24/000000/filled-trash.png" /></a>&nbsp;&nbsp;
-                            </td>
-                        </tr>
-
+                    {
+                    <tr onclick="window.location='/Instructor/CourseView/@item.coid';">
+                        <td>@item.coid</td>
+                        <td>@item.title</td>
+                        <td>@item.price ৳</td>
+                        <td>@item.upVote</td>
+                        <td>@item.downVote</td>
+                        <td>@item.dateTime</td>
+                        <td>
+                            <a href="/Instructor/CourseView/@item.coid"><img src="https://img.icons8.com/dotty/30/000000/view.png" /></a>&nbsp;
+                            <a href="/Instructor/UpdateCourse/@item.coid"><img src="https://img.icons8.com/material-rounded/24/000000/edit--v1.png" /></a>&nbsp;
+                            <a href="/Product/DeleteCourse/@item.coid"><img src="https://img.icons8.com/material-outlined/24/000000/filled-trash.png" /></a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
         </div>
-        </div>
+    </div>
 </div>

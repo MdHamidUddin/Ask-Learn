@@ -15,7 +15,9 @@ namespace AskNLearn.Models.Instructor
         public Nullable<int> upVote { get; set; }
         public Nullable<int> downVote { get; set; }
         public System.DateTime dateTime { get; set; }
-        //public DocumentsModel Documents { get; set; }
-        //List<DocumentsModel> Documents { get; set; }
+        //public List<DocumentsModel> Documents { get; set; }
+        public string image { get; set; }
+        public string videoLink { get; set; }
+        public string docs { get; set; }
     }
 }
