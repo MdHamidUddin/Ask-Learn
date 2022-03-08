@@ -164,8 +164,9 @@ namespace AskNLearn.Controllers
         }
         public ActionResult CourseList()
         {
+            int uid = (int)Session["uid"];
             AskNLearnEntities db = new AskNLearnEntities();
-            var courses = db.Courses.ToList();
+            var courses = db.Courses.Where(value => value.uid == uid).ToList();
 
             return View(courses);
         }
