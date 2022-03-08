@@ -25,7 +25,9 @@ namespace AskNLearn.Models.Instructor
         [Required]
         public string gender { get; set; }
         public string proPic { get; set; }
+        [Required]
         public string eduInfo { get; set; }
+        [Required]
         public string currentPosition { get; set; }
         public int reputation { get; set; }
         public System.DateTime dateTime { get; set; }

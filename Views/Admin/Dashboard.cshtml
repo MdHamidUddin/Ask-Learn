@@ -8,9 +8,15 @@
 @{
     int r = 0;
     int n = 0;
-    int Instructor = 0; int Learner = 0; int Moderator = 0;
+    int Instructor = 0;
+    int Learner = 0;
+    int Moderator = 0;
     int day = 0;
     string date="";
+    int Date=0;
+    double ins = 0;
+    double learner = 0;
+    double moderator = 0;
 
 
     if (Model != null)
@@ -19,9 +25,8 @@
 
         foreach (var user in Model)
         {
-            System.TimeSpan diff = DateTime.Now.Date.Subtract(user.dateTime);
+            System.TimeSpan diff = DateTime.Now.Date.Subtract(user.dateTime.Date);
             day = (int)diff.Days;
-            day = day / 365;
             date = user.dateTime.ToString();
             if(day<=7)
             {
@@ -47,69 +52,78 @@
     }
 
     int TotalUser = Instructor + Learner + Moderator;
+    if(TotalUser>=1)
+    {
+        ins = ((double)Instructor / (double)TotalUser) * 100;
+        learner = ((double)Learner / (double)TotalUser) * 100;
+        moderator = ((double)Moderator / (double)TotalUser) * 100;
+    }
 
-    double ins = ((double)Instructor / (double)TotalUser) * 100;
-    double learner = ((double)Learner / (double)TotalUser) * 100;
-    double moderator = ((double)Moderator / (double)TotalUser) * 100;
+
 
     /// Finding 3 largest number from User Info database
     ///
-    int large1 = Model[0].reputation;
+    int large1 = 0;
     int large2 = 0;
     int large3 = 0;
     int totalReputation = 0;
-    int uid1 = Model[0].uid;
+    int uid1 = 0;
     int uid2 = 0;
     int uid3 = 0;
-    string uname1 = Model[0].name;
+    string uname1 = "";
     string uname2 = "";
     string uname3 = "";
-    string email1 = Model[0].email;
+    string email1 = "";
     string email2 = "";
     string email3 = "";
-    string uType1 = Model[0].userType;
+    string uType1 = "";
     string uType2 = "";
     string uType3 = "";
-    for (int i = 0; i < n; i++)
+
+    ///Sorting List For getting largest 3 reputation
+    for(int i=0;i<n;i++)
     {
-        if (Model[i].reputation > large1)
+        for(int j=0;j<n-i-1;j++)
         {
-            large3 = large2;
-            large2 = large1;
-            large1 = Model[i].reputation;
-            uid1 = Model[i].uid;
-            uname1 = Model[i].name;
-            email1 = Model[i].email;
-            uType1 = Model[i].userType;
-        }
-        else if (Model[i].reputation > large2)
-        {
-            large3 = large2;
-            large2 = Model[i].reputation;
-            uname3 = uname2;
-            uType3 = uType2;
-            email3 = email2;
-            uid2 = Model[i].uid;
-            uname2 = Model[i].name;
-            email2 = Model[i].email;
-            uType2 = Model[i].userType;
+            if(Model[j].reputation>Model[j+1].reputation)
+            {
+                int swap = Model[j].reputation;
+                Model[j].reputation = Model[j+1].reputation;
+                Model[j + 1].reputation = swap;
 
-        }
+                string name = Model[j].name;
+                Model[j].name = Model[j + 1].name;
+                Model[j + 1].name = name;
 
-        else if (Model[i].reputation > large3)
-        {
-            large3 = Model[i].reputation;
-            uid3 = Model[i].uid;
-            uname3 = Model[i].name;
-            email3 = Model[i].email;
-            uType3 = Model[i].userType;
+                string userType = Model[j].userType;
+                Model[j].userType = Model[j + 1].userType;
+                Model[j + 1].userType = userType;
+
+                string Gmail = Model[j].email;
+                Model[j].email = Model[j + 1].email;
+                Model[j + 1].email = Gmail;
+            }
         }
-        totalReputation += Model[i].reputation;
     }
-    // totalReputation = large1 + large2 + large3;
 
 
+    large1 = Model[n - 1].reputation;
+    uid1 = Model[n - 1].uid;
+    uname1 = Model[n - 1].name;
+    email1 = Model[n - 1].email;
+    uType1 = Model[n - 1].userType;
 
+    large2 = Model[n - 2].reputation;
+    uid2 = Model[n - 2].uid;
+    uname2 = Model[n - 2].name;
+    email2 = Model[n - 2].email;
+    uType2 = Model[n - 2].userType;
+
+    large3 = Model[n - 3].reputation;
+    uid3 = Model[n - 3].uid;
+    uname3 = Model[n - 3].name;
+    email3 = Model[n - 3].email;
+    uType3 = Model[n - 3].userType;
 
 }
 
@@ -133,7 +147,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">New Users</h4>
+                        <h4 class="page-title">New Users in Last 7 days</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     </div>
@@ -156,7 +170,7 @@
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-black " role="progressbar"
-                                             aria-valuenow=@(Instructor/TotalUser) aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(ins+"%")">
+                                             aria-valuenow="0" aria-valuemin="0" aria-valuemax=@TotalUser style="width:@(ins+"%")">
                                             <span class="sr-only">@(ins)% complete (success)</span>
                                         </div>
                                     </div>
@@ -214,10 +228,10 @@
                     <!-- /.col -->
                 </div>
 
-                <h1>Users Reputation : @uid1+@uid2+@uid3 </h1>
+                @*<h1>Users Reputation : @uid1+@uid2+@uid3 </h1>
                 <h1>Users Reputation : @uname1 </h1>
                 <h1>Date : @date</h1>
-                <h1>Day : @day</h1>
+                <h1>Day : @day</h1>*@
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                         <h4 class="page-title">Top Rated Users</h4>

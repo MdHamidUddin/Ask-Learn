@@ -22,7 +22,7 @@ namespace AskNLearn.Models
     
         public int coid { get; set; }
         public int uid { get; set; }
-        public int title { get; set; }
+        public string title { get; set; }
         public string details { get; set; }
         public double price { get; set; }
         public Nullable<int> upVote { get; set; }

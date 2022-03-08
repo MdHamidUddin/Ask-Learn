@@ -50,7 +50,7 @@ namespace AskNLearn.Controllers
 
                 var Data = mapper.Map<UsersLoginModel>(data);
 
-                if (Data != null && data.username.FirstOrDefault().Equals('A'))
+                if (Data != null && data.username.FirstOrDefault().Equals('A') && data.approval.Equals("active"))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
@@ -58,15 +58,16 @@ namespace AskNLearn.Controllers
                     Session["userType"] = "Admin";
                     return RedirectToAction("../Admin/Dashboard");
                 }
-                else if (Data != null && data.username.FirstOrDefault().Equals('I'))
+                else if (Data != null && data.username.FirstOrDefault().Equals('I') && data.approval.Equals("active"))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["name"] = data.name;
                     Session["uid"] = data.uid;
+                    Session["proPic"] = data.proPic;
                     Session["userType"] = "Instructor";
                     return RedirectToAction("../Instructor/Dashboard");
                 }
-                else if (Data != null && data.username.FirstOrDefault().Equals('M'))
+                else if (Data != null && data.username.FirstOrDefault().Equals('M') && data.approval.Equals("active"))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
@@ -74,7 +75,7 @@ namespace AskNLearn.Controllers
                     Session["userType"] = "Moderator";
                     return RedirectToAction("../gg/Dashboard");
                 }
-                else if (Data != null && data.username.FirstOrDefault().Equals('L'))
+                else if (Data != null && data.username.FirstOrDefault().Equals('L') && data.approval.Equals("active"))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
@@ -86,6 +87,14 @@ namespace AskNLearn.Controllers
                 {
                     ViewBag.Message = "Your Username Or Password May Be Incorrect";
                 }
+                else if (data.approval.Equals("pending"))
+                {
+                    ViewBag.Message = "Your Account Is Still Pending. Contact Admin For Approval";
+                }
+                else if (data.approval.Equals("blocked"))
+                {
+                    ViewBag.Message = "Your Are Blocked!. Contact Admin";
+                }
             }
 
             return View();
@@ -93,6 +102,7 @@ namespace AskNLearn.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
+            Session.RemoveAll();
             FormsAuthentication.SignOut();
             //FormsAuthentication.RedirectToLoginPage();
             return RedirectToAction("Login", "Users");
