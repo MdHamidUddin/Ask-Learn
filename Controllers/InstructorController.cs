@@ -114,13 +114,20 @@ namespace AskNLearn.Controllers
                 db.SaveChanges();
             return RedirectToAction("Profile", "Instructor");
         }
+        [HttpGet]
         public ActionResult AddCourse()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddCourse(CourseModel c)
         {
             const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
             const string replacement = "https://www.youtube.com/embed/$1";
+            var rgx = new Regex(pattern);
+            var input = "https://www.youtube.com/watch?v=8367ETnagHo";
+            var result = rgx.Replace(input, replacement);
 
-            //var rgx = new Regex(pattern);
-            //var result = rgx.Replace(input, replacement);
             return View();
         }
         public ActionResult CourseView(int id) 
