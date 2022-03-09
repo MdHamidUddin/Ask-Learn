@@ -12,16 +12,53 @@ namespace AskNLearn.Controllers
         AskNLearnEntities dbObj = new AskNLearnEntities();
         public ActionResult Index()
         {
+            int L1 = 0;
+            int L2 = 0;
+            int L3 = 0;
+            int L4 = 0;
+            int L5 = 0;
+
             var users = dbObj.Users.ToList();
 
             var EnrolledUser = dbObj.EnrolledUsers.ToList();
-            for(int i=0;i<5;i++)
+           
+            if(EnrolledUser.Count()<1)
             {
-                int L1 = EnrolledUser[0].uid;
-                int L2 = EnrolledUser[1].uid;
-                int L3 = EnrolledUser[2].uid;
-                int L4 = EnrolledUser[3].uid;
-                int L5= EnrolledUser[4].uid;
+                
+            }
+           else if (EnrolledUser.Count() < 2)
+            {
+                L1 = EnrolledUser[0].uid;
+            }
+            else if (EnrolledUser.Count() < 3)
+            {
+                L1 = EnrolledUser[0].uid;
+                L2 = EnrolledUser[1].uid;
+
+            }
+            else if (EnrolledUser.Count() < 4)
+            {
+                L1 = EnrolledUser[0].uid;
+                L2 = EnrolledUser[1].uid;
+                L3 = EnrolledUser[2].uid;
+
+            }
+            else if (EnrolledUser.Count() < 5)
+            {
+                L1 = EnrolledUser[0].uid;
+                L2 = EnrolledUser[1].uid;
+                L3 = EnrolledUser[2].uid;
+                L4 = EnrolledUser[3].uid;
+            }
+            else if (EnrolledUser.Count() < 6)
+            {
+                L1 = EnrolledUser[0].uid;
+                L2 = EnrolledUser[1].uid;
+                L3 = EnrolledUser[2].uid;
+                L4 = EnrolledUser[3].uid;
+                L5 = EnrolledUser[4].uid;
+            }
+            
 
                 ViewBag.L1 = L1;
                 ViewBag.L2 = L2;
@@ -29,14 +66,6 @@ namespace AskNLearn.Controllers
                 ViewBag.L4 = L4;
                 ViewBag.L5 = L5;
 
-            }
-
-            foreach(var l in EnrolledUser)
-            {
-                int L1 = l.uid;
-            }
-
-            ViewBag.EnrollUser = EnrolledUser;
             return View(users);
         }
 
