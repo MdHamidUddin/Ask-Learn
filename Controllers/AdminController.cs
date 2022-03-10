@@ -342,6 +342,55 @@ namespace AskNLearn.Controllers
             return View(ip);
         }
 
+        [HttpGet]
+        public ActionResult UserDetails(int uid)
+        {
+
+            ProfileUpdateModel ip = new ProfileUpdateModel();
+
+            var user = (from u in dbObj.Users
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                        select new
+                        {
+                            u.uid,
+                            u.name,
+                            u.username,
+                            u.email,
+                            u.password,
+                            u.dob,
+                            u.gender,
+                            u.userType,
+                            u.proPic,
+                            u.dateTime,
+                            ui.eduInfo,
+                            ui.reputation,
+                            ui.currentPosition
+                        }).ToList();
+
+
+            foreach (var item in user)
+            {
+                if (item.uid.Equals(uid))
+                {
+                    ip.uid = item.uid;
+                    ip.name = item.name;
+                    ip.username = item.username;
+                    ip.email = item.email;
+                    ip.password = item.password;
+                    ip.dob = item.dob;
+                    ip.gender = item.gender;
+                    ip.proPic = item.proPic;
+                    ip.dateTime = item.dateTime;
+                    ip.eduInfo = item.eduInfo;
+                    ip.reputation = item.reputation;
+                    ip.currentPosition = item.currentPosition;
+                    ip.userType = item.userType;
+                }
+
+            }
+            return View(ip);
+        }
+
         [HttpPost]
         public ActionResult EditUser(ProfileUpdateModel profile)
         {
@@ -400,8 +449,22 @@ namespace AskNLearn.Controllers
         {
             var u = dbObj.Users.Where(x => x.uid.Equals(uid)).FirstOrDefault();
             var ui = dbObj.UsersInfoes.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var co = dbObj.Courses.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+            var eu=dbObj.EnrolledUsers.Where(x => x.uid.Equals(uid)).FirstOrDefault();
+
+            if(co!=null)
+            {
+                dbObj.Courses.Remove(co);
+                dbObj.SaveChanges();
+            }
+            if(eu!=null)
+            {
+                dbObj.EnrolledUsers.Remove(eu);
+                dbObj.SaveChanges();
+            }
             dbObj.UsersInfoes.Remove(ui);
             dbObj.SaveChanges();
+
             dbObj.Users.Remove(u);
             dbObj.SaveChanges();
             return RedirectToAction("UserList");

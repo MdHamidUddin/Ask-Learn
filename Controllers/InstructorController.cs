@@ -19,81 +19,120 @@ namespace AskNLearn.Controllers
         // GET: Instructor
         public ActionResult Dashboard()
         {
-            AskNLearnEntities db = new AskNLearnEntities();
-            InsDashModel model = new InsDashModel();
-            var data = db.Users.ToList();
-            var course = db.Courses.ToList();
-            foreach (var item in course)
+            if (Session["userType"].Equals("Instructor"))
             {
-                if (item.uid.Equals(Session["uid"]))
+                AskNLearnEntities db = new AskNLearnEntities();
+                InsDashModel model = new InsDashModel();
+                var data = db.Users.ToList();
+                var course = db.Courses.ToList();
+                foreach (var item in course)
                 {
-                    model.PostedCourseCount++;
+                    if (item.uid.Equals(Session["uid"]))
+                    {
+                        model.PostedCourseCount++;
+                    }
                 }
+                foreach (var item in data)
+                {
+                    if (item.userType.Equals("Learner"))
+                    {
+                        model.LernerCount++;
+                    }
+                }
+                return View(model);
             }
-            foreach (var item in data)
+            else
             {
-                if (item.userType.Equals("Learner"))
-                {
-                    model.LernerCount++;
-                }
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
             }
-            return View(model);
         }
         [HttpGet]
         public ActionResult Profile()
         {
-            AskNLearnEntities dbObj = new AskNLearnEntities();
-            InstructorProfile ip = new InstructorProfile();
-            if (Session["uid"] != null)
+            if (Session["userType"].Equals("Instructor"))
             {
-            //var uid = (int)Session["uid"];
-            var user = (from u in dbObj.Users
-                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid
-                        select new { u.uid, u.name, u.username, u.email, u.password, u.dob, u.gender, u.proPic, u.dateTime,
-                            ui.eduInfo, ui.reputation, ui.currentPosition}).ToList();
-            foreach (var item in user)
-            {
-                    if (item.uid.Equals(Session["uid"]))
+                AskNLearnEntities dbObj = new AskNLearnEntities();
+                InstructorProfile ip = new InstructorProfile();
+                if (Session["uid"] != null)
+                {
+                    //var uid = (int)Session["uid"];
+                    var user = (from u in dbObj.Users
+                                join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                                select new
+                                {
+                                    u.uid,
+                                    u.name,
+                                    u.username,
+                                    u.email,
+                                    u.password,
+                                    u.dob,
+                                    u.gender,
+                                    u.proPic,
+                                    u.dateTime,
+                                    ui.eduInfo,
+                                    ui.reputation,
+                                    ui.currentPosition
+                                }).ToList();
+                    foreach (var item in user)
                     {
-                        ip.uid = item.uid;
-                        ip.name = item.name;
-                        ip.username = item.username;
-                        ip.email = item.email;
-                        ip.password = item.password;
-                        ip.dob = item.dob;
-                        ip.gender = item.gender;
-                        ip.proPic = item.proPic;
-                        ip.dateTime = item.dateTime;
-                        ip.eduInfo = item.eduInfo;
-                        ip.reputation = item.reputation;
-                        ip.currentPosition = item.currentPosition;
+                        if (item.uid.Equals(Session["uid"]))
+                        {
+                            ip.uid = item.uid;
+                            ip.name = item.name;
+                            ip.username = item.username;
+                            ip.email = item.email;
+                            ip.password = item.password;
+                            ip.dob = item.dob;
+                            ip.gender = item.gender;
+                            ip.proPic = item.proPic;
+                            ip.dateTime = item.dateTime;
+                            ip.eduInfo = item.eduInfo;
+                            ip.reputation = item.reputation;
+                            ip.currentPosition = item.currentPosition;
+                        }
                     }
+                }
+                return View(ip);
             }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
             }
-            return View(ip);
         }
         [HttpPost]
         public ActionResult Profile(InstructorProfile profile)
         {
-            if (ModelState.IsValid)
+            if (Session["userType"].Equals("Instructor"))
             {
-                AskNLearnEntities db = new AskNLearnEntities();
-                var obj = db.Users.Where(value => value.uid == profile.uid).First();
-                obj.name= profile.name;
-                obj.username = profile.username;
-                obj.email = profile.email;
-                obj.password = profile.password;
-                obj.dob = profile.dob;
-                obj.gender = profile.gender;
-                db.Entry(obj).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Profile");
+                if (ModelState.IsValid)
+                {
+                    AskNLearnEntities db = new AskNLearnEntities();
+                    var obj = db.Users.Where(value => value.uid == profile.uid).First();
+                    obj.name = profile.name;
+                    obj.username = profile.username;
+                    obj.email = profile.email;
+                    obj.password = profile.password;
+                    obj.dob = profile.dob;
+                    obj.gender = profile.gender;
+                    db.Entry(obj).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Profile");
+                }
+                return View(profile);
             }
-            return View(profile);
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
         }
         [HttpPost]
         public ActionResult UpdateProPic(InstructorProfile profile)
         {
+            if (Session["userType"].Equals("Instructor"))
+            {
                 if (profile.ImageFile != null)
                 {
                     string fileName = Path.GetFileNameWithoutExtension(profile.ImageFile.FileName);
@@ -112,70 +151,108 @@ namespace AskNLearn.Controllers
                 obj.proPic = profile.proPic;
                 db.Entry(obj).State = EntityState.Modified;
                 db.SaveChanges();
-            return RedirectToAction("Profile", "Instructor");
+                return RedirectToAction("Profile", "Instructor");
+            }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
         }
         [HttpGet]
         public ActionResult AddCourse()
         {
-            return View();
+            if (Session["userType"].Equals("Instructor"))
+            {
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
         }
         [HttpPost]
         public ActionResult AddCourse(CourseModel c)
         {
-            const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
-            const string replacement = "https://www.youtube.com/embed/$1";
-            var rgx = new Regex(pattern);
-            var input = "https://www.youtube.com/watch?v=8367ETnagHo";
-            var result = rgx.Replace(input, replacement);
-
-            return View();
-        }
-        public ActionResult CourseView(int id) 
-        {
-            AskNLearnEntities db = new AskNLearnEntities();
-            List<CourseModel> courseModel = new List<CourseModel>();
-            var course = (from c in db.Courses
-                          join d in db.Documents on c.coid equals d.coid
-                          where c.coid == id
-                          select new
-                          {
-                              c.coid,
-                              c.uid,
-                              c.title,
-                              c.details,
-                              c.price,
-                              c.upVote,
-                              c.downVote,
-                              c.dateTime,
-                              d.image,
-                              d.videoLink,
-                              d.docs
-                          }).ToList();
-            foreach (var item in course)
+            if (Session["userType"].Equals("Instructor"))
             {
-                CourseModel cm = new CourseModel();
-                cm.coid = item.coid;
-                cm.uid = item.uid;
-                cm.title = item.title;
-                cm.details = item.details;
-                cm.price = item.price;
-                cm.upVote = item.upVote;
-                cm.downVote = item.downVote;
-                cm.dateTime = item.dateTime;
-                cm.image = item.image;
-                cm.videoLink = item.videoLink;
-                cm.docs = item.docs;
-                courseModel.Add(cm);
+                const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
+                const string replacement = "https://www.youtube.com/embed/$1";
+                var rgx = new Regex(pattern);
+                var input = "https://www.youtube.com/watch?v=8367ETnagHo";
+                var result = rgx.Replace(input, replacement);
+
+                return View();
             }
-            return View(courseModel);
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
+        }
+        public ActionResult CourseView(int id)
+        {
+            if (Session["userType"].Equals("Instructor"))
+            {
+                AskNLearnEntities db = new AskNLearnEntities();
+                List<CourseModel> courseModel = new List<CourseModel>();
+                var course = (from c in db.Courses
+                              join d in db.Documents on c.coid equals d.coid
+                              where c.coid == id
+                              select new
+                              {
+                                  c.coid,
+                                  c.uid,
+                                  c.title,
+                                  c.details,
+                                  c.price,
+                                  c.upVote,
+                                  c.downVote,
+                                  c.dateTime,
+                                  d.image,
+                                  d.videoLink,
+                                  d.docs
+                              }).ToList();
+                foreach (var item in course)
+                {
+                    CourseModel cm = new CourseModel();
+                    cm.coid = item.coid;
+                    cm.uid = item.uid;
+                    cm.title = item.title;
+                    cm.details = item.details;
+                    cm.price = item.price;
+                    cm.upVote = item.upVote;
+                    cm.downVote = item.downVote;
+                    cm.dateTime = item.dateTime;
+                    cm.image = item.image;
+                    cm.videoLink = item.videoLink;
+                    cm.docs = item.docs;
+                    courseModel.Add(cm);
+                }
+                return View(courseModel);
+            }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
         }
         public ActionResult CourseList()
         {
-            int uid = (int)Session["uid"];
-            AskNLearnEntities db = new AskNLearnEntities();
-            var courses = db.Courses.Where(value => value.uid == uid).ToList();
+            if (Session["userType"].Equals("Instructor"))
+            {
+                int uid = (int)Session["uid"];
+                AskNLearnEntities db = new AskNLearnEntities();
+                var courses = db.Courses.Where(value => value.uid == uid).ToList();
 
-            return View(courses);
+                return View(courses);
+            }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+            }
         }
 
     }

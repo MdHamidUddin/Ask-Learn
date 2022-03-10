@@ -14,6 +14,9 @@ namespace AskNLearn.Models.Entity
         public string name { get; set; }
         [Required]
         public string username { get; set; }
+
+        public string userType { get; set; }
+
         [Required]
         [EmailAddress]
         public string email { get; set; }
