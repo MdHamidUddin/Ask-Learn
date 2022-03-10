@@ -1,4 +1,5 @@
 ﻿using AskNLearn.Models;
+using AskNLearn.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,6 +66,24 @@ namespace AskNLearn.Controllers
                 ViewBag.L3 = L3;
                 ViewBag.L4 = L4;
                 ViewBag.L5 = L5;
+
+
+            var Courses = dbObj.Courses.ToList();
+            List<CoursesModel> CourseList = new List<CoursesModel>();
+            foreach(var course in Courses)
+            {
+                CoursesModel obj = new CoursesModel();
+                obj.coid = course.coid;
+                obj.uid = course.uid;
+                obj.title = course.title;
+                obj.details = course.details;
+                obj.price = course.price;
+                obj.upVote = course.upVote;
+                obj.downVote = course.downVote;
+                obj.dateTime = course.dateTime;
+                CourseList.Add(obj);
+            }
+            ViewBag.CourseList = CourseList;
 
             return View(users);
         }
