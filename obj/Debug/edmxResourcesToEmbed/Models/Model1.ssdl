@@ -18,10 +18,9 @@
     </Key>
     <Property Name="coid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="uid" Type="int" Nullable="false" />
-    <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="details" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="price" Type="float" Nullable="false" />
-    <Property Name="thumbnail" Type="varchar" MaxLength="500" />
     <Property Name="upVote" Type="int" />
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
@@ -71,16 +70,6 @@
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="uid" />
@@ -93,7 +82,7 @@
     <Property Name="dob" Type="date" Nullable="false" />
     <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="userType" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="proPic" Type="varchar" MaxLength="50" />
+    <Property Name="proPic" Type="varchar" MaxLength="500" />
     <Property Name="approval" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -222,7 +211,6 @@
     <EntitySet Name="EnrolledUser" EntityType="Self.EnrolledUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersInfo" EntityType="Self.UsersInfo" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
