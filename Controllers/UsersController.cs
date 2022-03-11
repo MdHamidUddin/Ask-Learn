@@ -50,12 +50,13 @@ namespace AskNLearn.Controllers
 
                 var Data = mapper.Map<UsersLoginModel>(data);
 
-                if (Data != null && data.username.FirstOrDefault().Equals('A') && data.approval.Equals("active"))
+                if (data != null && data.username.FirstOrDefault().Equals('A') && data.approval.Equals("active"))
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["name"] = data.name;
                     Session["userType"] = "Admin";
+                    Session["adminProfilePic"] = data.proPic;
                     return RedirectToAction("../Admin/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('I') && data.approval.Equals("active"))
@@ -71,9 +72,10 @@ namespace AskNLearn.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
-                    Session["uid"] = data.uid;
+                    Session["name"] = data.name;
                     Session["userType"] = "Moderator";
-                    return RedirectToAction("../gg/Dashboard");
+                    Session["adminProfilePic"] = data.proPic;
+                    return RedirectToAction("../Moderator/Dashboard");
                 }
                 else if (Data != null && data.username.FirstOrDefault().Equals('L') && data.approval.Equals("active"))
                 {
@@ -97,6 +99,42 @@ namespace AskNLearn.Controllers
                 }
             }
 
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Signup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Signup(SignUpModel Model)
+        {
+            User user = new User();
+            UsersInfo userInfo = new UsersInfo();
+            DateTime time = DateTime.Now;
+            if(ModelState.IsValid)
+            {
+                user.name = Model.name;
+                user.username = Model.username;
+                user.email = Model.email;
+                user.password = Model.password;
+                user.dob = Model.dob;
+                user.gender = Model.gender;
+                user.userType = Model.userType;
+                user.approval = "pending";
+                user.dateTime = time;
+                dbObj.Users.Add(user);
+                dbObj.SaveChanges();
+
+                userInfo.uid = user.uid;
+                userInfo.eduInfo = Model.eduInfo;
+                userInfo.currentPosition = Model.currentPosition;
+                userInfo.reputation = 0;
+                dbObj.UsersInfoes.Add(userInfo);
+                dbObj.SaveChanges();
+                return RedirectToAction("Login");
+            }
             return View();
         }
         public ActionResult Logout()

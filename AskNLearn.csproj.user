@@ -15,11 +15,8 @@
     <WebStackScaffolding_IsLayoutPageSelected>True</WebStackScaffolding_IsLayoutPageSelected>
     <WebStackScaffolding_IsPartialViewSelected>False</WebStackScaffolding_IsPartialViewSelected>
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
-<<<<<<< HEAD
     <WebStackScaffolding_LayoutPageFile>~/Views/Shared/MyLayout3.cshtml</WebStackScaffolding_LayoutPageFile>
-=======
-    <WebStackScaffolding_LayoutPageFile>~/Views/Shared/InstructorDashboard.cshtml</WebStackScaffolding_LayoutPageFile>
->>>>>>> 69ae26d922a03cf11fb6516d1635777014dbd204
+    <WebStackScaffolding_LayoutPageFile>~/Views/Shared/ModeratorLayout.cshtml</WebStackScaffolding_LayoutPageFile>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <View_SelectedScaffolderID>MvcViewScaffolder</View_SelectedScaffolderID>
     <View_SelectedScaffolderCategoryPath>root/Common/MVC/View</View_SelectedScaffolderCategoryPath>
@@ -32,7 +29,7 @@
         <WebProjectProperties>
           <StartPageUrl>
           </StartPageUrl>
-          <StartAction>CurrentPage</StartAction>
+          <StartAction>SpecificPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
           <NativeDebugging>False</NativeDebugging>

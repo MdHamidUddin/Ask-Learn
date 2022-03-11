@@ -5,9 +5,51 @@
 }
 
 <div class="jumbotron" id="wrapper" style="margin-top:20px">
-    <div id="container" style="min-width:500px; height:480px; max-width:400px; margin: 0 auto; float:inline-end">
+    <div id="container" style="min-width: 50%; height: 600px; max-width: 40%; margin-left: 26%; margin-right: 60% ">
 
     </div>
+    <div class="white-box" style="background-color:white;margin-left:26%;margin-right:24%;font-size:25px">
+       
+        <table>
+            <tr>
+                <td style="padding-right: 12px; color: darkorange; font-weight: bold">
+                    <span> Admin--> </span>
+                    <span id="admin"></span>
+                </td>
+                <td style="color:red">|</td>
+
+                <td style="padding-right: 12px; padding-left: 20px; color: #14dc14; font-weight: bold ">
+                    <span> Instructor--> </span>
+                    <span id="ins"></span>
+                </td>
+                <td style="color:red">|</td>
+
+                <td style="padding-right: 12px; padding-left: 20px; font-weight: bold ">
+                    <span> Moderator--> </span>
+                    <span id="mod"></span><br />
+                </td>
+                <td style="color:red">|</td>
+
+                <td style="padding-left: 12px; color: deepskyblue; font-weight: bold ">
+
+                    <span> Learner--> </span>
+                    <span id="learner"></span><br />
+                </td>
+            </tr>
+        </table>
+        
+        
+        
+
+       
+
+    
+
+
+
+
+    </div>
+ 
 </div>
 
 
@@ -18,20 +60,23 @@
     }
 
     $(document).ready(function () {
-        window.setInterval('refresh()', 10000);
+        window.setInterval('refresh()', 5000);
 
         $.getJSON("/Admin/ShowChart", function (data) {
-
+            document.getElementById("admin").innerHTML = data.Admin;
+            document.getElementById("ins").innerHTML = data.Instructor;
+            document.getElementById("learner").innerHTML = data.Learner;
+            document.getElementById("mod").innerHTML = data.Moderator;
 
             Highcharts.chart('container', {
                 chart: {
-                    plotBackgroundColor: "skyblue",
+                    plotBackgroundColor: "white",
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie'
                 },
                 title: {
-                    text: 'Our Systenm Users'
+                    text: '<h1>Our Systenm Users</h1>'
                 },
                 tooltip: {
                     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -58,18 +103,26 @@
 
                     data: [{
 
-                        name: 'Male',
-                        y: data.Male,
+                        name: 'Learner',
+                        y: data.Learner,
                         sliced: true,
                         selected: true
                     }, {
-                        name: 'Female',
-                        y: data.Female
+                        name: 'Moderator',
+                        y: data.Moderator
                     }, {
-                        name: 'Other',
-                        y: data.Other
+                        name: 'Instructor',
+                        y: data.Instructor
 
-                    }]
+                        }
+                        , {
+                            name: 'Admin',
+                            y: data.Admin
+
+                        }
+
+
+                    ]
                 }]
             });
         });

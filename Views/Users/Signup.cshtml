@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/SignupLayout.cshtml";
+}
+
+<h2>Signup</h2>
+
+<br />
+<br />
+<div class="container-lg col-4 border rounded" style="margin-top: 50px;">
+
+    <div class="container">
+        <br />
+        <center><h2>Sign Up</h2></center>
+        <center><label style="font-size: 13px" class="text-danger">@ViewBag.Message</label></center>
+        <form class="row g-3" action="/Users/Signup" method="Post" style="font-size: 15px">
+
+            <div class="col-12">
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="userType" value="Moderator" checked>
+                                    <label class="form-check-label" for="Moderator">Moderator</label>
+                                </div>
+                            </td>
+                            <td style="padding-left: 5px">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="userType" value="Instructor">
+                                    <label class="form-check-label" for="Instructor">Instructor</label>
+                                </div>
+                            </td>
+                            <td style="padding-left: 5px">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="userType" id="userType" value="Learner">
+                                    <label class="form-check-label" for="Learner">Learner</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <input style="font-size: 14px" type="text" class="form-control" name="name" id="name" placeholder="Your name" />
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <input style="font-size: 14px" type="email" class="form-control" name="email" id="email" placeholder="Your email" />
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <input style="font-size: 14px" type="text" class="form-control" name="eduInfo" id="eduInfo" placeholder="Educational Dgree" />
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <input style="font-size: 14px" type="text" class="form-control" name="currentPosition" id="currentPosition" placeholder="Current Status" />
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <p style="font-size: 14px">Please select your Gender:</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender" value="Male" checked>
+                    <label class="form-check-label" for="gender">
+                        Male
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="gender" id="gender" value="Female">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Female
+                    </label>
+                </div>
+            </div>
+
+            <div class="md-form md-outline input-with-post-icon datepicker">
+                <label for="date">Date of birth</label>
+                <input placeholder="Select date" type="date" id="date" class="form-control">
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <span><img src="https://img.icons8.com/external-becris-flat-becris/29/000000/external-user-business-management-becris-flat-becris.png" /></span>
+                        </span>
+                    </div>
+                    <input style="font-size: 14px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                </div>
+
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
+                        </span>
+                    </div>
+                    <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                </div>
+
+            </div>
+
+            @*<div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
+                        </span>
+                    </div>
+                    <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Confirm Password" />
+                </div>
+
+            </div>*@
+
+            <center><input style="font-size: 18px" class="col-6 btn-info btn-lg" type="submit" value="Submit" /></center><hr />
+        </form>
+    </div>
+</div>

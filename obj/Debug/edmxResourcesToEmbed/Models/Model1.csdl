@@ -23,14 +23,13 @@
     <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="price" Type="Double" Nullable="false" />
+    <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="upVote" Type="Int32" />
     <Property Name="downVote" Type="Int32" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
     <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
     <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
-    <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Document">
     <Key>
@@ -38,12 +37,9 @@
     </Key>
     <Property Name="did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="coid" Type="Int32" Nullable="false" />
-    <Property Name="imageTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="videoTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="videoLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="docTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="docs" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="docs" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_Documents_Courses" FromRole="Documents" ToRole="Courses" />
   </EntityType>
   <EntityType Name="EnrolledUser">
