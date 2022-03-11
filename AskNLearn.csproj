@@ -154,6 +154,7 @@
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
     <Compile Include="Models\Entity\UsersProfile.cs" />
     <Compile Include="Models\Instructor\CourseModel.cs" />
+    <Compile Include="Models\Instructor\CourseViewModel.cs" />
     <Compile Include="Models\Instructor\DocumentsModel.cs" />
     <Compile Include="Models\Instructor\InsDashModel.cs" />
     <Compile Include="Models\Instructor\InstructorProfile.cs" />
@@ -309,6 +310,7 @@
     <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\Homepage" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -316,7 +318,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\Homepage" />
     <None Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.min.js" />
@@ -1040,6 +1041,7 @@
     <Content Include="Views\Admin\LearnerList.cshtml" />
     <Content Include="Views\Instructor\AddCourse.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
+    <Content Include="Views\Instructor\UpdateCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

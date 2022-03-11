@@ -162,27 +162,54 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult AddCourse()
         {
-            if (Session["userType"].Equals("Instructor"))
-            {
+            //if (Session["userType"].Equals("Instructor"))
+            //{
                 return View();
-            }
-            else
-            {
-                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
-                return RedirectToAction("Login", "Users");
-            }
+            //}
+            //else
+            //{
+            //    ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+            //    return RedirectToAction("Login", "Users");
+            //}
         }
         [HttpPost]
         public ActionResult AddCourse(CourseModel c)
         {
             if (Session["userType"].Equals("Instructor"))
             {
-                const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
-                const string replacement = "https://www.youtube.com/embed/$1";
-                var rgx = new Regex(pattern);
-                var input = "https://www.youtube.com/watch?v=8367ETnagHo";
-                var result = rgx.Replace(input, replacement);
+                if (ModelState.IsValid)
+                {
+                    var uid = (int)Session["uid"];
+                        if (c.ImageFile != null)
+                        {
+                            string fileName = Path.GetFileNameWithoutExtension(c.ImageFile.FileName);
+                            string extension = Path.GetExtension(c.ImageFile.FileName);
+                            fileName = fileName + "-" + DateTime.Now.ToString("yyy-MM-d") + extension;
+                            c.thumbnail = "Content/Instructor/ProPic/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/Content/Instructor/ProPic/"), fileName);
+                            c.ImageFile.SaveAs(fileName);
+                        }
+                        else
+                        {
+                            c.thumbnail = "Content/Instructor/ProPic/noPropic.jpg";
+                        }
 
+
+                    AskNLearnEntities db = new AskNLearnEntities();
+                    Cours cours = new Cours();
+                    cours.uid = uid;
+                    cours.title = c.title;
+                    cours.details = c.details;
+                    cours.price = c.price;
+                    cours.thumbnail = c.thumbnail;
+                    cours.upVote = 1;
+                    cours.downVote = 0;
+                    cours.dateTime = DateTime.Now;
+                    db.Courses.Add(cours);
+                    db.SaveChanges();
+                    int x = cours.coid;
+                    return RedirectToAction("UpdateCourse", new { id = x });
+                }
                 return View();
             }
             else
@@ -191,12 +218,81 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
+        [HttpGet]
+        public ActionResult UpdateCourse(int id)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var check = (from d in db.Documents
+                        where d.coid.Equals(id)
+                        select d).FirstOrDefault();
+            if (check != null)
+            {
+                List<CourseViewModel> courseModel = new List<CourseViewModel>();
+                var course = (from c in db.Courses
+                              join d in db.Documents on c.coid equals d.coid
+                              where c.coid == id
+                              select new
+                              {
+                                  c.coid,
+                                  c.uid,
+                                  c.title,
+                                  c.details,
+                                  c.price,
+                                  c.upVote,
+                                  c.downVote,
+                                  c.dateTime,
+                                  c.thumbnail,
+                                  d.image,
+                                  d.videoLink,
+                                  d.docs
+                              }).ToList();
+                foreach (var item in course)
+                {
+                    CourseViewModel cm = new CourseViewModel();
+                    cm.coid = item.coid;
+                    cm.uid = item.uid;
+                    cm.title = item.title;
+                    cm.details = item.details;
+                    cm.price = item.price;
+                    cm.upVote = item.upVote;
+                    cm.downVote = item.downVote;
+                    cm.dateTime = item.dateTime;
+                    cm.thumbnail = item.thumbnail;
+                    cm.image = item.image;
+                    cm.videoLink = item.videoLink;
+                    cm.docs = item.docs;
+                    courseModel.Add(cm);
+                }
+                ViewBag.CourseDoc = courseModel;
+                return View();
+            }
+            else
+            {
+                var crs = db.Courses.Find(id);
+                ViewBag.Course = crs;
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult UpdateCourse(DocumentsModel d)
+        {
+            if (ModelState.IsValid)
+            {
+                const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
+                const string replacement = "https://www.youtube.com/embed/$1";
+                var rgx = new Regex(pattern);
+                var input = "https://www.youtube.com/watch?v=8367ETnagHo";
+                var result = rgx.Replace(input, replacement);
+                return RedirectToAction("UpdateCourse");
+            }
+            return View();
+        }
         public ActionResult CourseView(int id)
         {
             if (Session["userType"].Equals("Instructor"))
             {
                 AskNLearnEntities db = new AskNLearnEntities();
-                List<CourseModel> courseModel = new List<CourseModel>();
+                List<CourseViewModel> courseModel = new List<CourseViewModel>();
                 var course = (from c in db.Courses
                               join d in db.Documents on c.coid equals d.coid
                               where c.coid == id
@@ -216,7 +312,7 @@ namespace AskNLearn.Controllers
                               }).ToList();
                 foreach (var item in course)
                 {
-                    CourseModel cm = new CourseModel();
+                    CourseViewModel cm = new CourseViewModel();
                     cm.coid = item.coid;
                     cm.uid = item.uid;
                     cm.title = item.title;

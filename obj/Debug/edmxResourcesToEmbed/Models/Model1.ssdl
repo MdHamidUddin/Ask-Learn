@@ -24,6 +24,7 @@
     <Property Name="upVote" Type="int" />
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
+    <Property Name="thumbnail" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Documents">
     <Key>
@@ -31,9 +32,12 @@
     </Key>
     <Property Name="did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="coid" Type="int" Nullable="false" />
-    <Property Name="image" Type="varchar" MaxLength="150" />
+    <Property Name="imageTitle" Type="varchar" MaxLength="100" />
+    <Property Name="image" Type="varchar" MaxLength="500" />
+    <Property Name="videoTitle" Type="varchar" MaxLength="100" />
     <Property Name="videoLink" Type="varchar" MaxLength="500" />
-    <Property Name="docs" Type="varchar" MaxLength="150" />
+    <Property Name="docTitle" Type="varchar" MaxLength="100" />
+    <Property Name="docs" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="EnrolledUser">
     <Key>

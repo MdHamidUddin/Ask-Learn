@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,15 +10,14 @@ namespace AskNLearn.Models.Instructor
     {
         public int coid { get; set; }
         public int uid { get; set; }
+        [Required]
         public string title { get; set; }
+        [Required]
         public string details { get; set; }
+        [Required]
         public double price { get; set; }
-        public Nullable<int> upVote { get; set; }
-        public Nullable<int> downVote { get; set; }
-        public System.DateTime dateTime { get; set; }
-        //public List<DocumentsModel> Documents { get; set; }
-        public string image { get; set; }
-        public string videoLink { get; set; }
-        public string docs { get; set; }
+        public string thumbnail { get; set; }
+        [Required]
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }
