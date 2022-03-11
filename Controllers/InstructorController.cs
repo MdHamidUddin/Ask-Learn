@@ -242,8 +242,11 @@ namespace AskNLearn.Controllers
                                   c.downVote,
                                   c.dateTime,
                                   c.thumbnail,
+                                  d.imageTitle,
                                   d.image,
+                                  d.videoTitle,
                                   d.videoLink,
+                                  d.docTitle,
                                   d.docs
                               }).ToList();
                 foreach (var item in course)
@@ -258,8 +261,11 @@ namespace AskNLearn.Controllers
                     cm.downVote = item.downVote;
                     cm.dateTime = item.dateTime;
                     cm.thumbnail = item.thumbnail;
+                    cm.imageTitle = item.imageTitle;
                     cm.image = item.image;
+                    cm.videoTitle = item.videoTitle;
                     cm.videoLink = item.videoLink;
+                    cm.docTitle = item.docTitle;
                     cm.docs = item.docs;
                     courseModel.Add(cm);
                 }
@@ -276,16 +282,61 @@ namespace AskNLearn.Controllers
         [HttpPost]
         public ActionResult UpdateCourse(DocumentsModel d)
         {
+            int x = d.coid;
+            var videoLink = "";
             if (ModelState.IsValid)
             {
-                const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
-                const string replacement = "https://www.youtube.com/embed/$1";
-                var rgx = new Regex(pattern);
-                var input = "https://www.youtube.com/watch?v=8367ETnagHo";
-                var result = rgx.Replace(input, replacement);
-                return RedirectToAction("UpdateCourse");
+                if (d.videoLink!=null)
+                {
+                    const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
+                    const string replacement = "https://www.youtube.com/embed/$1";
+                    var rgx = new Regex(pattern);
+                    videoLink = rgx.Replace(d.videoLink, replacement);
+                }
+                //For image Upload
+                if (d.ImageFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(d.ImageFile.FileName);
+                    string extension = Path.GetExtension(d.ImageFile.FileName);
+                    fileName = d.imageTitle+ "-" + DateTime.Now.ToString("yyy-MM-d") + extension;
+                    d.image = "Content/Instructor/Courses/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Content/Instructor/Courses/Images/"), fileName);
+                    d.ImageFile.SaveAs(fileName);
+                }
+                else
+                {
+                    d.image = "Content/Instructor/Courses/Images/noPropic.jpg";
+                }
+                //For Documents Upload
+                if (d.DocFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(d.DocFile.FileName);
+                    string extension = Path.GetExtension(d.DocFile.FileName);
+                    fileName = d.docTitle + "-" + DateTime.Now.ToString("yyyyMMddHHmmssffff") + extension;
+                    d.docs = "Content/Instructor/Courses/Documents/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Content/Instructor/Courses/Documents/"), fileName);
+                    d.DocFile.SaveAs(fileName);
+                }
+                else
+                {
+                    d.docs = "Content/Instructor/Courses/Documents/noPropic.jpg";
+                }
+
+
+                AskNLearnEntities db = new AskNLearnEntities();
+                Document doc = new Document();
+                doc.coid = d.coid;
+                doc.videoTitle = d.videoTitle;
+                doc.videoLink = videoLink;
+                doc.imageTitle = d.imageTitle;
+                doc.image = d.image;
+                doc.docTitle = d.docTitle;
+                doc.docs = d.docs;
+                db.Documents.Add(doc);
+                db.SaveChanges();
+                return RedirectToAction("UpdateCourse", new { id = x });
             }
-            return View();
+            return RedirectToAction("UpdateCourse", new { id = x });
         }
         public ActionResult CourseView(int id)
         {
@@ -306,8 +357,11 @@ namespace AskNLearn.Controllers
                                   c.upVote,
                                   c.downVote,
                                   c.dateTime,
+                                  d.imageTitle,
                                   d.image,
+                                  d.videoTitle,
                                   d.videoLink,
+                                  d.docTitle,
                                   d.docs
                               }).ToList();
                 foreach (var item in course)
@@ -321,8 +375,11 @@ namespace AskNLearn.Controllers
                     cm.upVote = item.upVote;
                     cm.downVote = item.downVote;
                     cm.dateTime = item.dateTime;
+                    cm.imageTitle = item.imageTitle;
                     cm.image = item.image;
+                    cm.videoTitle = item.videoTitle;
                     cm.videoLink = item.videoLink;
+                    cm.docTitle = item.docTitle;
                     cm.docs = item.docs;
                     courseModel.Add(cm);
                 }
@@ -349,6 +406,29 @@ namespace AskNLearn.Controllers
                 ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
                 return RedirectToAction("Login", "Users");
             }
+        }
+
+        public ActionResult DeleteCourse(int id)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var course = db.Courses.Find(id);
+            var documents = db.Documents.Where(value => value.coid == id).ToList();
+                foreach (var item in documents)
+                {
+                    db.Documents.Remove(item);
+                    db.SaveChanges();
+                }
+            
+                db.Courses.Remove(course);
+                db.SaveChanges();
+            
+            return RedirectToAction("CourseList");
+        }
+
+        public ActionResult PdfPreview(string doc)
+        {
+            string path = Path.Combine(Server.MapPath("~/"), doc);
+            return File(path, "application/pdf");
         }
 
     }

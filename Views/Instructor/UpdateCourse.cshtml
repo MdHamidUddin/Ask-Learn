@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
 @{
+    int i = 0;
     int coid = 0;
     int uid = 0;
     string title = "";
@@ -51,7 +52,6 @@
 <div id="wrapper">
 
     <div id="page-wrapper">
-        @*<center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>*@
         <div class="container-fluid">
             <div class="col-md-6 col-xs-12">
                 <div class="white-box">
@@ -93,7 +93,7 @@
                             <div class="col-md-12">
                                 <div class="overlay-box">
                                     <div class="">
-                                        <img src="~/@thumbnail" width="350" height="240">
+                                        <img style="max-height: 500px; object-fit: cover;" src="~/@thumbnail" width="350">
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +105,8 @@
 
             <div class="col-md-6 col-xs-12">
                 <div class="white-box">
-                    <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal form-material" action="/Instructor/UpdateCourse" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="coid" value="@coid" />
                         <div class="form-group">
                             <label for="videoTitle" class="col-md-12">Video Title</label>
                             <div class="col-md-12">
@@ -166,42 +167,76 @@
             <div class="col-md-6">
                 <div class="white-box">
                     <div class="form-horizontal form-material">
-                        <h2>Videos</h2>
-                        @if (dataL != null)
-                        {
-                            foreach (var item in dataL)
+                        <h2 style="color:red">Videos</h2>
+                        <div style="height: 600px; overflow: auto; ">
+                            @if (dataL != null)
                             {
-                                @*<img src="@item.image" width="500" height="300" /> <br /><br />*@
-                                @*<p>@item.videoTitle</p>*@
-                                <iframe width="500" height="300" src="https://youtube.com/embed/@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                @*@item.videoLink <br />*@
-                                @item.docs
+                                foreach (var item in dataL)
+                                {
+                                    i++;
+                                    <h4>@i. @item.videoTitle</h4>
+                                    <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                }
+                                i = 0;
                             }
-                        }
-                        else
-                        {
-                            <p>No Video Is Uploaded Yet!</p>
-                        }
+                            else
+                            {
+                                <p style="color:peru">No Video Is Uploaded Yet!</p>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="white-box">
                     <div class="form-horizontal form-material">
-                        <h2>Documents</h2>
-                        @if (dataL != null)
-                        {
-                            foreach (var item in dataL)
+                        <h2 style="color:green">Images</h2>
+                        <div style="height: 600px; overflow: auto; ">
+                            @if (dataL != null)
                             {
-                                @*<img src="@item.image" width="500" height="300" /> <br /><br />*@
-                                <iframe width="500" height="300" src="https://youtube.com/embed/@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                
+                                foreach (var item in dataL)
+                                {
+                                    i++;
+                                    <h4>@i. @item.imageTitle</h4>
+                                    <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+
+                                }
+                                i = 0;
                             }
-                        }
-            else
-            {
-                <p>No Document Is Uploaded Yet!</p>
-            }
+                            else
+                            {
+                                <p style="color:peru">No Images Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+
+                        <h2 style="color: goldenrod">Documents</h2>
+                        <p style="color: darkcyan">Click To Open</p>
+                        <div style="height: 300px; overflow: auto; ">
+
+
+                            @if (dataL != null)
+                            {
+                                foreach (var item in dataL)
+                                {
+                                    i++;
+                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Documents Is Uploaded Yet!</p>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
