@@ -18,6 +18,7 @@ namespace AskNLearn.Models
         {
             this.Documents = new HashSet<Document>();
             this.EnrolledUsers = new HashSet<EnrolledUser>();
+            this.Quizes = new HashSet<Quize>();
         }
     
         public int coid { get; set; }
@@ -33,5 +34,6 @@ namespace AskNLearn.Models
         public virtual User User { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<EnrolledUser> EnrolledUsers { get; set; }
+        public virtual ICollection<Quize> Quizes { get; set; }
     }
 }
