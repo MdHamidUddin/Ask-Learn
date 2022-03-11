@@ -283,12 +283,16 @@ namespace AskNLearn.Controllers
         public ActionResult UpdateCourse(DocumentsModel d)
         {
             int x = d.coid;
+            var videoLink = "";
             if (ModelState.IsValid)
             {
-                const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
-                const string replacement = "https://www.youtube.com/embed/$1";
-                var rgx = new Regex(pattern);
-                var videoLink = rgx.Replace(d.videoLink, replacement);
+                if (d.videoLink!=null)
+                {
+                    const string pattern = @"(?:https?:\/\/)?(?:www\.)?(?:(?:(?:youtube.com\/watch\?[^?]*v=|youtu.be\/)([\w\-]+))(?:[^\s?]+)?)";
+                    const string replacement = "https://www.youtube.com/embed/$1";
+                    var rgx = new Regex(pattern);
+                    videoLink = rgx.Replace(d.videoLink, replacement);
+                }
                 //For image Upload
                 if (d.ImageFile != null)
                 {

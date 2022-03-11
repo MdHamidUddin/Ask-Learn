@@ -52,11 +52,12 @@
                    href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
                     <i class="fa fa-bars"></i>
                 </a>
+
                 <div class="top-left-part">
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="../Home/Index">
                         <b>
                             <img src="../../Theme/plugins/images/pixeladmin-logo.png" alt="home" />
-                        </b><span class="hidden-xs"><img src="../../Theme/plugins/images/pixeladmin-text.png" alt="home" /></span>
+                        </b><span class="hidden-xs">ASK AND LEARN</span>
                     </a>
                 </div>
                 <ul class="nav navbar-top-links navbar-left m-l-20 hidden-xs">
@@ -70,13 +71,14 @@
                 </ul>
                 <ul class="nav navbar-top-links navbar-right pull-right">
                     <li>
-                        <a class="profile-pic" href="#">
-                            <img src="../../Theme/plugins/images/users/varun.jpg" alt="user-img"
-                                 width="36" class="img-circle"><b class="hidden-xs">Steave</b>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                        <a class="profile-pic" href="/Admin/Dashboard">
+                            <img src="~/Content/@Session["adminProfilePic"]" alt="user-img"
+                                 width="36" class="img-circle"><b class="hidden-xs">@Session["name"]</b>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
 
         </nav>
     </div>
@@ -85,57 +87,75 @@
         <div class="navbar-default sidebar" role="navigation" style="position: fixed;">
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
-                    <li style="padding: 10px 0 0;">
-                      
-                        @Html.ActionLink("Dashboard", "Dashboard", "Dashboard", new { @class = "waves-effect"  },  new { @class = "fa fa-clock-o fa-fw" })
-                    </li>
-
+                   
 
                     <li>
-                        <span class="waves-effect">
-                            <i class="fa fa-user fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">@Html.ActionLink("Profile", "Profile", "Dashboard")</span>
-                        </span>
+                        <a href="/Admin/Dashboard" class="waves-effect">
+                            <i class="fa fa-clock-o fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Dashboard</span>
+                        </a>
                     </li>
 
                     <li>
-                        <a href="basic-table.html" class="waves-effect">
+                        <a href="/Admin/Profile" class="waves-effect">
+                            <i class="btn-def fa fa-save fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Profile</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Admin/UserList" class="waves-effect">
+                            <i class="btn-def fa fa-save fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Users List</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/Admin/Ratio" class="waves-effect">
+                            <i class="btn-def fa fa-save fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Users Ratio</span>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a href="/Admin/UserRequest" class="waves-effect">
                             <i class="fa fa-table fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Basic Table</span>
+                               aria-hidden="true"></i><span class="hide-menu">Approval</span>
                         </a>
                     </li>
                     <li>
-                        <a href="fontawesome.html" class="waves-effect">
-                            <i class="fa fa-font fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Icons</span>
+                        <a href="/Admin/RejectedUsers" class="waves-effect">
+                            <i class="fa fa-table fa-fw"
+                               aria-hidden="true"></i><span class="hide-menu">Rejected Users</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="map-google.html" class="waves-effect">
-                            <i class="fa fa-globe fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Google Map</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="blank.html" class="waves-effect">
-                            <i class="fa fa-columns fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Blank Page</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="404.html" class="waves-effect">
-                            <i class="fa fa-info-circle fa-fw"
-                               aria-hidden="true"></i><span class="hide-menu">Error 404</span>
-                        </a>
-                    </li>
+
+
                 </ul>
                 <div class="center p-20">
                     <span class="hide-menu">
-                        @*<a href="http://wrappixel.com/templates/pixeladmin/" target="_blank"
+                        <a href="/Users/Logout"
                            class="btn btn-danger btn-block btn-rounded waves-effect waves-light">
-                            Upgrade to
-                            Pro
-                        </a>*@
+                            Logout
+                        </a>
+                    </span>
+                </div>
+
+
+
+
+               
+
+
+                <div class="center p-20">
+                    <span class="hide-menu">
+                        @*<a href="http://wrappixel.com/templates/pixeladmin/" target="_blank"
+                   class="btn btn-danger btn-block btn-rounded waves-effect waves-light">
+                    Upgrade to
+                    Pro
+                </a>*@
                     </span>
                 </div>
             </div>

@@ -110,14 +110,44 @@ namespace AskNLearn.Controllers
         }
         public ActionResult ShowChart()
         {
-            int male = 10;
-            int female = 15;
-            int other = 5;
+            var user = dbObj.Users.ToList();
+            int Learner = 0, Instructor = 0, Moderator = 0,Admin=0;
+
+            
+            foreach(var u in user)
+            {
+                if(u.userType.Equals("Learner"))
+                {
+                    Learner++;
+                }
+                if(u.userType.Equals("Moderator"))
+                {
+                    Moderator++;
+                }
+                if(u.userType.Equals("Instructor"))
+                {
+                    Instructor++;
+                }
+                if (u.userType.Equals("Admin"))
+                {
+                    Admin++;
+                }
+            }
             getValue obj = new getValue();
-            obj.Male = male;
-            obj.Female = female;
-            obj.Other = other;
+            obj.Learner = Learner;
+            obj.Instructor = Instructor;
+            obj.Moderator = Moderator;
+            obj.Admin = Admin;
             return Json(obj, JsonRequestBehavior.AllowGet);
+        }
+        
+        public class getValue
+        {
+            public int Learner { get; set; }
+            public int Instructor { get; set; }
+            public int Moderator { get; set; }
+
+            public int Admin { get; set; }
         }
 
         [HttpGet]
@@ -547,12 +577,7 @@ namespace AskNLearn.Controllers
         }
 
 
-        public class getValue
-        {
-            public int Male { get; set; }
-            public int Female { get; set; }
-            public int Other { get; set; }
-        }
+      
 
         public ActionResult RejectedUsers()
         {

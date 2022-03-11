@@ -10,22 +10,7 @@
     <div id="page-wrapper">
         @*<center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>*@
         <div class="container-fluid">
-            <div class="col-md-6 col-xs-12">
-                <div class="white-box">
-                    <h2>Follow The Instructions and Add Your Course</h2>
-                    <ul>
-                        <li>At first fillup this form then press "Next Page" Button</li>
-                        <br />
-                        <li>In the next page you will be given the options for uploading documents, images and youtube videos</li>
-                        <br />
-                        <li>Also there will be options for adding quiz</li>
-                        <br />
-                        <li>Keep posting courses & keep helping learners&nbsp;<i><img src="https://img.icons8.com/dotty/40/000000/thumb-up.png" /></i></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-7 col-xs-12">
                 <div class="white-box">
                     <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
                         <div class="form-group">
@@ -61,7 +46,7 @@
                             <div class="col-md-12">
                                 <input type="file" class="form-control" name="ImageFile" accept=".png,.jpg,.jpeg,.gif,.tif">
                                 <label style="color:mediumorchid; font-size:10px">*Only .png .jpg .jpeg .gif .tif files are allowed</label><br />
-                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @style="color:red" })
+                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @style = "color:red" })
                             </div>
 
                         </div>
@@ -75,9 +60,21 @@
                 </div>
             </div>
 
-            <div>
-                @Html.ActionLink("Back to Dashboard", "Dashboard")
+            <div class="col-md-5 col-xs-12">
+                <div class="white-box">
+                    <h2>Follow The Instructions and Add Your Course</h2>
+                    <ul>
+                        <li>At first fillup this form then press "Next Page" Button</li>
+                        <br />
+                        <li>In the next page you will be given the options for uploading documents, images and youtube videos</li>
+                        <br />
+                        <li>Also quiz options will be given</li>
+                        <br />
+                        <li>Keep posting courses & keep helping learners&nbsp;<i><img src="https://img.icons8.com/dotty/40/000000/thumb-up.png" /></i></li>
+                    </ul>
+                </div>
             </div>
+
         </div>
 </div>
 </div>
