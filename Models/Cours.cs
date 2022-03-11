@@ -28,6 +28,7 @@ namespace AskNLearn.Models
         public Nullable<int> upVote { get; set; }
         public Nullable<int> downVote { get; set; }
         public System.DateTime dateTime { get; set; }
+        public string thumbnail { get; set; }
     
         public virtual User User { get; set; }
         public virtual ICollection<Document> Documents { get; set; }

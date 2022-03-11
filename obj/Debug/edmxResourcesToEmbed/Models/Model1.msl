@@ -25,6 +25,7 @@
           <ScalarProperty Name="upVote" ColumnName="upVote" />
           <ScalarProperty Name="downVote" ColumnName="downVote" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+          <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -33,8 +34,11 @@
         <MappingFragment StoreEntitySet="Documents">
           <ScalarProperty Name="did" ColumnName="did" />
           <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="imageTitle" ColumnName="imageTitle" />
           <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="videoTitle" ColumnName="videoTitle" />
           <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+          <ScalarProperty Name="docTitle" ColumnName="docTitle" />
           <ScalarProperty Name="docs" ColumnName="docs" />
         </MappingFragment>
       </EntityTypeMapping>
