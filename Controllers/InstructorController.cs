@@ -162,16 +162,16 @@ namespace AskNLearn.Controllers
         [HttpGet]
         public ActionResult AddCourse()
         {
-            //if (Session["userType"].Equals("Instructor"))
-            //{
+            if (Session["userType"].Equals("Instructor"))
+            {
                 return View();
-            //}
-            //else
-            //{
-            //    ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
-            //    return RedirectToAction("Login", "Users");
-            //}
         }
+            else
+            {
+                ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
+                return RedirectToAction("Login", "Users");
+    }
+}
         [HttpPost]
         public ActionResult AddCourse(CourseModel c)
         {
@@ -185,13 +185,13 @@ namespace AskNLearn.Controllers
                             string fileName = Path.GetFileNameWithoutExtension(c.ImageFile.FileName);
                             string extension = Path.GetExtension(c.ImageFile.FileName);
                             fileName = fileName + "-" + DateTime.Now.ToString("yyy-MM-d") + extension;
-                            c.thumbnail = "Content/Instructor/ProPic/" + fileName;
-                            fileName = Path.Combine(Server.MapPath("~/Content/Instructor/ProPic/"), fileName);
+                            c.thumbnail = "Content/Instructor/Courses/Images/" + fileName;
+                            fileName = Path.Combine(Server.MapPath("~/Content/Instructor/Courses/Images/"), fileName);
                             c.ImageFile.SaveAs(fileName);
                         }
                         else
                         {
-                            c.thumbnail = "Content/Instructor/ProPic/noPropic.jpg";
+                            c.thumbnail = "Content/Instructor/Courses/Images/noPropic.jpg";
                         }
 
 

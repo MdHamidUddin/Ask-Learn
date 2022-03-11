@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AskNLearnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AskNLearnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="cid" />
@@ -59,9 +59,9 @@
           </Key>
           <Property Name="mid" Type="int" Nullable="false" />
           <Property Name="eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="qName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="marks" Type="float" Nullable="false" />
           <Property Name="detaTime" Type="datetime" Nullable="false" />
+          <Property Name="quizId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Posts">
           <Key>
@@ -74,6 +74,16 @@
           <Property Name="upVote" Type="int" />
           <Property Name="downVote" Type="int" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quizes">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coid" Type="int" Nullable="false" />
+          <Property Name="quizTitle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="questionLink" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="totalMarks" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -173,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Marks_Marks">
+        <Association Name="FK_Marks_EnrolledUser">
           <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
           <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -182,6 +192,18 @@
             </Principal>
             <Dependent Role="Marks">
               <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Quizes">
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="1" />
+          <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quizes">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Marks">
+              <PropertyRef Name="quizId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -194,6 +216,18 @@
             </Principal>
             <Dependent Role="Posts">
               <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quizes_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="coid" />
+            </Principal>
+            <Dependent Role="Quizes">
+              <PropertyRef Name="coid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -216,6 +250,7 @@
           <EntitySet Name="EnrolledUser" EntityType="Self.EnrolledUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quizes" EntityType="Self.Quizes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInfo" EntityType="Self.UsersInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -242,21 +277,28 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="EnrolledUser" EntitySet="EnrolledUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+          <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
             <End Role="EnrolledUser" EntitySet="EnrolledUser" />
+            <End Role="Marks" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">
+            <End Role="Quizes" EntitySet="Quizes" />
             <End Role="Marks" EntitySet="Marks" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Quizes_Courses" Association="Self.FK_Quizes_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Quizes" EntitySet="Quizes" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsersInfo_UsersInfo" Association="Self.FK_UsersInfo_UsersInfo">
             <End Role="Users" EntitySet="Users" />
             <End Role="UsersInfo" EntitySet="UsersInfo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AskNLearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -290,6 +332,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
           <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
           <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+          <NavigationProperty Name="Quizes" Relationship="AskNLearnModel.FK_Quizes_Courses" FromRole="Cours" ToRole="Quize" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -327,6 +370,8 @@
           <Property Name="marks" Type="Double" Nullable="false" />
           <Property Name="detaTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_Marks" FromRole="Marks" ToRole="EnrolledUser" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Quize" Relationship="AskNLearnModel.FK_Marks_Quizes" FromRole="Mark" ToRole="Quize" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -362,6 +407,7 @@
           <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Users" FromRole="Users" ToRole="EnrolledUser" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_Users" FromRole="Users" ToRole="Posts" />
           <NavigationProperty Name="UsersInfoes" Relationship="Self.FK_UsersInfo_UsersInfo" FromRole="Users" ToRole="UsersInfo" />
+          <NavigationProperty Name="Results" Relationship="AskNLearnModel.FK_Results_Quizes" FromRole="User" ToRole="Result" />
         </EntityType>
         <EntityType Name="UsersInfo">
           <Key>
@@ -527,7 +573,79 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UsersInfo" EntitySet="UsersInfoes" />
           </AssociationSet>
+          <EntitySet Name="Quizes" EntityType="AskNLearnModel.Quize" />
+          <EntitySet Name="Results" EntityType="AskNLearnModel.Result" />
+          <AssociationSet Name="FK_Quizes_Courses" Association="AskNLearnModel.FK_Quizes_Courses">
+            <End Role="Cours" EntitySet="Courses" />
+            <End Role="Quize" EntitySet="Quizes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Quizes" Association="AskNLearnModel.FK_Results_Quizes">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Result" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Quizes" Association="AskNLearnModel.FK_Marks_Quizes">
+            <End Role="Quize" EntitySet="Quizes" />
+            <End Role="Mark" EntitySet="Marks" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Quize">
+          <Key>
+            <PropertyRef Name="quizId" />
+          </Key>
+          <Property Name="quizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coid" Type="Int32" Nullable="false" />
+          <Property Name="quizTitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="questionLink" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="totalMarks" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cours" Relationship="AskNLearnModel.FK_Quizes_Courses" FromRole="Quize" ToRole="Cours" />
+          <NavigationProperty Name="Marks" Relationship="AskNLearnModel.FK_Marks_Quizes" FromRole="Quize" ToRole="Mark" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="resultID" />
+          </Key>
+          <Property Name="resultID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <Property Name="result1" Type="Int32" Nullable="false" />
+          <Property Name="uid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="AskNLearnModel.FK_Results_Quizes" FromRole="Result" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Quizes_Courses">
+          <End Type="AskNLearnModel.Cours" Role="Cours" Multiplicity="1" />
+          <End Type="AskNLearnModel.Quize" Role="Quize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cours">
+              <PropertyRef Name="coid" />
+            </Principal>
+            <Dependent Role="Quize">
+              <PropertyRef Name="coid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Quizes">
+          <End Type="AskNLearnModel.User" Role="User" Multiplicity="1" />
+          <End Type="AskNLearnModel.Result" Role="Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="Result">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Quizes">
+          <End Type="AskNLearnModel.Quize" Role="Quize" Multiplicity="1" />
+          <End Type="AskNLearnModel.Mark" Role="Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quize">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Mark">
+              <PropertyRef Name="quizId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -589,9 +707,9 @@
           <EntitySetMapping Name="Marks">
             <EntityTypeMapping TypeName="AskNLearnModel.Mark">
               <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
                 <ScalarProperty Name="mid" ColumnName="mid" />
                 <ScalarProperty Name="eid" ColumnName="eid" />
-                <ScalarProperty Name="qName" ColumnName="qName" />
                 <ScalarProperty Name="marks" ColumnName="marks" />
                 <ScalarProperty Name="detaTime" ColumnName="detaTime" />
               </MappingFragment>
@@ -635,6 +753,17 @@
                 <ScalarProperty Name="eduInfo" ColumnName="eduInfo" />
                 <ScalarProperty Name="currentPosition" ColumnName="currentPosition" />
                 <ScalarProperty Name="reputation" ColumnName="reputation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizes">
+            <EntityTypeMapping TypeName="AskNLearnModel.Quize">
+              <MappingFragment StoreEntitySet="Quizes">
+                <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
+                <ScalarProperty Name="questionLink" ColumnName="questionLink" />
+                <ScalarProperty Name="quizTitle" ColumnName="quizTitle" />
+                <ScalarProperty Name="coid" ColumnName="coid" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

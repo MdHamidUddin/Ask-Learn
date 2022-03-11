@@ -12,16 +12,13 @@ namespace AskNLearn.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Mark
+    public partial class Result
     {
-        public int mid { get; set; }
-        public int eid { get; set; }
-        public string qName { get; set; }
-        public double marks { get; set; }
-        public System.DateTime detaTime { get; set; }
+        public int resultID { get; set; }
         public int quizId { get; set; }
+        public int result1 { get; set; }
+        public int uid { get; set; }
     
-        public virtual EnrolledUser EnrolledUser { get; set; }
-        public virtual Quize Quize { get; set; }
+        public virtual User User { get; set; }
     }
 }
