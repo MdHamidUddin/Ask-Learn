@@ -155,6 +155,7 @@
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
     <Compile Include="Models\Entity\UsersProfile.cs" />
     <Compile Include="Models\Instructor\CourseModel.cs" />
+    <Compile Include="Models\Instructor\CourseViewModel.cs" />
     <Compile Include="Models\Instructor\DocumentsModel.cs" />
     <Compile Include="Models\Instructor\InsDashModel.cs" />
     <Compile Include="Models\Instructor\InstructorProfile.cs" />
@@ -1064,9 +1065,13 @@
     <Content Include="Views\Admin\LearnerList.cshtml" />
     <Content Include="Views\Instructor\AddCourse.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\UserDetails.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Shared\MyLayout4.cshtml" />
+=======
+    <Content Include="Views\Instructor\UpdateCourse.cshtml" />
+>>>>>>> 69ae26d922a03cf11fb6516d1635777014dbd204
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,6 +30,7 @@
           <Property Name="upVote" Type="int" />
           <Property Name="downVote" Type="int" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
+          <Property Name="thumbnail" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Documents">
           <Key>
@@ -37,9 +38,12 @@
           </Key>
           <Property Name="did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="coid" Type="int" Nullable="false" />
-          <Property Name="image" Type="varchar" MaxLength="150" />
+          <Property Name="imageTitle" Type="varchar" MaxLength="100" />
+          <Property Name="image" Type="varchar" MaxLength="500" />
+          <Property Name="videoTitle" Type="varchar" MaxLength="100" />
           <Property Name="videoLink" Type="varchar" MaxLength="500" />
-          <Property Name="docs" Type="varchar" MaxLength="150" />
+          <Property Name="docTitle" Type="varchar" MaxLength="100" />
+          <Property Name="docs" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="EnrolledUser">
           <Key>
@@ -293,6 +297,7 @@
           <Property Name="upVote" Type="Int32" />
           <Property Name="downVote" Type="Int32" />
           <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
           <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
           <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
@@ -304,9 +309,12 @@
           </Key>
           <Property Name="did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="coid" Type="Int32" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="imageTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="videoTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="videoLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="docs" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="docTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="docs" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_Documents_Courses" FromRole="Documents" ToRole="Courses" />
         </EntityType>
         <EntityType Name="EnrolledUser">
@@ -574,6 +582,7 @@
                 <ScalarProperty Name="upVote" ColumnName="upVote" />
                 <ScalarProperty Name="downVote" ColumnName="downVote" />
                 <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -582,8 +591,11 @@
               <MappingFragment StoreEntitySet="Documents">
                 <ScalarProperty Name="did" ColumnName="did" />
                 <ScalarProperty Name="coid" ColumnName="coid" />
+                <ScalarProperty Name="imageTitle" ColumnName="imageTitle" />
                 <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="videoTitle" ColumnName="videoTitle" />
                 <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+                <ScalarProperty Name="docTitle" ColumnName="docTitle" />
                 <ScalarProperty Name="docs" ColumnName="docs" />
               </MappingFragment>
             </EntityTypeMapping>

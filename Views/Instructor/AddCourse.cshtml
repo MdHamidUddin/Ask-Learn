@@ -12,40 +12,16 @@
         <div class="container-fluid">
             <div class="col-md-6 col-xs-12">
                 <div class="white-box">
-                    <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="col-md-12">Title</label>
-                            <div class="col-md-12">
-                                <input type="text" class="form-control" name="title" placeholder="Title Of The Course">
-                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-md-12">Details</label>
-                            <div class="col-md-12">
-                                <textarea class="form-control" name="details" rows="6" cols="40" placeholder="All Text Materials And Instructions Of Your Course"></textarea>
-                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="price" class="col-md-12">Price (৳)</label>
-                            <div class="col-md-12">
-                                <input type="number" class="form-control form-control-line" min="0" name="price" id="price">
-                                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button class="btn btn btn-success" style="background-color: goldenrod"><i><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/30/000000/external-course-online-learning-flatart-icons-outline-flatarticons.png" /></i>&nbsp;Add Course</button>
-                            </div>
-                        </div>
-                    </form>
+                    <h2>Follow The Instructions and Add Your Course</h2>
+                    <ul>
+                        <li>At first fillup this form then press "Next Page" Button</li>
+                        <br />
+                        <li>In the next page you will be given the options for uploading documents, images and youtube videos</li>
+                        <br />
+                        <li>Also there will be options for adding quiz</li>
+                        <br />
+                        <li>Keep posting courses & keep helping learners&nbsp;<i><img src="https://img.icons8.com/dotty/40/000000/thumb-up.png" /></i></li>
+                    </ul>
                 </div>
             </div>
 
@@ -53,37 +29,46 @@
                 <div class="white-box">
                     <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label class="col-md-12">Video Link</label>
+                            <label for="title" class="col-md-12">Title</label>
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="title" placeholder="Paste Your Youtube Video Link" value="">
-                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                                <input type="text" class="form-control" name="title" placeholder="Title Of The Course" id="title">
+                                @Html.ValidationMessageFor(model => model.title, "", new { @style = "color:red" })
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label class="col-md-12">Course Related Image</label>
+                            <label for="details" class="col-md-12">Details</label>
                             <div class="col-md-12">
-                                <input type="file" class="form-control" name="ImageFile" accept=".png,.jpg,.jpeg,.gif,.tif" placeholder="Title Of The Course" value="">
-                                <label style="color:mediumorchid; font-size:10px">*Only .doc .docx .pptx .pdf files are allowed</label>
-                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
+                                <textarea class="form-control" name="details" rows="6" cols="40" id="details" placeholder="All Text Materials And Instructions Of Your Course"></textarea>
+                                @Html.ValidationMessageFor(model => model.details, "", new { @style = "color:red" })
                             </div>
 
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-12">Document Files</label>
+                            <label for="price" class="col-md-12">Price (৳)</label>
                             <div class="col-md-12">
-                                <input type="file" class="form-control" name="title" placeholder="Title Of The Course" value="">
-                                <label style="color:mediumorchid; font-size:10px">*Only .doc .docx .pptx .pdf files are allowed</label>
-                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
+                                <input type="number" class="form-control form-control-line" min="0" name="price" id="price" value="0">
+                                <label style="color:mediumorchid; font-size:10px">If you want to provide free course just keep it as 0</label>
+                                @Html.ValidationMessageFor(model => model.price, "", new { @style = "color:red" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12">Thumbnail For Your Course</label>
+                            <label class="col-md-12" style="color:lightseagreen; font-size:9px">This image will be in preview for your course along with title and some details.</label>
+                            <div class="col-md-12">
+                                <input type="file" class="form-control" name="ImageFile" accept=".png,.jpg,.jpeg,.gif,.tif">
+                                <label style="color:mediumorchid; font-size:10px">*Only .png .jpg .jpeg .gif .tif files are allowed</label><br />
+                                @Html.ValidationMessageFor(model => model.ImageFile, "", new { @style="color:red" })
                             </div>
 
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <button class="btn btn btn-success" style="background-color: palegoldenrod; color:black"><i><img src="https://img.icons8.com/dotty/30/000000/agreement-new.png" /></i>&nbsp; Add Documents</button>
+                                <button class="btn btn btn-success" style="background-color: goldenrod"><i><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/30/000000/external-course-online-learning-flatart-icons-outline-flatarticons.png" /></i>&nbsp;Next Page</button>
                             </div>
                         </div>
                     </form>
