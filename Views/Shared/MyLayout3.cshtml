@@ -67,8 +67,8 @@
 
               
                 <div>
-                    <a href="Users/SignUp" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/external-bearicons-outline-color-bearicons/20/ffffff/external-sign-up-call-to-action-bearicons-outline-color-bearicons-2.png" /></i> Sign Up</a>
-                    <a href="../Users/Login" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/external-bearicons-outline-color-bearicons/20/ffffff/external-sign-in-call-to-action-bearicons-outline-color-bearicons.png" /></i> Login</a>
+                    <a href="../../Users/SignUp" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/external-bearicons-outline-color-bearicons/20/ffffff/external-sign-up-call-to-action-bearicons-outline-color-bearicons-2.png" /></i> Sign Up</a>
+                    <a href="../../Users/Login" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/external-bearicons-outline-color-bearicons/20/ffffff/external-sign-in-call-to-action-bearicons-outline-color-bearicons.png" /></i> Login</a>
 
                 </div>
             </div>
@@ -76,14 +76,12 @@
         </nav>
     </div>
 
-   
-    @*<div class="container body-content">*@
+
         @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Ask And Learn</p>
         </footer>
-    @*</div>*@
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)

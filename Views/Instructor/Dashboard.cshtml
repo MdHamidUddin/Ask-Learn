@@ -6,13 +6,6 @@
 @{ 
     int totalLearners = Model.LernerCount;
     int PostedCourseCount = Model.PostedCourseCount;
-    //foreach (var item in Model)
-    //{
-    //    if (item.userType.Equals("Learner"))
-    //    {
-    //        totalLearners++;
-    //    }
-    //}
 }
 <br /><br />
 <input type="text" name="name" value=@*@Model.name*@ style="color:red">
@@ -27,6 +20,7 @@
             <div class="row bg-title">
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
                     <h4 class="page-title">Dashboard Page</h4>
+                    <center><label style="font-size: 13px" class="text-danger">@ViewBag.Message</label></center>
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">

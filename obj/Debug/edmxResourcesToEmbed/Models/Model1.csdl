@@ -20,7 +20,7 @@
     </Key>
     <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="uid" Type="Int32" Nullable="false" />
-    <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="price" Type="Double" Nullable="false" />
     <Property Name="upVote" Type="Int32" />
@@ -29,6 +29,7 @@
     <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
     <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
     <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+    <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Document">
     <Key>
@@ -78,6 +79,16 @@
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
     <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="uid" />
@@ -90,7 +101,7 @@
     <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="proPic" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="proPic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
@@ -225,6 +236,7 @@
     <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
     <EntitySet Name="Marks" EntityType="Self.Mark" />
     <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UsersInfoes" EntityType="Self.UsersInfo" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">

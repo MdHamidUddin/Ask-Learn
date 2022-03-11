@@ -151,6 +151,7 @@
     <Compile Include="Models\Entity\AdminDashboardModel.cs" />
     <Compile Include="Models\Entity\CoursesModel.cs" />
     <Compile Include="Models\Entity\ProfileUpdateModel.cs" />
+    <Compile Include="Models\Entity\UserPostModel.cs" />
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
     <Compile Include="Models\Entity\UsersProfile.cs" />
     <Compile Include="Models\Instructor\CourseModel.cs" />
@@ -176,6 +177,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Post.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">
@@ -211,10 +215,30 @@
     <Content Include="Content\Courses.css" />
     <Content Include="Content\Home\hamid.png" />
     <Content Include="Content\Home\noPropic.jpg" />
+    <Content Include="Content\InstructorsPhoto\Instructor3.jpeg" />
+    <Content Include="Content\InstructorsPhoto\Instructor1.jpeg" />
+    <Content Include="Content\InstructorsPhoto\Instructor2.png" />
+    <Content Include="Content\InstructorsPhoto\Instructor4.jpg" />
+    <Content Include="Content\InstructorsPhoto\Instructor5.jpg" />
+    <Content Include="Content\InstructorsPhoto\Instructor6.png" />
+    <Content Include="Content\InstructorsPhoto\Instructor7.png" />
     <Content Include="Content\Instructor\ProPic\cv pic--2022-03-6.jpeg" />
+    <Content Include="Content\Instructor\ProPic\Instructor1.jpeg" />
+    <Content Include="Content\Instructor\ProPic\Instructor2.png" />
+    <Content Include="Content\Instructor\ProPic\Instructor3.jpeg" />
+    <Content Include="Content\Instructor\ProPic\Instructor4.jpg" />
+    <Content Include="Content\Instructor\ProPic\Instructor5.jpg" />
+    <Content Include="Content\Instructor\ProPic\Instructor6.png" />
+    <Content Include="Content\Instructor\ProPic\Instructor7.png" />
     <Content Include="Content\Instructor\ProPic\jisuna2 - Copy-I1-json-2022-02-28--2022-03-6.png" />
     <Content Include="Content\Instructor\ProPic\jisuna2 - Copy-I1-json-2022-02-28.png" />
     <Content Include="Content\Instructor\ProPic\noPropic.jpg" />
+    <Content Include="Content\Instructor\CourseThumbnail\aspmvc.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\CPlus.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\CSharp.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\java.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\laravel.jpg" />
+    <Content Include="Content\Instructor\CourseThumbnail\linux.jpg" />
     <Content Include="Content\Logo\logo.png" />
     <Content Include="Content\Scrolling\1.png" />
     <Content Include="Content\Scrolling\2.jpg" />
@@ -309,6 +333,7 @@
     <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\Homepage" />
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -316,7 +341,6 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\Homepage" />
     <None Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.js" />
     <Content Include="packages\jQuery.3.4.1\Content\Scripts\jquery-3.4.1.min.js" />
@@ -1040,6 +1064,9 @@
     <Content Include="Views\Admin\LearnerList.cshtml" />
     <Content Include="Views\Instructor\AddCourse.cshtml" />
     <Content Include="Views\Admin\UserDetails.cshtml" />
+    <Content Include="Views\Home\UserDetails.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Views\Shared\MyLayout4.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1078,7 +1105,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>14205</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44330/</IISUrl>
+          <IISUrl>https://localhost:44330/Home/Index</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

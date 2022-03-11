@@ -5,7 +5,7 @@
 }
 
 <div class="jumbotron" id="wrapper" style="margin-top:20px">
-    <div id="container" style="min-width:210px; height:300px; max-width:400px; margin: 0 auto; float:inline-end">
+    <div id="container" style="min-width:500px; height:480px; max-width:400px; margin: 0 auto; float:inline-end">
 
     </div>
 </div>
@@ -18,7 +18,7 @@
     }
 
     $(document).ready(function () {
-        window.setInterval('refresh()', 3000);
+        window.setInterval('refresh()', 10000);
 
         $.getJSON("/Admin/ShowChart", function (data) {
 

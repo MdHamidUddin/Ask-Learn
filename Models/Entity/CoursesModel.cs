@@ -12,6 +12,7 @@ namespace AskNLearn.Models.Entity
         public string title { get; set; }
         public string details { get; set; }
         public double price { get; set; }
+        public string thumbnail { get; set; }
         public Nullable<int> upVote { get; set; }
         public Nullable<int> downVote { get; set; }
         public System.DateTime dateTime { get; set; }

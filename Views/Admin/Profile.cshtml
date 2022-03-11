@@ -41,7 +41,7 @@
                             <div class="overlay-box">
                                 <div class="user-content">
                                     <a href="javascript:void(0)">
-                                        <img src="../../Theme/plugins/images/users/hamid.jpg"
+                                        <img src="~/Content/@Model.proPic"
                                              class="thumb-lg img-circle" alt="img">
                                     </a>
                                     <h4 class="text-white">@Model.username</h4>
@@ -52,15 +52,15 @@
                         <div class="user-btm-box">
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-purple"><i class="ti-facebook"></i></p>
-                                <h1>258</h1>
+                                @*<h1>258</h1>*@
                             </div>
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-blue"><i class="ti-twitter"></i></p>
-                                <h1>125</h1>
+                                <h1 style="font-size:20px">Ａｄｍｉｎ</h1>
                             </div>
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-danger"><i class="ti-dribbble"></i></p>
-                                <h1>556</h1>
+                                <h1>@*556*@</h1>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 <label class="col-md-12">Username</label>
                                 <div class="col-md-12">
-                                    <input type="text" class="form-control" name="username" placeholder="Full Name" value=@Model.username>
+                                    <input type="text" class="form-control" name="username" placeholder="Full Name" value=@Model.username readonly>
                                     @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                                 </div>
 
@@ -148,22 +148,10 @@
                                     @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-12">Select Country</label>
-                                <div class="col-sm-12">
-                                    <select class="form-control form-control-line">
-                                        <option>Bangladesh</option>
-                                        <option>London</option>
-                                        <option>India</option>
-                                        <option>Usa</option>
-                                        <option>Canada</option>
-                                        <option>Thailand</option>
-                                    </select>
-                                </div>
-                            </div>
+                          
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button class="btn btn-success">Update Profile</button>
+                                    <button class="btn btn-success" style="border-radius: 5px; background-color: #6699ff">Update Profile</button>
                                 </div>
                             </div>
                         </form>

@@ -1,8 +1,98 @@
-﻿
+﻿@model AskNLearn.Models.Instructor.CourseModel
+
 @{
     ViewBag.Title = "AddCourse";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
+<br /><br /><br/>
+<div id="wrapper">
 
-<h2>AddCourse</h2>
+    <div id="page-wrapper">
+        @*<center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>*@
+        <div class="container-fluid">
+            <div class="col-md-6 col-xs-12">
+                <div class="white-box">
+                    <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-md-12">Title</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="title" placeholder="Title Of The Course">
+                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
+
+                        <div class="form-group">
+                            <label class="col-md-12">Details</label>
+                            <div class="col-md-12">
+                                <textarea class="form-control" name="details" rows="6" cols="40" placeholder="All Text Materials And Instructions Of Your Course"></textarea>
+                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="price" class="col-md-12">Price (৳)</label>
+                            <div class="col-md-12">
+                                <input type="number" class="form-control form-control-line" min="0" name="price" id="price">
+                                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button class="btn btn btn-success" style="background-color: goldenrod"><i><img src="https://img.icons8.com/external-flatart-icons-outline-flatarticons/30/000000/external-course-online-learning-flatart-icons-outline-flatarticons.png" /></i>&nbsp;Add Course</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="white-box">
+                    <form class="form-horizontal form-material" action="/Instructor/AddCourse" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="col-md-12">Video Link</label>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" name="title" placeholder="Paste Your Youtube Video Link" value="">
+                                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-12">Course Related Image</label>
+                            <div class="col-md-12">
+                                <input type="file" class="form-control" name="ImageFile" accept=".png,.jpg,.jpeg,.gif,.tif" placeholder="Title Of The Course" value="">
+                                <label style="color:mediumorchid; font-size:10px">*Only .doc .docx .pptx .pdf files are allowed</label>
+                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12">Document Files</label>
+                            <div class="col-md-12">
+                                <input type="file" class="form-control" name="title" placeholder="Title Of The Course" value="">
+                                <label style="color:mediumorchid; font-size:10px">*Only .doc .docx .pptx .pdf files are allowed</label>
+                                @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button class="btn btn btn-success" style="background-color: palegoldenrod; color:black"><i><img src="https://img.icons8.com/dotty/30/000000/agreement-new.png" /></i>&nbsp; Add Documents</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                @Html.ActionLink("Back to Dashboard", "Dashboard")
+            </div>
+        </div>
+</div>
+</div>

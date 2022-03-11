@@ -64,6 +64,7 @@ namespace AskNLearn.Controllers
                             u.username,
                             u.email,
                             u.password,
+                            u.userType,
                             u.dob,
                             u.gender,
                             u.proPic,
@@ -89,6 +90,7 @@ namespace AskNLearn.Controllers
                     ip.dateTime = item.dateTime;
                     ip.eduInfo = item.eduInfo;
                     ip.reputation = item.reputation;
+                    ip.userType = item.userType;
                     ip.currentPosition = item.currentPosition;
                 }
 

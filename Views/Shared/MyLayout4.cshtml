@@ -1,0 +1,91 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords"
+          content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 4 admin, bootstrap 4, css3 dashboard, bootstrap 4 dashboard, severny admin bootstrap 4 dashboard, frontend, responsive bootstrap 4 admin template, pixel  design, pixel  dashboard bootstrap 4 dashboard template">
+    <meta name="description"
+          content="Pixel Admin is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>@ViewBag.Title</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/pixel-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="https://wrappixel.com/demos/free-admin-templates/all-lite-landing-pages/assets/images/logos/pixel-favicon.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="../../Theme/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- toast CSS -->
+    <link href="../../Theme/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <!-- morris CSS -->
+    <link href="../../Theme/plugins/bower_components/morrisjs/morris.css" rel="stylesheet">
+    <!-- animation CSS -->
+    <link href="../../Theme/css/animate.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../Theme/css/style.css" rel="stylesheet">
+    <!-- color CSS -->
+    <link href="../../Theme/css/colors/blue-dark.css" id="theme" rel="stylesheet">
+    @* ---------------------------------------------------------------------------------- *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="~/Content/Courses.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js"></script>
+</head>
+<body>
+    <div >
+        <nav class="navbar navbar-default navbar-static-top m-b-0" style="position: fixed;">
+            <div class="navbar-header">
+                @*<a class="navbar-toggle hidden-sm hidden-md hidden-lg"
+                   href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fa fa-bars"></i>
+                </a>*@
+                <div class="top-left-part">
+                    <a class="logo rounded mx-auto d-block" href="/Users/Login" style="text-decoration: none;">
+                        <b>
+                            <img src="../../Theme/plugins/images/pixeladmin-logo.png" alt="home" />
+                        </b><span class="hidden-xs">ASK AND LEARN</span>
+                    </a>
+
+                    @*<a href="" style="align-content:center"><img src="../../Content/Logo/logo.png" /></a>*@
+                </div>
+
+
+
+              
+                <div>
+                    <a href="../../Users/SignUp" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/external-bearicons-outline-color-bearicons/20/ffffff/external-sign-up-call-to-action-bearicons-outline-color-bearicons-2.png" /></i> Sign Up</a>
+                    <a href="../../Home/Index" style="float:right;margin-top:12px;margin-right:20px;font-size:15px; color:white; font-size:18px;text-decoration:none"><i><img src="https://img.icons8.com/flat-round/20/000000/home--v1.png" /></i> Home</a>
+
+                </div>
+            </div>
+
+        </nav>
+    </div>
+
+
+        @RenderBody()
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Ask And Learn</p>
+        </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
