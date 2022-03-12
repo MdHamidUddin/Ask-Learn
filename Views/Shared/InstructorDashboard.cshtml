@@ -33,6 +33,83 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .openBtn {
+            display: flex;
+            justify-content: left;
+        }
+
+        .openButton {
+            border: none;
+            border-radius: 5px;
+            background-color: #1c87c9;
+            color: white;
+            padding: 14px 20px;
+            cursor: pointer;
+            position: fixed;
+        }
+
+        .loginPopup {
+            position: relative;
+            text-align: center;
+            width: 100%;
+        }
+
+        .formPopup {
+            display: none;
+            position: fixed;
+            left: 58%;
+            top: 15%;
+            transform: translate(-50%, 5%);
+            border: 3px solid #999999;
+            z-index: 9;
+        }
+
+        .formContainer {
+            max-width: 300px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+            .formContainer input[type=text],
+            .formContainer input[type=password] {
+                width: 100%;
+                padding: 15px;
+                margin: 5px 0 20px 0;
+                border: none;
+                background: #eee;
+            }
+
+                .formContainer input[type=text]:focus,
+                .formContainer input[type=password]:focus {
+                    background-color: #ddd;
+                    outline: none;
+                }
+
+            .formContainer .btn {
+                padding: 12px 20px;
+                border: none;
+                background-color: #8ebf42;
+                color: #fff;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 15px;
+                opacity: 0.8;
+            }
+
+            .formContainer .cancel {
+                background-color: #cc0000;
+            }
+
+            .formContainer .btn:hover,
+            .openButton:hover {
+                opacity: 1;
+            }
+    </style>
 </head>
 <body>
     <div id="wrapper">
@@ -43,7 +120,7 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <div class="top-left-part">
-                    <a class="logo" href="/Users/Login">
+                    <a class="logo" href="/">
                         <b>
                             <img src="../../Theme/plugins/images/pixeladmin-logo.png" alt="home" />
                         </b><span class="hidden-xs">ASK AND LEARN</span>
@@ -91,22 +168,31 @@
 
                         <li>
                             <a href="/Instructor/AddCourse" class="waves-effect">
-                                <i aria-hidden="true"><img src="https://img.icons8.com/wired/20/ffffff/add--v1.png"/></i><span class="hide-menu">&nbsp;&nbsp;&nbsp;Add Course</span>
+                                <i aria-hidden="true"><img src="https://img.icons8.com/wired/20/ffffff/add--v1.png" /></i><span class="hide-menu">&nbsp;&nbsp;&nbsp;Add Course</span>
                             </a>
                         </li>
 
                         <li>
                             <a href="/Instructor/CourseList" class="waves-effect">
-                                <i class="fa fa-table fa-fw"
-                                   aria-hidden="true"></i><span class="hide-menu">Your Courses</span>
+                                <i aria-hidden="true"><img src="https://img.icons8.com/dotty/20/ffffff/e-learning.png" /></i><span class="hide-menu">&nbsp;&nbsp;&nbsp;My Courses</span>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="/Instructor/EnrolledUsersList" class="waves-effect">
+                                <i aria-hidden="true"><img src="https://img.icons8.com/external-smashingstocks-detailed-outline-smashing-stocks/20/ffffff/external-user-list-ui-ux-user-interface-smashingstocks-detailed-outline-smashing-stocks.png" /></i><span class="hide-menu">&nbsp;&nbsp;&nbsp;Enrolled Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Instructor/PostList" class="waves-effect">
+                                <i aria-hidden="true"><img src="https://img.icons8.com/external-bearicons-detailed-outline-bearicons/20/ffffff/external-Post-social-media-bearicons-detailed-outline-bearicons.png" /></i><span class="hide-menu">&nbsp;&nbsp;&nbsp;All Posts</span>
+                            </a>
+                        </li>
+                        
                     </ul>
                     <div class="center p-20">
                         <span class="hide-menu">
                             <a href="/Users/Logout"
-                               class="btn btn-danger btn-block btn-rounded waves-effect waves-light">
+                               class="btn btn-danger btn-block btn-rounded waves-effect waves-light" style="background-color:orangered">
                                 Logout
                             </a>
                         </span>

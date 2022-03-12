@@ -159,6 +159,7 @@
     <Compile Include="Models\Instructor\CourseModel.cs" />
     <Compile Include="Models\Instructor\CourseViewModel.cs" />
     <Compile Include="Models\Instructor\DocumentsModel.cs" />
+    <Compile Include="Models\Instructor\EnrolledListModel.cs" />
     <Compile Include="Models\Instructor\InsDashModel.cs" />
     <Compile Include="Models\Instructor\InstructorProfile.cs" />
     <Compile Include="Models\Mark.cs">
@@ -1056,6 +1057,8 @@
     <Content Include="Views\Moderator\Profile.cshtml" />
     <Content Include="Views\Moderator\UserList.cshtml" />
     <Content Include="Views\Instructor\CourseEnrolment.cshtml" />
+    <Content Include="Views\Instructor\EnrolledUsersList.cshtml" />
+    <Content Include="Views\Instructor\PostList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

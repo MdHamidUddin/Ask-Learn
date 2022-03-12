@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "PostList";
+    Layout = "~/Views/Shared/InstructorDashboard.cshtml";
+}
+
+<div id="wrapper">
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <h2>Post List</h2>
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th><center>Post ID</center></th>
+                        <th><center>Post UserID</center></th>
+                        <th><center>Problem Title</center></th>
+                        <th><center>Problem Details</center></th>
+                        <th><center>UpVote</center></th>
+                        <th><center>DownVote</center></th>
+                        <th><center>Updated At</center></th>
+                        <th><center>Action</center></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                    <tr onclick="window.location='/Instructor/CourseView/@item.pid';">
+                        <td>@item.pid</td>
+                        <td>@item.uid</td>
+                        <td>@item.title</td>
+                        <td>@item.details</td>
+                        <td>@item.upVote</td>
+                        <td>@item.downVote</td>
+                        <td>@item.dateTime</td>
+                        <td>
+                            <a href="/Instructor/CourseView/@item.pid"><img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/30/000000/external-comment-chat-flatart-icons-solid-flatarticons-2.png" /></a>&nbsp;&nbsp;&nbsp;
+                            <a href="/Instructor/DeleteCourse/@item.pid"><img src="https://img.icons8.com/material-outlined/24/000000/filled-trash.png" /></a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -16,6 +16,7 @@
     string thumbnail = "";
     var dataL = ViewBag.CourseDoc;
     var data = ViewBag.Course;
+    var quizes = ViewBag.Quizes;
     if (dataL != null)
     {
         foreach (var item in dataL)
@@ -161,7 +162,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <button class="btn btn btn-success" style="background-color: palegoldenrod; color:black"><i><img src="https://img.icons8.com/dotty/30/000000/agreement-new.png" /></i>&nbsp; Add Documents</button>
+                                    <button class="btn btn btn-success" style="background-color: palegoldenrod; color:black"><i><img src="https://img.icons8.com/dotty/30/000000/agreement-new.png" /></i>&nbsp; Add To Course</button>
                                 </div>
                             </div>
                         </form><br /><br />
@@ -247,19 +248,48 @@
             <div class="col-md-6">
                 <div class="white-box">
                     <div class="form-horizontal form-material">
-
+                        @if (Session["userType"] != null && Session["userType"].Equals("Instructor"))
+                        {
+                        <div style="float:right;">
+                            <div class="openBtn">
+                                <button style="background-color:olive;" class="btn btn-danger" onclick="openForm()"><strong>Add Quiz</strong></button>
+                            </div>
+                            <div class="loginPopup">
+                                <div class="formPopup" id="popupForm">
+                                    <form class="formContainer form-material" action="/Instructor/AddQuiz" method="post" enctype="multipart/form-data">
+                                        <label for="quizTitle">
+                                            <strong>Quiz Title</strong>
+                                        </label>
+                                        <input type="hidden" id="coid" name="coid" value="@coid">
+                                        <input type="text" id="quizTitle" placeholder="Example: Quiz 1 (Chap 1- 4)" name="quizTitle" required>
+                                        <label for="questionLink">
+                                            <strong>Quiz Link</strong>
+                                        </label>
+                                        <input type="text" id="questionLink" placeholder="Microsoft/Google Form Link" name="questionLink" required>
+                                        <label for="totalMarks">
+                                            <strong>Total Marks</strong>
+                                        </label>
+                                        <input type="text" id="totalMarks" placeholder="Total Marks Of The Quiz" name="totalMarks" required>
+                                        @*<input class="btn" type="button" value="Post Quiz" />*@
+                                        <button type="submit" class="btn">Post Quiz</button>
+                                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        }
                         <h2 style="color: orangered">Quizes</h2>
                         <p style="color: darkcyan">Click To Open</p>
                         <div style="height: 300px; overflow: auto; ">
 
-
-                            @if (dataL != null)
+                            @if (quizes != null)
                             {
-                                foreach (var item in dataL)
+                                foreach (var item in quizes)
                                 {
                                     i++;
-                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
 
+                                    <p style="float:right">Total Marks @item.totalMarks</p>
+                                    <b><a style="font-size:20px" href="@item.questionLink">@i. @item.quizTitle</a></b><br /><hr />
                                 }
                                 i = 0;
                             }
@@ -275,3 +305,11 @@
         </div>
     </div>
 </div>
+<script>
+      function openForm() {
+        document.getElementById("popupForm").style.display = "block";
+      }
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+</script>

@@ -23,5 +23,9 @@ namespace AskNLearn.Models.Instructor
         public string imageTitle { get; set; }
         public string videoTitle { get; set; }
         public string docTitle { get; set; }
+        public int quizId { get; set; }
+        public string quizTitle { get; set; }
+        public string questionLink { get; set; }
+        public string totalMarks { get; set; }
     }
 }
