@@ -1,27 +1,19 @@
 ﻿@model List<AskNLearn.Models.User>
-
-
 @{ ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/MyLayout3.cshtml";
 }
-
-
-
 @{
     var title = "";
-    int n = 0,UL=0,UP=0, p = 0,q=0,r=0,coid1=0,coid2=0,coid3=0,coid4=0,coid5=0,coid6=0;
+    int n = 0, UL = 0, UP = 0, p = 0, q = 0, r = 0, coid1 = 0, coid2 = 0, coid3 = 0, coid4 = 0, coid5 = 0, coid6 = 0;
     string name1 = "N/A", name2 = "N/A", name3 = "N/A", name4 = "N/A", name5 = "N/A";
     string email1 = "demo@email.com", email2 = "demo@email.com", email3 = "demo@email.com", email4 = "demo@email.com", email5 = "demo@email.com";
-
     string[] CourseTitle = new string[50];
     double[] CoursePrice = new double[50];
     int[] CourseId = new int[50];
     string[] Details = new string[50];
     string[] ThumbnailList = new string[50];
-
-    /// Instructor List 
-    /// 
-
+    /// Instructor List
+    ///
     string[] IName = new string[50];
     string[] EmailList = new string[50];
     string[] Img = new string[50];
@@ -34,16 +26,35 @@
     string[] PostsUserImg = new string[50];
     int[] Vote = new int[50];
     string[] DateofPost = new string[50];
-    
+
+
+    for(int i=0;i<10;i++)
+    {
+        UpName[i] = "";
+        UType[i] = "";
+        PostTitle[i] = "";
+        PostDetails[i] = "";
+        PostsUserImg[i] = "";
+        Vote[i] = 0;
+        DateofPost[i] = "";
+
+        IName[i] = "";
+        EmailList[i] = "";
+        Img[i] = "";
+        UID[i] = 0;
+
+        CourseTitle[i] = "";
+        CoursePrice[i] = 0;
+        CourseId[i] = 0;
+        Details[i] = "";
+        ThumbnailList[i] = "";
+    }
+
     int iid1 = 0;
     int iid2 = 0;
     int iid3 = 0;
     int iid4 = 0;
     int iid5 = 0;
-
-
-
-
     foreach (var u in Model)
     {
         if (u.uid.Equals(ViewBag.L1))
@@ -72,24 +83,18 @@
             email5 = u.email;
         }
     }
-
     foreach (var course in ViewBag.CourseList)
     {
         n++;
     }
-
     foreach (var course in ViewBag.UserList)
     {
         UL++;
     }
-
     foreach (var course in ViewBag.UserPostList)
     {
         UP++;
     }
-
-
-
     foreach (var course in ViewBag.CourseList)
     {
         if (p <= 5)
@@ -102,8 +107,7 @@
         }
         p++;
     }
-
-    foreach(var ui in ViewBag.UserList)
+    foreach (var ui in ViewBag.UserList)
     {
         IName[q] = ui.name;
         EmailList[q] = ui.email;
@@ -114,11 +118,9 @@
     iid1 = UID[0];
     iid2 = UID[1];
     iid3 = UID[2];
-    iid4 = UID[3]; 
+    iid4 = UID[3];
     iid5 = UID[4];
-
-
-    foreach(var up in ViewBag.UserPostList)
+    foreach (var up in ViewBag.UserPostList)
     {
         UpName[r] = up.name;
         UType[r] = up.userType;
@@ -129,74 +131,52 @@
         DateofPost[r] = up.dateTime.ToString();
         r++;
     }
-
-    for(int s=0;s<UP;s++)
+    for (int s = 0; s < UP; s++)
     {
-        for(int t=0;t< UP - s-1;t++)
+        for (int t = 0; t < UP - s - 1; t++)
         {
-            if(Vote[t]>Vote[t+1])
+            if (Vote[t] > Vote[t + 1])
             {
                 int sv = Vote[t];
                 Vote[t] = Vote[t + 1];
                 Vote[t + 1] = sv;
-
                 string sn = UpName[t];
                 UpName[t] = UpName[t + 1];
                 UpName[t + 1] = sn;
-
                 string st = UType[t];
                 UType[t] = UType[t + 1];
                 UType[t + 1] = st;
-
                 string spt = PostTitle[t];
                 PostTitle[t] = PostTitle[t + 1];
                 PostTitle[t + 1] = spt;
-
                 string sd = PostDetails[t];
                 PostDetails[t] = PostDetails[t + 1];
                 PostDetails[t + 1] = sd;
-
                 string si = PostsUserImg[t];
                 PostsUserImg[t] = PostsUserImg[t + 1];
                 PostsUserImg[t + 1] = si;
-
                 string dt = DateofPost[t];
                 DateofPost[t] = DateofPost[t + 1];
                 DateofPost[t + 1] = dt;
-
-
-
             }
         }
     }
-
-
-
     coid1 = CourseId[0];
     coid2 = CourseId[1];
     coid3 = CourseId[2];
     coid4 = CourseId[3];
     coid5 = CourseId[4];
     coid6 = CourseId[5];
-
-
 }
 <br>
 <br>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <br>
     <br>
-
 </head>
-
 <body>
-
-
-
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -218,22 +198,20 @@
                 <img class="rounded mx-auto d-block w-100%" src="../../Content/Scrolling/4.jpg" alt="Fourth slide">
             </div>
         </div>
+
+
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
     </div>
 
-
-
-
-
     <div>
-
         <div>
             <div class="container-fluid">
                 <div>
@@ -242,10 +220,9 @@
                 <div class="container">
                     <div class="row ">
                         <a href="../UserDetails?iid=@iid1" class="btn btn-primary  col-sm d-flex p-3" style="background-color: #b3d9ff; color: black; border-radius: 6px; margin-right: 5px ">
-
                             <div class="col-sm d-flex p-3">
                                 <div>
-                                    <img src="~/Content/@Img[0]" class=" thumb-md img-circle me-4" />
+                                    <img src="~@Img[0]" class=" thumb-md img-circle me-4" />
                                 </div>
                                 <div>
                                     <h4>@IName[0]</h4>
@@ -254,10 +231,9 @@
                             </div>
                         </a>
                         <a href="../UserDetails?iid=@iid2" class="btn btn-primary  col-sm d-flex p-3" style="background-color: #b3d9ff; color: black; border-radius: 6px; margin-right: 5px ">
-
                             <div class="col-sm d-flex p-3">
                                 <div>
-                                    <img src="~/Content/@Img[1]" class=" thumb-md img-circle me-4" />
+                                    <img src="~@Img[1]" class=" thumb-md img-circle me-4" />
                                 </div>
                                 <div>
                                     <h4>@IName[1]</h4>
@@ -266,10 +242,9 @@
                             </div>
                         </a>
                         <a href="../UserDetails?iid=@iid3" class="btn btn-primary  col-sm d-flex p-3" style="background-color: #b3d9ff; color: black; border-radius: 6px; margin-right: 5px ">
-
                             <div class="col-sm d-flex p-3">
                                 <div>
-                                    <img src="~/Content/@Img[2]" class=" thumb-md img-circle me-4" />
+                                    <img src="~@Img[2]" class=" thumb-md img-circle me-4" />
                                 </div>
                                 <div>
                                     <h4>@IName[2]</h4>
@@ -278,10 +253,9 @@
                             </div>
                         </a>
                         <a href="../UserDetails?iid=@iid4" class="btn btn-primary  col-sm d-flex p-3" style="background-color: #b3d9ff; color: black; border-radius: 6px; margin-right: 5px ">
-
                             <div class="col-sm d-flex p-3">
                                 <div>
-                                    <img src="~/Content/@Img[3]" class=" thumb-md img-circle me-4" />
+                                    <img src="~@Img[3]" class=" thumb-md img-circle me-4" />
                                 </div>
                                 <div>
                                     <h4>@IName[3]</h4>
@@ -290,10 +264,9 @@
                             </div>
                         </a>
                         <a href="../UserDetails?iid=@iid5" class="btn btn-primary  col-sm d-flex p-3" style="background-color: #b3d9ff; color: black; border-radius: 6px; margin-right: 5px">
-
                             <div class="col-sm d-flex p-3">
                                 <div>
-                                    <img src="~/Content/@Img[4]" class=" thumb-md img-circle me-4" />
+                                    <img src="~@Img[4]" class=" thumb-md img-circle me-4" />
                                 </div>
                                 <div>
                                     <h4>@IName[4]</h4>
@@ -301,20 +274,16 @@
                                 </div>
                             </div>
                         </a>
-
                     </div>
                 </div>
                 @* Live Courses started *@
-
                 <div>
                     <h2 style="text-align:center;margin:10px;padding-top:5px">Our Courses</h2>
                 </div>
-
-
                 <div class="container" style="margin-bottom:10px">
                     <div class="box1">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[0]" width="300" height="115"><h5>@Details[0]</h5>
+                            <img src="~/@ThumbnailList[0]" width="300" height="115"><h5>@Details[0]</h5>
                             <h3>@CourseTitle[0]</h3>
                             @if (CoursePrice[0] == 0)
                             {
@@ -326,10 +295,9 @@
                             }
                         </a>
                     </div>
-
                     <div class="box2">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[1]" width="300" height="115"><h5>@Details[1]</h5>
+                            <img src="~/@ThumbnailList[1]" width="300" height="115"><h5>@Details[1]</h5>
                             <h3>@CourseTitle[1]</h3>
                             @if (CoursePrice[1] == 0)
                             {
@@ -341,10 +309,9 @@
                             }
                         </a>
                     </div>
-
                     <div class="box3">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[2]" width="300" height="115"><h5>@Details[2]</h5>
+                            <img src="~/@ThumbnailList[2]" width="300" height="115"><h5>@Details[2]</h5>
                             <h3>@CourseTitle[2]</h3>
                             @if (CoursePrice[2] == 0)
                             {
@@ -355,14 +322,12 @@
                                 <h2>@CoursePrice[2] BDT</h2>
                             }
                         </a>
-
                     </div>
                 </div>
-
                 <div class="container">
                     <div class="box1">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[3]" width="300" height="115"><h5>@Details[3]</h5>
+                            <img src="~/@ThumbnailList[3]" width="300" height="115"><h5>@Details[3]</h5>
                             <h3>@CourseTitle[3]</h3>
                             @if (CoursePrice[3] == 0)
                             {
@@ -374,10 +339,9 @@
                             }
                         </a>
                     </div>
-
                     <div class="box2">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[4]" width="300" height="115"><h5>@Details[4]</h5>
+                            <img src="~/@ThumbnailList[4]" width="300" height="115"><h5>@Details[4]</h5>
                             <h3>@CourseTitle[4]</h3>
                             @if (CoursePrice[4] == 0)
                             {
@@ -389,10 +353,9 @@
                             }
                         </a>
                     </div>
-
                     <div class="box3">
                         <a class="a2" href="#" style="color: black; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block;">
-                            <img src="~/Content/@ThumbnailList[5]" width="300" height="115"><h5>@Details[5]</h5>
+                            <img src="~/@ThumbnailList[5]" width="300" height="115"><h5>@Details[5]</h5>
                             <h3>@CourseTitle[5]</h3>
                             @if (CoursePrice[5] == 0)
                             {
@@ -402,14 +365,10 @@
                             {
                                 <h2>@CoursePrice[5] BDT</h2>
                             }
-
                         </a>
                     </div>
                 </div>
-
                 @* Jisun End *@
-
-              
 
                 <div class="row">
                     <div class="col-md-12 col-lg-6 col-sm-12">
@@ -418,8 +377,7 @@
                             <div class="comment-center">
                                 <div class="comment-body">
                                     <div class="user-img">
-
-                                        <img src="~/Content/@PostsUserImg[UP-1]" alt="user"
+                                        <img src="~@PostsUserImg[UP-1]" alt="user"
                                              class="img-circle">
                                     </div>
                                     <div class="mail-contnet">
@@ -432,11 +390,9 @@
                                         </a><span class="time pull-right">@DateofPost[UP - 1]</span>
                                     </div>
                                 </div>
-
                                 <div class="comment-body">
                                     <div class="user-img">
-
-                                        <img src="~/Content/@PostsUserImg[UP-2]" alt="user"
+                                        <img src="~@PostsUserImg[UP-2]" alt="user"
                                              class="img-circle">
                                     </div>
                                     <div class="mail-contnet">
@@ -449,11 +405,9 @@
                                         </a><span class="time pull-right">@DateofPost[UP - 2]</span>
                                     </div>
                                 </div>
-
                                 <div class="comment-body">
                                     <div class="user-img">
-
-                                        <img src="~/Content/@PostsUserImg[UP-3]" alt="user"
+                                        <img src="~@PostsUserImg[UP-3]" alt="user"
                                              class="img-circle">
                                     </div>
                                     <div class="mail-contnet">
@@ -467,7 +421,6 @@
                                     </div>
                                 </div>
 
-                             
                             </div>
                         </div>
                     </div>
@@ -531,32 +484,30 @@
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
-           
+
         </div>
         <!-- /#page-wrapper -->
     </div>
- 
+
     @*<script src="../../Theme/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    Bootstrap Core JavaScript
-    <script src="../../Theme/bootstrap/dist/js/bootstrap.min.js"></script>
-    Menu Plugin JavaScript
-    <script src="../../Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-    slimscroll JavaScript
-    <script src="../../Theme/js/jquery.slimscroll.js"></script>
-    Wave Effects
-    <script src="../../Theme/js/waves.js"></script>
-    Counter js
-    <script src="../../Theme/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
-    <script src="../../Theme/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
-    Morris JavaScript
-    <script src="../../Theme/plugins/bower_components/raphael/raphael-min.js"></script>
-    <script src="../../Theme/plugins/bower_components/morrisjs/morris.js"></script>
-    Custom Theme JavaScript
-    <script src="../../Theme/js/custom.min.js"></script>
-    <script src="../../Theme/js/dashboard1.js"></script>
-    <script src="../../Theme/plugins/bower_components/toast-master/js/jquery.toast.js"></script>*@
- 
+        Bootstrap Core JavaScript
+        <script src="../../Theme/bootstrap/dist/js/bootstrap.min.js"></script>
+        Menu Plugin JavaScript
+        <script src="../../Theme/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+        slimscroll JavaScript
+        <script src="../../Theme/js/jquery.slimscroll.js"></script>
+        Wave Effects
+        <script src="../../Theme/js/waves.js"></script>
+        Counter js
+        <script src="../../Theme/plugins/bower_components/waypoints/lib/jquery.waypoints.js"></script>
+        <script src="../../Theme/plugins/bower_components/counterup/jquery.counterup.min.js"></script>
+        Morris JavaScript
+        <script src="../../Theme/plugins/bower_components/raphael/raphael-min.js"></script>
+        <script src="../../Theme/plugins/bower_components/morrisjs/morris.js"></script>
+        Custom Theme JavaScript
+        <script src="../../Theme/js/custom.min.js"></script>
+        <script src="../../Theme/js/dashboard1.js"></script>
+        <script src="../../Theme/plugins/bower_components/toast-master/js/jquery.toast.js"></script>*@
+
 </body>
-
 </html>
-

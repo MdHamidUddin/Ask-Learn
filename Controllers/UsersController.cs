@@ -4,7 +4,10 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Text;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -14,6 +17,7 @@ namespace AskNLearn.Controllers
     {
         // GET: Users
         AskNLearnEntities dbObj = new AskNLearnEntities();
+        string uname;
         public ActionResult Index()
         {
             return View();
@@ -115,8 +119,9 @@ namespace AskNLearn.Controllers
             DateTime time = DateTime.Now;
             if(ModelState.IsValid)
             {
+                string serial=UserSerial(Model.userType);
                 user.name = Model.name;
-                user.username = Model.username;
+                user.username = serial +"-"+ Model.username;
                 user.email = Model.email;
                 user.password = Model.password;
                 user.dob = Model.dob;
@@ -133,10 +138,129 @@ namespace AskNLearn.Controllers
                 userInfo.reputation = 0;
                 dbObj.UsersInfoes.Add(userInfo);
                 dbObj.SaveChanges();
+
+           
+                uname = "Username : "+user.username;
+                BuildEmailTemplate(user.uid);
                 return RedirectToAction("Login");
             }
             return View();
         }
+
+        string UserSerial(string uType)
+        {
+            var UserSerial = 0;
+            var uname = "";
+            var user = dbObj.Users.Where(x=>x.userType.Equals(uType)).ToList();
+            var count = dbObj.Users.Where(x => x.userType.Equals(uType)).Count();
+
+
+            if (count==0)
+            {
+                string type = uType.Substring(0, 1);
+                uname = type + "1";
+            }
+            else if  (count>=1)
+            {
+                foreach (var u in user)
+                {
+                    uname = u.username;
+                }
+
+                string type = uname.Substring(0, 1);
+                uname = uname.Substring(1, 1);
+                UserSerial = Convert.ToInt32(uname);
+                UserSerial++;
+                uname = Convert.ToString(UserSerial);
+                uname = type + uname;
+            }
+           
+          
+
+            return uname;
+        }
+
+
+        public void BuildEmailTemplate(int uid)
+        {
+            string body = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/EmailTemplate/") + "Text" + ".cshtml");
+            var regInfo = dbObj.Users.Where(x => x.uid == uid).FirstOrDefault();
+            var url = "https://localhost:44343/" + "Register/Confirm?regId=" + uid;
+            body = body.Replace("@ViewBag.ConfirmationLink", url);
+            body = body.ToString();
+            BuildEmailTemplate("Your Account is Successfully Created", body, regInfo.email,uname);
+        }
+
+        public static void BuildEmailTemplate(string subjectText, string bodyText, string sendTo,string uname)
+        {
+            string from, to, bcc, cc, subject, body;
+            from = "hamiduddin09@gmail.com";
+            to = sendTo.Trim();
+            bcc = "";
+            cc = "";
+            subject = subjectText;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(bodyText);
+            sb.Append(uname);
+            body = sb.ToString();
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(from);
+            mail.To.Add(new MailAddress(to));
+            if (!string.IsNullOrEmpty(bcc))
+            {
+                mail.Bcc.Add(new MailAddress(bcc));
+
+            }
+
+            if (!string.IsNullOrEmpty(cc))
+            {
+                mail.CC.Add(new MailAddress(cc));
+
+            }
+
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+            SendEmail(mail);
+        }
+
+        public static void SendEmail(MailMessage mail)
+        {
+            SmtpClient client = new SmtpClient();
+            client.Host = "smtp.gmail.com";
+            client.Port = 587;
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.Credentials = new System.Net.NetworkCredential("hamiduddin09@gmail.com", "Neverstoplearning1998");
+            try
+            {
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ActionResult Logout()
         {
             Session.Clear();

@@ -18,13 +18,13 @@
     </Key>
     <Property Name="coid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="uid" Type="int" Nullable="false" />
-    <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="details" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="price" Type="float" Nullable="false" />
-    <Property Name="thumbnail" Type="varchar" MaxLength="500" />
     <Property Name="upVote" Type="int" />
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
+    <Property Name="thumbnail" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Documents">
     <Key>
@@ -32,9 +32,12 @@
     </Key>
     <Property Name="did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="coid" Type="int" Nullable="false" />
-    <Property Name="image" Type="varchar" MaxLength="150" />
+    <Property Name="imageTitle" Type="varchar" MaxLength="100" />
+    <Property Name="image" Type="varchar" MaxLength="500" />
+    <Property Name="videoTitle" Type="varchar" MaxLength="100" />
     <Property Name="videoLink" Type="varchar" MaxLength="500" />
-    <Property Name="docs" Type="varchar" MaxLength="150" />
+    <Property Name="docTitle" Type="varchar" MaxLength="100" />
+    <Property Name="docs" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="EnrolledUser">
     <Key>
@@ -51,9 +54,9 @@
     </Key>
     <Property Name="mid" Type="int" Nullable="false" />
     <Property Name="eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="qName" Type="varchar" MaxLength="150" Nullable="false" />
     <Property Name="marks" Type="float" Nullable="false" />
     <Property Name="detaTime" Type="datetime" Nullable="false" />
+    <Property Name="quizId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Posts">
     <Key>
@@ -67,15 +70,15 @@
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
+  <EntityType Name="Quizes">
     <Key>
-      <PropertyRef Name="diagram_id" />
+      <PropertyRef Name="quizId" />
     </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
+    <Property Name="quizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="coid" Type="int" Nullable="false" />
+    <Property Name="quizTitle" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="questionLink" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="totalMarks" Type="varchar" MaxLength="500" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -89,7 +92,7 @@
     <Property Name="dob" Type="date" Nullable="false" />
     <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="userType" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="proPic" Type="varchar" MaxLength="50" />
+    <Property Name="proPic" Type="varchar" MaxLength="500" />
     <Property Name="approval" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
   </EntityType>
@@ -175,7 +178,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Marks_Marks">
+  <Association Name="FK_Marks_EnrolledUser">
     <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
     <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
     <ReferentialConstraint>
@@ -184,6 +187,18 @@
       </Principal>
       <Dependent Role="Marks">
         <PropertyRef Name="eid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Quizes">
+    <End Role="Quizes" Type="Self.Quizes" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizes">
+        <PropertyRef Name="quizId" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="quizId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -196,6 +211,18 @@
       </Principal>
       <Dependent Role="Posts">
         <PropertyRef Name="uid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Quizes_Courses">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="Quizes" Type="Self.Quizes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="coid" />
+      </Principal>
+      <Dependent Role="Quizes">
+        <PropertyRef Name="coid" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -218,7 +245,7 @@
     <EntitySet Name="EnrolledUser" EntityType="Self.EnrolledUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Quizes" EntityType="Self.Quizes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UsersInfo" EntityType="Self.UsersInfo" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -245,13 +272,21 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="EnrolledUser" EntitySet="EnrolledUser" />
     </AssociationSet>
-    <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+    <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
       <End Role="EnrolledUser" EntitySet="EnrolledUser" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">
+      <End Role="Quizes" EntitySet="Quizes" />
       <End Role="Marks" EntitySet="Marks" />
     </AssociationSet>
     <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Posts" EntitySet="Posts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Quizes_Courses" Association="Self.FK_Quizes_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Quizes" EntitySet="Quizes" />
     </AssociationSet>
     <AssociationSet Name="FK_UsersInfo_UsersInfo" Association="Self.FK_UsersInfo_UsersInfo">
       <End Role="Users" EntitySet="Users" />

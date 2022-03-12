@@ -16,10 +16,11 @@ namespace AskNLearn.Models
     {
         public int mid { get; set; }
         public int eid { get; set; }
-        public string qName { get; set; }
         public double marks { get; set; }
         public System.DateTime detaTime { get; set; }
+        public int quizId { get; set; }
     
         public virtual EnrolledUser EnrolledUser { get; set; }
+        public virtual Quize Quize { get; set; }
     }
 }

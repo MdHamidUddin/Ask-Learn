@@ -23,13 +23,13 @@
           </Key>
           <Property Name="coid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="uid" Type="int" Nullable="false" />
-          <Property Name="title" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="details" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="price" Type="float" Nullable="false" />
-          <Property Name="thumbnail" Type="varchar" MaxLength="500" />
           <Property Name="upVote" Type="int" />
           <Property Name="downVote" Type="int" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
+          <Property Name="thumbnail" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Documents">
           <Key>
@@ -37,9 +37,12 @@
           </Key>
           <Property Name="did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="coid" Type="int" Nullable="false" />
-          <Property Name="image" Type="varchar" MaxLength="150" />
+          <Property Name="imageTitle" Type="varchar" MaxLength="100" />
+          <Property Name="image" Type="varchar" MaxLength="500" />
+          <Property Name="videoTitle" Type="varchar" MaxLength="100" />
           <Property Name="videoLink" Type="varchar" MaxLength="500" />
-          <Property Name="docs" Type="varchar" MaxLength="150" />
+          <Property Name="docTitle" Type="varchar" MaxLength="100" />
+          <Property Name="docs" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="EnrolledUser">
           <Key>
@@ -56,9 +59,9 @@
           </Key>
           <Property Name="mid" Type="int" Nullable="false" />
           <Property Name="eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="qName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="marks" Type="float" Nullable="false" />
           <Property Name="detaTime" Type="datetime" Nullable="false" />
+          <Property Name="quizId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Posts">
           <Key>
@@ -72,15 +75,15 @@
           <Property Name="downVote" Type="int" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+        <EntityType Name="Quizes">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="quizId" />
           </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
+          <Property Name="quizId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="coid" Type="int" Nullable="false" />
+          <Property Name="quizTitle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="questionLink" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="totalMarks" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -94,7 +97,7 @@
           <Property Name="dob" Type="date" Nullable="false" />
           <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="userType" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="proPic" Type="varchar" MaxLength="50" />
+          <Property Name="proPic" Type="varchar" MaxLength="500" />
           <Property Name="approval" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -180,7 +183,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Marks_Marks">
+        <Association Name="FK_Marks_EnrolledUser">
           <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
           <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
           <ReferentialConstraint>
@@ -189,6 +192,18 @@
             </Principal>
             <Dependent Role="Marks">
               <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Quizes">
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="1" />
+          <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quizes">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Marks">
+              <PropertyRef Name="quizId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -201,6 +216,18 @@
             </Principal>
             <Dependent Role="Posts">
               <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quizes_Courses">
+          <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+          <End Role="Quizes" Type="Self.Quizes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="coid" />
+            </Principal>
+            <Dependent Role="Quizes">
+              <PropertyRef Name="coid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -223,7 +250,7 @@
           <EntitySet Name="EnrolledUser" EntityType="Self.EnrolledUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marks" EntityType="Self.Marks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quizes" EntityType="Self.Quizes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInfo" EntityType="Self.UsersInfo" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -250,13 +277,21 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="EnrolledUser" EntitySet="EnrolledUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+          <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
             <End Role="EnrolledUser" EntitySet="EnrolledUser" />
+            <End Role="Marks" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">
+            <End Role="Quizes" EntitySet="Quizes" />
             <End Role="Marks" EntitySet="Marks" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quizes_Courses" Association="Self.FK_Quizes_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Quizes" EntitySet="Quizes" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersInfo_UsersInfo" Association="Self.FK_UsersInfo_UsersInfo">
             <End Role="Users" EntitySet="Users" />
@@ -288,16 +323,17 @@
           </Key>
           <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="uid" Type="Int32" Nullable="false" />
-          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="details" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="price" Type="Double" Nullable="false" />
-          <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="upVote" Type="Int32" />
           <Property Name="downVote" Type="Int32" />
           <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
           <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
           <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+          <NavigationProperty Name="Quizes" Relationship="Self.FK_Quizes_Courses" FromRole="Courses" ToRole="Quizes" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -305,9 +341,12 @@
           </Key>
           <Property Name="did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="coid" Type="Int32" Nullable="false" />
-          <Property Name="image" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="imageTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="videoTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="videoLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="docs" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="docTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="docs" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_Documents_Courses" FromRole="Documents" ToRole="Courses" />
         </EntityType>
         <EntityType Name="EnrolledUser">
@@ -320,7 +359,7 @@
           <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Cours" Relationship="Self.FK_EnrolledUser_Courses" FromRole="EnrolledUser" ToRole="Courses" />
           <NavigationProperty Name="User" Relationship="Self.FK_EnrolledUser_Users" FromRole="EnrolledUser" ToRole="Users" />
-          <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Marks" FromRole="EnrolledUser" ToRole="Marks" />
+          <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_EnrolledUser" FromRole="EnrolledUser" ToRole="Marks" />
         </EntityType>
         <EntityType Name="Mark">
           <Key>
@@ -328,10 +367,11 @@
           </Key>
           <Property Name="mid" Type="Int32" Nullable="false" />
           <Property Name="eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="qName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="marks" Type="Double" Nullable="false" />
           <Property Name="detaTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_Marks" FromRole="Marks" ToRole="EnrolledUser" />
+          <Property Name="quizId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_EnrolledUser" FromRole="Marks" ToRole="EnrolledUser" />
+          <NavigationProperty Name="Quize" Relationship="Self.FK_Marks_Quizes" FromRole="Marks" ToRole="Quizes" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -347,15 +387,17 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
           <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="Quize">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="quizId" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="quizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="coid" Type="Int32" Nullable="false" />
+          <Property Name="quizTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="questionLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="totalMarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cours" Relationship="Self.FK_Quizes_Courses" FromRole="Quizes" ToRole="Courses" />
+          <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Quizes" FromRole="Quizes" ToRole="Marks" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -369,7 +411,7 @@
           <Property Name="dob" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="proPic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="proPic" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="approval" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Users" FromRole="Users" ToRole="Comments" />
@@ -449,6 +491,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Quizes_Courses">
+          <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+          <End Role="Quizes" Type="Self.Quize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Courses">
+              <PropertyRef Name="coid" />
+            </Principal>
+            <Dependent Role="Quizes">
+              <PropertyRef Name="coid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EnrolledUser_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
           <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="*" />
@@ -461,7 +515,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Marks_Marks">
+        <Association Name="FK_Marks_EnrolledUser">
           <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
           <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
           <ReferentialConstraint>
@@ -470,6 +524,18 @@
             </Principal>
             <Dependent Role="Marks">
               <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Marks_Quizes">
+          <End Role="Quizes" Type="Self.Quize" Multiplicity="1" />
+          <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quizes">
+              <PropertyRef Name="quizId" />
+            </Principal>
+            <Dependent Role="Marks">
+              <PropertyRef Name="quizId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -504,7 +570,7 @@
           <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
           <EntitySet Name="Marks" EntityType="Self.Mark" />
           <EntitySet Name="Posts" EntityType="Self.Post" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Quizes" EntityType="Self.Quize" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UsersInfoes" EntityType="Self.UsersInfo" />
           <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -527,12 +593,20 @@
             <End Role="Courses" EntitySet="Courses" />
             <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_Quizes_Courses" Association="Self.FK_Quizes_Courses">
+            <End Role="Courses" EntitySet="Courses" />
+            <End Role="Quizes" EntitySet="Quizes" />
+          </AssociationSet>
           <AssociationSet Name="FK_EnrolledUser_Users" Association="Self.FK_EnrolledUser_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+          <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
             <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+            <End Role="Marks" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">
+            <End Role="Quizes" EntitySet="Quizes" />
             <End Role="Marks" EntitySet="Marks" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
@@ -571,10 +645,10 @@
                 <ScalarProperty Name="title" ColumnName="title" />
                 <ScalarProperty Name="details" ColumnName="details" />
                 <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
                 <ScalarProperty Name="upVote" ColumnName="upVote" />
                 <ScalarProperty Name="downVote" ColumnName="downVote" />
                 <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -583,8 +657,11 @@
               <MappingFragment StoreEntitySet="Documents">
                 <ScalarProperty Name="did" ColumnName="did" />
                 <ScalarProperty Name="coid" ColumnName="coid" />
+                <ScalarProperty Name="imageTitle" ColumnName="imageTitle" />
                 <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="videoTitle" ColumnName="videoTitle" />
                 <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+                <ScalarProperty Name="docTitle" ColumnName="docTitle" />
                 <ScalarProperty Name="docs" ColumnName="docs" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -604,9 +681,9 @@
               <MappingFragment StoreEntitySet="Marks">
                 <ScalarProperty Name="mid" ColumnName="mid" />
                 <ScalarProperty Name="eid" ColumnName="eid" />
-                <ScalarProperty Name="qName" ColumnName="qName" />
                 <ScalarProperty Name="marks" ColumnName="marks" />
                 <ScalarProperty Name="detaTime" ColumnName="detaTime" />
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -623,14 +700,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="AskNLearnModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+          <EntitySetMapping Name="Quizes">
+            <EntityTypeMapping TypeName="AskNLearnModel.Quize">
+              <MappingFragment StoreEntitySet="Quizes">
+                <ScalarProperty Name="quizId" ColumnName="quizId" />
+                <ScalarProperty Name="coid" ColumnName="coid" />
+                <ScalarProperty Name="quizTitle" ColumnName="quizTitle" />
+                <ScalarProperty Name="questionLink" ColumnName="questionLink" />
+                <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -22,10 +22,10 @@
           <ScalarProperty Name="title" ColumnName="title" />
           <ScalarProperty Name="details" ColumnName="details" />
           <ScalarProperty Name="price" ColumnName="price" />
-          <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
           <ScalarProperty Name="upVote" ColumnName="upVote" />
           <ScalarProperty Name="downVote" ColumnName="downVote" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+          <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -34,8 +34,11 @@
         <MappingFragment StoreEntitySet="Documents">
           <ScalarProperty Name="did" ColumnName="did" />
           <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="imageTitle" ColumnName="imageTitle" />
           <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="videoTitle" ColumnName="videoTitle" />
           <ScalarProperty Name="videoLink" ColumnName="videoLink" />
+          <ScalarProperty Name="docTitle" ColumnName="docTitle" />
           <ScalarProperty Name="docs" ColumnName="docs" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -55,9 +58,9 @@
         <MappingFragment StoreEntitySet="Marks">
           <ScalarProperty Name="mid" ColumnName="mid" />
           <ScalarProperty Name="eid" ColumnName="eid" />
-          <ScalarProperty Name="qName" ColumnName="qName" />
           <ScalarProperty Name="marks" ColumnName="marks" />
           <ScalarProperty Name="detaTime" ColumnName="detaTime" />
+          <ScalarProperty Name="quizId" ColumnName="quizId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -74,14 +77,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="AskNLearnModel.sysdiagram">
-        <MappingFragment StoreEntitySet="sysdiagrams">
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-          <ScalarProperty Name="version" ColumnName="version" />
-          <ScalarProperty Name="definition" ColumnName="definition" />
+    <EntitySetMapping Name="Quizes">
+      <EntityTypeMapping TypeName="AskNLearnModel.Quize">
+        <MappingFragment StoreEntitySet="Quizes">
+          <ScalarProperty Name="quizId" ColumnName="quizId" />
+          <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="quizTitle" ColumnName="quizTitle" />
+          <ScalarProperty Name="questionLink" ColumnName="questionLink" />
+          <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

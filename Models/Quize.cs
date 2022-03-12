@@ -12,12 +12,20 @@ namespace AskNLearn.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class Quize
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public Quize()
+        {
+            this.Marks = new HashSet<Mark>();
+        }
+    
+        public int quizId { get; set; }
+        public int coid { get; set; }
+        public string quizTitle { get; set; }
+        public string questionLink { get; set; }
+        public string totalMarks { get; set; }
+    
+        public virtual Cours Cours { get; set; }
+        public virtual ICollection<Mark> Marks { get; set; }
     }
 }
