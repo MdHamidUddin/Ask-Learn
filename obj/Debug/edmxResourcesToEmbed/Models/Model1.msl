@@ -58,9 +58,9 @@
         <MappingFragment StoreEntitySet="Marks">
           <ScalarProperty Name="mid" ColumnName="mid" />
           <ScalarProperty Name="eid" ColumnName="eid" />
-          <ScalarProperty Name="qName" ColumnName="qName" />
           <ScalarProperty Name="marks" ColumnName="marks" />
           <ScalarProperty Name="detaTime" ColumnName="detaTime" />
+          <ScalarProperty Name="quizId" ColumnName="quizId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -74,6 +74,17 @@
           <ScalarProperty Name="upVote" ColumnName="upVote" />
           <ScalarProperty Name="downVote" ColumnName="downVote" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quizes">
+      <EntityTypeMapping TypeName="AskNLearnModel.Quize">
+        <MappingFragment StoreEntitySet="Quizes">
+          <ScalarProperty Name="quizId" ColumnName="quizId" />
+          <ScalarProperty Name="coid" ColumnName="coid" />
+          <ScalarProperty Name="quizTitle" ColumnName="quizTitle" />
+          <ScalarProperty Name="questionLink" ColumnName="questionLink" />
+          <ScalarProperty Name="totalMarks" ColumnName="totalMarks" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

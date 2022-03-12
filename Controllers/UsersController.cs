@@ -55,6 +55,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["name"] = data.name;
+                    Session["uid"] = data.uid;
                     Session["userType"] = "Admin";
                     Session["adminProfilePic"] = data.proPic;
                     return RedirectToAction("../Admin/Dashboard");
@@ -73,6 +74,7 @@ namespace AskNLearn.Controllers
                     FormsAuthentication.SetAuthCookie(data.username, false);
                     Session["username"] = data.username;
                     Session["name"] = data.name;
+                    Session["uid"] = data.uid;
                     Session["userType"] = "Moderator";
                     Session["adminProfilePic"] = data.proPic;
                     return RedirectToAction("../Moderator/Dashboard");

@@ -130,6 +130,33 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+
+                        <h2 style="color: orangered">Quizes</h2>
+                        <p style="color: darkcyan">Click To Open</p>
+                        <div style="height: 300px; overflow: auto; ">
+
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Quizes Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
     </div>

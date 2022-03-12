@@ -30,6 +30,7 @@
     <NavigationProperty Name="User" Relationship="Self.FK_Courses_Users" FromRole="Courses" ToRole="Users" />
     <NavigationProperty Name="Documents" Relationship="Self.FK_Documents_Courses" FromRole="Courses" ToRole="Documents" />
     <NavigationProperty Name="EnrolledUsers" Relationship="Self.FK_EnrolledUser_Courses" FromRole="Courses" ToRole="EnrolledUser" />
+    <NavigationProperty Name="Quizes" Relationship="Self.FK_Quizes_Courses" FromRole="Courses" ToRole="Quizes" />
   </EntityType>
   <EntityType Name="Document">
     <Key>
@@ -55,7 +56,7 @@
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_EnrolledUser_Courses" FromRole="EnrolledUser" ToRole="Courses" />
     <NavigationProperty Name="User" Relationship="Self.FK_EnrolledUser_Users" FromRole="EnrolledUser" ToRole="Users" />
-    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Marks" FromRole="EnrolledUser" ToRole="Marks" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_EnrolledUser" FromRole="EnrolledUser" ToRole="Marks" />
   </EntityType>
   <EntityType Name="Mark">
     <Key>
@@ -63,10 +64,11 @@
     </Key>
     <Property Name="mid" Type="Int32" Nullable="false" />
     <Property Name="eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="qName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="marks" Type="Double" Nullable="false" />
     <Property Name="detaTime" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_Marks" FromRole="Marks" ToRole="EnrolledUser" />
+    <Property Name="quizId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_EnrolledUser" FromRole="Marks" ToRole="EnrolledUser" />
+    <NavigationProperty Name="Quize" Relationship="Self.FK_Marks_Quizes" FromRole="Marks" ToRole="Quizes" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -81,6 +83,18 @@
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_Posts" FromRole="Posts" ToRole="Comments" />
     <NavigationProperty Name="User" Relationship="Self.FK_Posts_Users" FromRole="Posts" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Quize">
+    <Key>
+      <PropertyRef Name="quizId" />
+    </Key>
+    <Property Name="quizId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="coid" Type="Int32" Nullable="false" />
+    <Property Name="quizTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="questionLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="totalMarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Cours" Relationship="Self.FK_Quizes_Courses" FromRole="Quizes" ToRole="Courses" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Quizes" FromRole="Quizes" ToRole="Marks" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -174,6 +188,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Quizes_Courses">
+    <End Role="Courses" Type="Self.Cours" Multiplicity="1" />
+    <End Role="Quizes" Type="Self.Quize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="coid" />
+      </Principal>
+      <Dependent Role="Quizes">
+        <PropertyRef Name="coid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_EnrolledUser_Users">
     <End Role="Users" Type="Self.User" Multiplicity="1" />
     <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="*" />
@@ -186,7 +212,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Marks_Marks">
+  <Association Name="FK_Marks_EnrolledUser">
     <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
     <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
     <ReferentialConstraint>
@@ -195,6 +221,18 @@
       </Principal>
       <Dependent Role="Marks">
         <PropertyRef Name="eid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Marks_Quizes">
+    <End Role="Quizes" Type="Self.Quize" Multiplicity="1" />
+    <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quizes">
+        <PropertyRef Name="quizId" />
+      </Principal>
+      <Dependent Role="Marks">
+        <PropertyRef Name="quizId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -229,6 +267,7 @@
     <EntitySet Name="EnrolledUsers" EntityType="Self.EnrolledUser" />
     <EntitySet Name="Marks" EntityType="Self.Mark" />
     <EntitySet Name="Posts" EntityType="Self.Post" />
+    <EntitySet Name="Quizes" EntityType="Self.Quize" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="UsersInfoes" EntityType="Self.UsersInfo" />
     <AssociationSet Name="FK_Comments_Posts" Association="Self.FK_Comments_Posts">
@@ -251,12 +290,20 @@
       <End Role="Courses" EntitySet="Courses" />
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
     </AssociationSet>
+    <AssociationSet Name="FK_Quizes_Courses" Association="Self.FK_Quizes_Courses">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="Quizes" EntitySet="Quizes" />
+    </AssociationSet>
     <AssociationSet Name="FK_EnrolledUser_Users" Association="Self.FK_EnrolledUser_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK_Marks_Marks" Association="Self.FK_Marks_Marks">
+    <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+      <End Role="Marks" EntitySet="Marks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">
+      <End Role="Quizes" EntitySet="Quizes" />
       <End Role="Marks" EntitySet="Marks" />
     </AssociationSet>
     <AssociationSet Name="FK_Posts_Users" Association="Self.FK_Posts_Users">
