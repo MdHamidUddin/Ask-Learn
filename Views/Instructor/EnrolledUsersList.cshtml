@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "EnrolledUsersList";
+    Layout = "~/Views/Shared/InstructorDashboard.cshtml";
+}
+
+<div id="wrapper">
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <h2>Enrolled Users List</h2>
+
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th><center>Enroll ID</center></th>
+                        <th><center>Course Title</center></th>
+                        <th><center>Enrolled User Name</center></th>
+                        <th><center>Enrolled Date Time</center></th>
+                        <th><center>Action</center></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr onclick="window.location='#';">
+                            <td>@item.eid</td>
+                            <td>@item.courseTitle</td>
+                            <td>@item.UserName</td>
+                            <td>@item.dateTime</td>
+                            <td>
+                                <center><a class="btn btn-danger" style="background-color:firebrick" href="/Instructor/DeleteEnrolledUsers/@item.eid"><img src="https://img.icons8.com/material-outlined/24/000000/filled-trash.png" />Remove Enrolled User</a></center>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

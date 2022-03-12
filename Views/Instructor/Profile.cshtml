@@ -137,14 +137,14 @@
                     <div class="form-group">
                         <label for="eduInfo" class="col-md-12">Education Information</label>
                         <div class="col-md-12">
-                            <input type="text" value=@Model.eduInfo class="form-control form-control-line" name="eduInfo" id="eduInfo">
+                            <input type="text" class="form-control" name="eduInfo" id="eduInfo" value="@Model.eduInfo">
                             @Html.ValidationMessageFor(model => model.eduInfo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="currentPosition" class="col-md-12">Current Position</label>
                         <div class="col-md-12">
-                            <input type="text" value=@Model.currentPosition class="form-control form-control-line" name="currentPosition" id="currentPosition">
+                            <input type="text" class="form-control" name="currentPosition" id="currentPosition" value="@Model.currentPosition">
                             @Html.ValidationMessageFor(model => model.currentPosition, "", new { @class = "text-danger" })
                         </div>
                     </div>

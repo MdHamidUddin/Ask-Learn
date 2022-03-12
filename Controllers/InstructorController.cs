@@ -13,10 +13,9 @@ using System.Web.Security;
 
 namespace AskNLearn.Controllers
 {
+    [Authorize]
     public class InstructorController : Controller
     {
-        // GET: Instructor
-        [Authorize]
         public ActionResult Dashboard()
         {
             if (Session["userType"].Equals("Instructor"))
@@ -56,7 +55,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         [HttpGet]
         public ActionResult Profile()
         {
@@ -66,9 +64,10 @@ namespace AskNLearn.Controllers
                 InstructorProfile ip = new InstructorProfile();
                 if (Session["uid"] != null)
                 {
-                    //var uid = (int)Session["uid"];
+                    var uid = (int)Session["uid"];
                     var user = (from u in dbObj.Users
                                 join ui in dbObj.UsersInfoes on u.uid equals ui.uid
+                                where u.uid == uid
                                 select new
                                 {
                                     u.uid,
@@ -86,8 +85,8 @@ namespace AskNLearn.Controllers
                                 }).ToList();
                     foreach (var item in user)
                     {
-                        if (item.uid.Equals(Session["uid"]))
-                        {
+                        //if (item.uid.Equals(Session["uid"]))
+                        //{
                             ip.uid = item.uid;
                             ip.name = item.name;
                             ip.username = item.username;
@@ -100,7 +99,7 @@ namespace AskNLearn.Controllers
                             ip.eduInfo = item.eduInfo;
                             ip.reputation = item.reputation;
                             ip.currentPosition = item.currentPosition;
-                        }
+                        //}
                     }
                 }
                 return View(ip);
@@ -111,7 +110,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         [HttpPost]
         public ActionResult Profile(InstructorProfile profile)
         {
@@ -129,6 +127,11 @@ namespace AskNLearn.Controllers
                     obj.gender = profile.gender;
                     db.Entry(obj).State = EntityState.Modified;
                     db.SaveChanges();
+                    var usdata = db.UsersInfoes.Where(value => value.uid == profile.uid).First();
+                    usdata.eduInfo = profile.eduInfo;
+                    usdata.currentPosition = profile.currentPosition;
+                    db.Entry(usdata).State = EntityState.Modified;
+                    db.SaveChanges();
                     return RedirectToAction("Profile");
                 }
                 return View(profile);
@@ -139,7 +142,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         [HttpPost]
         public ActionResult UpdateProPic(InstructorProfile profile)
         {
@@ -171,7 +173,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         [HttpGet]
         public ActionResult AddCourse()
         {
@@ -185,7 +186,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
     }
 }
-        [Authorize]
         [HttpPost]
         public ActionResult AddCourse(CourseModel c)
         {
@@ -232,7 +232,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         [HttpGet]
         public ActionResult UpdateCourse(int id)
         {
@@ -240,6 +239,11 @@ namespace AskNLearn.Controllers
             var check = (from d in db.Documents
                         where d.coid.Equals(id)
                         select d).FirstOrDefault();
+
+            var quiz = (from q in db.Quizes
+                        where q.coid.Equals(id)
+                        select q).ToList();
+            ViewBag.Quizes = quiz;
             if (check != null)
             {
                 List<CourseViewModel> courseModel = new List<CourseViewModel>();
@@ -293,8 +297,8 @@ namespace AskNLearn.Controllers
                 ViewBag.Course = crs;
                 return View();
             }
+            return View();
         }
-        [Authorize]
         [HttpPost]
         public ActionResult UpdateCourse(DocumentsModel d)
         {
@@ -354,6 +358,7 @@ namespace AskNLearn.Controllers
             }
             return RedirectToAction("UpdateCourse", new { id = x });
         }
+        [AllowAnonymous]
         public ActionResult CourseView(int id)
         {
             AskNLearnEntities db = new AskNLearnEntities();
@@ -416,7 +421,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
         public ActionResult CourseList()
         {
             if (Session["userType"].Equals("Instructor"))
@@ -433,7 +437,6 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-        [Authorize]
 
         public ActionResult DeleteCourse(int id)
         {
@@ -451,27 +454,21 @@ namespace AskNLearn.Controllers
             
             return RedirectToAction("CourseList");
         }
-
+        [AllowAnonymous]
         public ActionResult PdfPreview(string doc)
         {
             string path = Path.Combine(Server.MapPath("~/"), doc);
             return File(path, "application/pdf");
         }
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult CourseEnrolment(int id)
         {
-            //if (Session["userType"]!=null && Session["userType"].Equals("Learner"))
-            //{
                 AskNLearnEntities db = new AskNLearnEntities();
                 var data = db.Courses.Find(id);
                 return View(data);
-            //}
-            //else
-            //{
-            //    ViewBag.Message = "You Must Be Authorized As Learner. Login First To Acces This Page";
-            //    return RedirectToAction("Login", "Users");
-            //}
         }
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult CourseEnrolment(EnrolledUser e)
         {
@@ -491,6 +488,55 @@ namespace AskNLearn.Controllers
                 return RedirectToAction("Login", "Users");
             }
         }
-
+        public ActionResult EnrolledUsersList()
+        {
+            int uid = (int)Session["uid"];
+            AskNLearnEntities db = new AskNLearnEntities();
+            List<EnrolledListModel> emlist = new List<EnrolledListModel>();
+            var data = (from c in db.Courses
+                        join e in db.EnrolledUsers on c.coid equals e.coid
+                        join u in db.Users on e.uid equals u.uid
+                        where c.uid == uid
+                        select new
+                        {
+                            e.eid,
+                            c.title,
+                            u.name,
+                            e.dateTime
+                        }
+                        ).ToList();
+            foreach (var item in data)
+            {
+                EnrolledListModel em = new EnrolledListModel();
+                em.eid = item.eid;
+                em.courseTitle = item.title;
+                em.UserName = item.name;
+                em.dateTime = item.dateTime;
+                emlist.Add(em);
+            }
+            return View(emlist);
+        }
+        public ActionResult DeleteEnrolledUsers(int id)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var eu = db.EnrolledUsers.Find(id);
+            db.EnrolledUsers.Remove(eu);
+            db.SaveChanges();
+            return RedirectToAction("EnrolledUsersList");
+        }
+        public ActionResult PostList()
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var data =  db.Posts.ToList();
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult AddQuiz(Quize q)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            db.Quizes.Add(q);
+            db.SaveChanges();
+            return RedirectToAction("UpdateCourse", new { id = q.coid });
+        }
     }
 }
