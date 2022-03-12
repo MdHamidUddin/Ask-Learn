@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
 @{
+    int i = 0;
     int coid=0;
     int uid=0;
     string title="";
@@ -28,12 +29,11 @@
 <div id="wrapper">
 
     <div id="page-wrapper">
-        @*<center><iframe width="600" height="337" src="https://youtube.com/embed/5Eqb_-j3FDA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>*@
         <div class="container-fluid">
             <h1>@title</h1>
             @if (price.Equals(0))
             {<p style="float: left; font-size: 16px; color: green;">Free!</p>}
-            @if (price>0)
+            @if (price > 0)
             {<p style="float: left; font-size: 17px; color: darkorange;">Price: @price ৳</p>}
 
             <p style="float: right; font-size:18px;">&nbsp;&nbsp;Last Update: @dateTime</p>&nbsp;
@@ -52,13 +52,111 @@
 
             <br /><br />
             <h3>@details</h3>
-            @foreach (var item in Model)
-            {
-        <center><img src="@item.image" /></center> <br /><br />
-                <center><iframe width="600" height="337" src="https://youtube.com/embed/@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
-                @*@item.videoLink <br />*@
-                @item.docs
-            }
+            <br /><br />
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+                        <h2 style="color:red">Videos</h2>
+                        <div style="height: 600px; overflow: auto; ">
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <h4>@i. @item.videoTitle</h4>
+                                    <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Video Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+
+                        <h2 style="color:green">Images</h2>
+                        <div style="height: 600px; overflow: auto; ">
+
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <h4>@i. @item.imageTitle</h4>
+                                    <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Document Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+
+                        <h2 style="color:goldenrod">Documents</h2>
+                        <p style="color:darkcyan">Click To Open</p>
+                        <div style="height: 300px; overflow: auto; ">
+
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Document Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="white-box">
+                    <div class="form-horizontal form-material">
+
+                        <h2 style="color: orangered">Quizes</h2>
+                        <p style="color: darkcyan">Click To Open</p>
+                        <div style="height: 300px; overflow: auto; ">
+
+
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+
+                                }
+                                i = 0;
+                            }
+                            else
+                            {
+                                <p style="color:peru">No Quizes Is Uploaded Yet!</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         </div>
     </div>

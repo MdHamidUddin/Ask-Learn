@@ -20,5 +20,8 @@ namespace AskNLearn.Models.Instructor
         public string image { get; set; }
         public string videoLink { get; set; }
         public string docs { get; set; }
+        public string imageTitle { get; set; }
+        public string videoTitle { get; set; }
+        public string docTitle { get; set; }
     }
 }

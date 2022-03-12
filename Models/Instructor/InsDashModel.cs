@@ -9,5 +9,6 @@ namespace AskNLearn.Models.Instructor
     {
         public int LernerCount { get; set; }
         public int PostedCourseCount { get; set; }
+        public int EnrolledLearners { get; set; }
     }
 }
