@@ -215,6 +215,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Home\hamid.png" />
+    <Content Include="Content\Home\noPropic.jpg" />
+    <Content Include="Content\Instructor\CourseThumbnail\aspmvc.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\CPlus.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\CSharp.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\java.png" />
+    <Content Include="Content\Instructor\CourseThumbnail\laravel.jpg" />
+    <Content Include="Content\Instructor\CourseThumbnail\linux.jpg" />
+    <Content Include="Content\Instructor\CourseThumbnail\noPropic.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -304,11 +313,8 @@
     <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
     <Content Include="Content\bootstrap.rtl.min.css.map" />
-<<<<<<< HEAD
     <Content Include="Content\Homepage" />
     <Content Include="EmailTemplate\Text.cshtml" />
-=======
->>>>>>> 9c3211c47256090c0241d1315244e0db8014b3d4
     <EntityDeploy Include="Models\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
