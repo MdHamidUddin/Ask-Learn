@@ -21,7 +21,6 @@ namespace AskNLearn.Models
             this.EnrolledUsers = new HashSet<EnrolledUser>();
             this.Posts = new HashSet<Post>();
             this.UsersInfoes = new HashSet<UsersInfo>();
-            this.Results = new HashSet<Result>();
         }
     
         public int uid { get; set; }
@@ -41,6 +40,5 @@ namespace AskNLearn.Models
         public virtual ICollection<EnrolledUser> EnrolledUsers { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<UsersInfo> UsersInfoes { get; set; }
-        public virtual ICollection<Result> Results { get; set; }
     }
 }
