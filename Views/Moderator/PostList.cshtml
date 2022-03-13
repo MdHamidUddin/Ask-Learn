@@ -1,0 +1,102 @@
+﻿@model List<AskNLearn.Models.Moderator.PostListModel>
+
+@{
+    ViewBag.Title = "PostList";
+    Layout = "~/Views/Shared/ModeratorLayout.cshtml";
+}
+
+
+<br>
+<br>
+<br>
+<div id="page-wrapper">
+    <div class="container-fluid">
+        <div class="white-box" id="wrapper">
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="white-box">
+                        <h3 class="box-title">Users List</h3>
+
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Post Id</th>
+                                        <th>Name </th>
+                                        <th>Email</th>
+                                        <th>User Type</th>
+                                        <th>Post Title</th>
+                                        <th>Post Details</th>
+                                        <th>UpVote</th>
+                                        <th>DownVote</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @{
+
+                                        int i = 0;
+
+                                        foreach (var user in Model)
+                                        {
+
+                                            <tr style="color: indigo; font-weight: 500">
+                                                <td>@(++i)</td>
+                                                <td>@user.pid</td>
+                                                <td>@user.name</td>
+
+                                                <td>@user.email</td>
+                                                <td>@user.userType</td>
+                                                <td>@user.title</td>
+                                                <td>@user.details</td>
+                                                <td>@user.upVote</td>
+                                                <td>@user.downVote</td>
+                                                <td>@user.dateTime</td>
+                                                <td>@user.approval</td>
+                                                                           
+                                                <td>
+
+                                                    <a href="../Moderator/DeletePost/@user.pid" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>
+
+
+                                                </td>
+                                            </tr>
+                                           
+                                        }
+                                    }
+                                </tbody>
+
+
+
+                            </table>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

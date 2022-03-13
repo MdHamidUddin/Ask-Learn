@@ -17,6 +17,7 @@ namespace AskNLearn.Models
         public Quize()
         {
             this.Marks = new HashSet<Mark>();
+            this.Marks1 = new HashSet<Mark>();
         }
     
         public int quizId { get; set; }
@@ -27,5 +28,6 @@ namespace AskNLearn.Models
     
         public virtual Cours Cours { get; set; }
         public virtual ICollection<Mark> Marks { get; set; }
+        public virtual ICollection<Mark> Marks1 { get; set; }
     }
 }

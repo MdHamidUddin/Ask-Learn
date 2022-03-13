@@ -7,7 +7,7 @@
     <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="pid" Type="Int32" Nullable="false" />
     <Property Name="uid" Type="Int32" Nullable="false" />
-    <Property Name="comment1" Type="Binary" MaxLength="500" FixedLength="false" Nullable="false" />
+    <Property Name="comment1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="upVote" Type="Int32" />
     <Property Name="downVote" Type="Int32" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -56,7 +56,6 @@
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_EnrolledUser_Courses" FromRole="EnrolledUser" ToRole="Courses" />
     <NavigationProperty Name="User" Relationship="Self.FK_EnrolledUser_Users" FromRole="EnrolledUser" ToRole="Users" />
-    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_EnrolledUser" FromRole="EnrolledUser" ToRole="Marks" />
   </EntityType>
   <EntityType Name="Mark">
     <Key>
@@ -67,8 +66,8 @@
     <Property Name="marks" Type="Double" Nullable="false" />
     <Property Name="detaTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="quizId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="EnrolledUser" Relationship="Self.FK_Marks_EnrolledUser" FromRole="Marks" ToRole="EnrolledUser" />
-    <NavigationProperty Name="Quize" Relationship="Self.FK_Marks_Quizes" FromRole="Marks" ToRole="Quizes" />
+    <NavigationProperty Name="Quize" Relationship="Self.FK_Marks_EnrolledUser" FromRole="Marks" ToRole="Quizes" />
+    <NavigationProperty Name="Quize1" Relationship="Self.FK_Marks_Quizes" FromRole="Marks" ToRole="Quizes" />
   </EntityType>
   <EntityType Name="Post">
     <Key>
@@ -94,7 +93,8 @@
     <Property Name="questionLink" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="totalMarks" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_Quizes_Courses" FromRole="Quizes" ToRole="Courses" />
-    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_Quizes" FromRole="Quizes" ToRole="Marks" />
+    <NavigationProperty Name="Marks" Relationship="Self.FK_Marks_EnrolledUser" FromRole="Quizes" ToRole="Marks" />
+    <NavigationProperty Name="Marks1" Relationship="Self.FK_Marks_Quizes" FromRole="Quizes" ToRole="Marks" />
   </EntityType>
   <EntityType Name="User">
     <Key>
@@ -213,14 +213,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Marks_EnrolledUser">
-    <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
+    <End Role="Quizes" Type="Self.Quize" Multiplicity="1" />
     <End Role="Marks" Type="Self.Mark" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="EnrolledUser">
-        <PropertyRef Name="eid" />
+      <Principal Role="Quizes">
+        <PropertyRef Name="quizId" />
       </Principal>
       <Dependent Role="Marks">
-        <PropertyRef Name="eid" />
+        <PropertyRef Name="quizId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -299,7 +299,7 @@
       <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
     </AssociationSet>
     <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
-      <End Role="EnrolledUser" EntitySet="EnrolledUsers" />
+      <End Role="Quizes" EntitySet="Quizes" />
       <End Role="Marks" EntitySet="Marks" />
     </AssociationSet>
     <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">

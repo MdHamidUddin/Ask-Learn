@@ -60,7 +60,7 @@
     }
 
     $(document).ready(function () {
-        window.setInterval('refresh()', 5000);
+        window.setInterval('refresh()', 10000);
 
         $.getJSON("/Admin/ShowChart", function (data) {
             document.getElementById("admin").innerHTML = data.Admin;

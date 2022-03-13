@@ -7,7 +7,7 @@
     <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="pid" Type="int" Nullable="false" />
     <Property Name="uid" Type="int" Nullable="false" />
-    <Property Name="comment" Type="varbinary" MaxLength="500" Nullable="false" />
+    <Property Name="comment" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="upVote" Type="int" />
     <Property Name="downVote" Type="int" />
     <Property Name="dateTime" Type="datetime" Nullable="false" />
@@ -179,14 +179,14 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Marks_EnrolledUser">
-    <End Role="EnrolledUser" Type="Self.EnrolledUser" Multiplicity="1" />
+    <End Role="Quizes" Type="Self.Quizes" Multiplicity="1" />
     <End Role="Marks" Type="Self.Marks" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="EnrolledUser">
-        <PropertyRef Name="eid" />
+      <Principal Role="Quizes">
+        <PropertyRef Name="quizId" />
       </Principal>
       <Dependent Role="Marks">
-        <PropertyRef Name="eid" />
+        <PropertyRef Name="quizId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -273,7 +273,7 @@
       <End Role="EnrolledUser" EntitySet="EnrolledUser" />
     </AssociationSet>
     <AssociationSet Name="FK_Marks_EnrolledUser" Association="Self.FK_Marks_EnrolledUser">
-      <End Role="EnrolledUser" EntitySet="EnrolledUser" />
+      <End Role="Quizes" EntitySet="Quizes" />
       <End Role="Marks" EntitySet="Marks" />
     </AssociationSet>
     <AssociationSet Name="FK_Marks_Quizes" Association="Self.FK_Marks_Quizes">

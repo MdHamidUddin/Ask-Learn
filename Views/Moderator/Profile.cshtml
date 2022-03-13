@@ -1,4 +1,4 @@
-﻿@model AskNLearn.Models.Entity.ProfileUpdateModel
+﻿@model AskNLearn.Models.Moderator.ProfileUpdateModel
 @{
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/ModeratorLayout.cshtml";
@@ -31,13 +31,13 @@
                     </ol>
                 </div>
             </div>
-            <!-- /.row -->
+            
             <!-- .row -->
             <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <div class="white-box">
                         <div class="user-bg">
-                            <img width="100%" alt="user" src="../../Theme/plugins/images/large/img1.jpg">
+                            <img width="100%" alt="user" src="<img src="~/Content/Moderator/Tahmid.jpeg" />">
                             <div class="overlay-box">
                                 <div class="user-content">
                                     <a href="javascript:void(0)">
@@ -52,7 +52,6 @@
                         <div class="user-btm-box">
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-purple"><i class="ti-facebook"></i></p>
-                                @*<h1>258</h1>*@
                             </div>
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-blue"><i class="ti-twitter"></i></p>
@@ -60,7 +59,6 @@
                             </div>
                             <div class="col-md-4 col-sm-4 text-center">
                                 <p class="text-danger"><i class="ti-dribbble"></i></p>
-                                <h1>@*556*@</h1>
                             </div>
                         </div>
                     </div>
@@ -136,8 +134,6 @@
                             <div class="form-group">
                                 <label class="col-md-12">Gender</label>
                                 <div class="col-md-12">
-                                    @*<input type="text" value=@Model.gender placeholder="Gender"
-                                        class="form-control form-control-line">*@
                                     <input type="radio" class="form-check-input" id="Male" name="gender" value="Male" @if (@Model.gender == "Male") { @msg } />
 
                                     <label for="Male">Male</label>&nbsp &nbsp

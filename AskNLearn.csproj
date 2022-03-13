@@ -132,6 +132,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
+    <Compile Include="Controllers\LearnerController.cs" />
     <Compile Include="Controllers\ModeratorController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -180,6 +181,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Moderator\CommentModel.cs" />
+    <Compile Include="Models\Moderator\ModeratorDashBModel.cs" />
+    <Compile Include="Models\Moderator\PostListModel.cs" />
+    <Compile Include="Models\Moderator\ProfileUpdateModel.cs" />
     <Compile Include="Models\Post.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1075,12 +1080,16 @@
     <Content Include="Views\Instructor\CourseEnrolment.cshtml" />
     <Content Include="Views\Instructor\EnrolledUsersList.cshtml" />
     <Content Include="Views\Instructor\PostList.cshtml" />
+    <Content Include="Views\Moderator\PostList.cshtml" />
+    <Content Include="Views\Shared\learnerlayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Instructor\Courses\Documents\" />
     <Folder Include="Content\Instructor\Courses\Images\" />
     <Folder Include="Content\Instructor\ProPic\" />
+    <Folder Include="Models\Learner\" />
+    <Folder Include="Views\Learner\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,4 +1,4 @@
-﻿@model List<AskNLearn.Models.Entity.AdminDashboardModel>
+﻿@model List<AskNLearn.Models.Moderator.ModeratorDashBModel>
 @{
     ViewBag.Title = "UserList";
     Layout = "~/Views/Shared/ModeratorLayout.cshtml";
@@ -84,41 +84,8 @@
                                             int difference = (int)diff.Days;
                                             difference = difference / 365;
 
-                                            if (user.userType.Equals("Admin"))
-                                            {
-                                                <tr style="color:darkgoldenrod;font-weight:500">
-
-                                                    <td>@(++i)</td>
-                                                    <td>@user.uid</td>
-                                                    <td>@user.name</td>
-                                                    <td>@user.username</td>
-                                                    <td>@user.email</td>
-                                                    <td>@difference</td>
-                                                    <td>@user.gender</td>
-                                                    <td>@user.eduInfo</td>
-                                                    <td>@user.currentPosition</td>
-                                                    <td>@user.userType</td>
-                                                    <td>N/A</td>
-                                                    <td>@user.approval</td>
-                                                    <td>
-                                                        @* <a href="@Url.Action("EditUser", new { @user.uid })" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>*@
-
-                                                        @*<a href="@Url.Action("DeleteUser", new { @user.uid })" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>*@
-                                                        @*{ if (user.approval.Equals("blocked"))
-                                                            {
-                                                                <a href="@Url.Action("UnBlockUser", new { @user.uid })" class="btn btn-danger" style="background-color: #21cc21; color: white; border-radius: 6px">UnBlock</a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a href="@Url.Action("BlockUser", new { @user.uid })" class="btn btn-danger" style="background-color:darkred;color:white;border-radius:6px">Block</a>
-                                                            }*@
-
-
-
-                                                    </td>
-                                                </tr>
-                                            }
-                                            else if (user.userType.Equals("Instructor"))
+                                           
+                                            if (user.userType.Equals("Instructor"))
                                             {
                                                 <tr style="color: indigo; font-weight: 500">
                                                     <td>@(++i)</td>
@@ -134,9 +101,6 @@
                                                     <td>@user.reputation</td>
                                                     <td>@user.approval</td>
                                                     <td>
-                                                        @*<a href="@Url.Action("EditUser",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>*@
-
-                                                        @*<a href="@Url.Action("UserDetails",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>*@
 
                                                         @{ if (user.approval.Equals("blocked"))
                                                             {
@@ -186,9 +150,7 @@
                                                     <td>@user.reputation</td>
                                                     <td>@user.approval</td>
                                                     <td>
-                                                        @*<a href="@Url.Action("EditUser",new { @user.uid})" class="btn btn-danger" style="background-color:forestgreen;color:white;border-radius:6px">Edit</a>*@
-
-                                                        @*<a href="@Url.Action("UserDetails",new { @user.uid})" class="btn btn-danger" style="background-color:red;color:white;border-radius:6px">Delete</a>*@
+                                                      
 
                                                         @{ if (user.approval.Equals("blocked"))
                                                             {

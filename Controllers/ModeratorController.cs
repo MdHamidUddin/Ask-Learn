@@ -1,5 +1,5 @@
 ﻿using AskNLearn.Models;
-using AskNLearn.Models.Entity;
+using AskNLearn.Models.Moderator;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,7 +17,7 @@ namespace AskNLearn.Controllers
         {
          
             //var data = dbObj.Users.ToList();
-            List<AdminDashboardModel> dashboardList = new List<AdminDashboardModel>();
+            List<ModeratorDashBModel> dashboardList = new List<ModeratorDashBModel>();
             var data = (from u in dbObj.Users
                         join ui in dbObj.UsersInfoes on u.uid equals ui.uid
                         select new { u.name, u.uid, u.userType, u.username, u.email, u.gender, u.dateTime, ui.reputation }).ToList();
@@ -25,7 +25,7 @@ namespace AskNLearn.Controllers
 
             foreach (var u in data)
             {
-                AdminDashboardModel obj = new AdminDashboardModel();
+                ModeratorDashBModel obj = new ModeratorDashBModel();
                 obj.uid = u.uid;
                 obj.name = u.name;
                 obj.userType = u.userType;
@@ -99,7 +99,7 @@ namespace AskNLearn.Controllers
         public ActionResult UserList()
         {
 
-            List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
+            List<ModeratorDashBModel> UserList = new List<ModeratorDashBModel>();
             var data = (from u in dbObj.Users
                         join ui in dbObj.UsersInfoes on u.uid equals ui.uid
                         select new { u.name, u.uid, u.userType, u.username, u.email, u.approval, u.gender, u.dob, u.dateTime, ui.reputation, ui.eduInfo, ui.currentPosition }).ToList();
@@ -107,7 +107,7 @@ namespace AskNLearn.Controllers
 
             foreach (var u in data)
             {
-                AdminDashboardModel obj = new AdminDashboardModel();
+                ModeratorDashBModel obj = new ModeratorDashBModel();
                 if (u.approval.Equals("active") || u.approval.Equals("blocked"))
                 {
                     if(u.userType.Equals("Admin"))
@@ -208,6 +208,18 @@ namespace AskNLearn.Controllers
             return RedirectToAction("UserList");
         }
 
+        [HttpGet]
+        public ActionResult DeletePost(int id)
+        {
+
+            var p = dbObj.Posts.Where(x => x.pid.Equals(id)).FirstOrDefault();
+
+            dbObj.Posts.Remove(p);
+            dbObj.SaveChanges();
+
+            return RedirectToAction("PostList");
+        }
+
 
 
 
@@ -242,6 +254,40 @@ namespace AskNLearn.Controllers
 
             }
             return View("EditUser", profile.uid);
+        }
+
+        [HttpGet]
+        public ActionResult PostList()
+        {
+            List<PostListModel> UsersPost = new List<PostListModel>();
+
+            var data = (from u in dbObj.Users
+                        join up in dbObj.Posts on u.uid equals up.uid
+                        select new { u.name, u.userType, u.email,u.approval,up.pid, up.title, up.details, up.upVote, up.downVote, up.dateTime }).ToList();
+
+           
+            foreach(var u in data)
+            {
+                PostListModel obj = new PostListModel();
+                obj.pid = u.pid;
+
+                obj.name = u.name;
+                obj.userType = u.userType;
+                obj.email = u.email;
+                obj.title = u.title;
+                obj.details = u.details;
+                obj.upVote = u.upVote;
+                obj.downVote = u.downVote;
+                obj.approval = u.approval;
+                obj.dateTime = u.dateTime;
+
+                UsersPost.Add(obj);
+            }
+            
+            
+            
+            
+            return View(UsersPost);
         }
 
 
