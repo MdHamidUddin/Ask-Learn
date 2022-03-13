@@ -24,6 +24,7 @@
         downVote = item.downVote;
         dateTime = item.dateTime.ToString();
     }
+    var quizes = ViewBag.Quizes;
 }
 <h2>CourseView</h2>
 <div id="wrapper">
@@ -62,10 +63,13 @@
                             {
                                 foreach (var item in Model)
                                 {
-                                    i++;
-                                    <h4>@i. @item.videoTitle</h4>
-                                    <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    if (item.videoLink!= null)
+                                    {
+                                        i++;
+                                        <h4>@i. @item.videoTitle</h4>
+                                        <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+                                    }
                                 }
                                 i = 0;
                             }
@@ -89,9 +93,12 @@
                             {
                                 foreach (var item in Model)
                                 {
-                                    i++;
-                                    <h4>@i. @item.imageTitle</h4>
-                                    <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+                                    if (item.image!=null)
+                                    {
+                                        i++;
+                                        <h4>@i. @item.imageTitle</h4>
+                                        <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+                                    }
                                 }
                                 i = 0;
                             }
@@ -116,8 +123,11 @@
                             {
                                 foreach (var item in Model)
                                 {
-                                    i++;
-                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+                                    if (item.docs!=null)
+                                    {
+                                        i++;
+                                        <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+                                    }
 
                                 }
                                 i = 0;
@@ -134,18 +144,23 @@
                 <div class="white-box">
                     <div class="form-horizontal form-material">
 
+                        <p style="float:right; color: saddlebrown">*Use the same email that you used for signup</p>
                         <h2 style="color: orangered">Quizes</h2>
                         <p style="color: darkcyan">Click To Open</p>
                         <div style="height: 300px; overflow: auto; ">
 
 
-                            @if (Model != null)
+                            @if (quizes != null)
                             {
-                                foreach (var item in Model)
+                                foreach (var item in quizes)
                                 {
-                                    i++;
-                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+                                    if (item.questionLink != null)
+                                    {
+                                        i++;
 
+                                        <p style="float:right">Total Marks @item.totalMarks</p>
+                                        <b><a style="font-size:20px" href="@item.questionLink">@i. @item.quizTitle</a></b><br /><hr />
+                                    }
                                 }
                                 i = 0;
                             }

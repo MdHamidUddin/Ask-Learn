@@ -4,7 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="4bedc87ef2134ebd8dea82d8b04dd65a" Name="Diagram1" ZoomLevel="56">
+=======
+      <Diagram DiagramId="9eb34bea9dfb4e68bf309c0c0e5374bd" Name="Diagram1">
+>>>>>>> b6bf37a8880ccc2de8a13240dfbe512bf1c13afa
         <EntityTypeShape EntityType="AskNLearnModel.Comment" Width="1.5" PointX="8.25" PointY="11.25" IsExpanded="true" />
         <EntityTypeShape EntityType="AskNLearnModel.Cours" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AskNLearnModel.Document" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
