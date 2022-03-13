@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Comment";
+    Layout = "~/Views/Shared/InstructorDashboard.cshtml";
+    var comments=ViewBag.Comments;
+}
+
+<div id="wrapper">
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <br /><br /><br />
+            <h2>Post</h2>
+
+            <div class="container-fluid" style="color:gray; background-color:lightcyan; ">
+                @if (Model.downVote.Equals(0))
+                {<b><a style="float: right; font-size:22px; color:lightgray;" href="/Instructor/CourseDownvote/@Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/000000/down.png" />@Model.downVote</a></b>}
+
+                @if (Model.downVote > 0)
+                {<b><a style="float: right; font-size:22px; color:red;" href="/Instructor/CourseDownvote/Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/fa314a/down.png" />@Model.downVote</a></b>}
+
+                @if (Model.upVote.Equals(0))
+                {<a style="float: right; font-size: 22px; color: gray;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/dotty/25/000000/up.png" />@Model.upVote</a>}
+
+                @if (Model.upVote > 0)
+                {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@Model.upVote</a></b>}
+                <h4 style="color:darkorange">@Model.title</h4>
+                <a class="btn btn-light" style="float:right; position:relative;" href="/Instructor/Comment/@Model.pid"><img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/30/000000/external-comment-chat-flatart-icons-solid-flatarticons-2.png" />Reply</a>
+                <p style="text-align:justify; overflow:auto;">@Model.details</p>
+            </div>
+
+            @if (comments != null)
+            {
+                foreach (var item in comments)
+                {
+                    <h2>Comments</h2>
+
+                    <div class="container-fluid" style="color:gray; background-color:lightcyan; ">
+                        @if (Model.downVote.Equals(0))
+                        {<b><a style="float: right; font-size:22px; color:lightgray;" href="/Instructor/CourseDownvote/@Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/000000/down.png" />@Model.downVote</a></b>}
+
+                        @if (Model.downVote > 0)
+                        {<b><a style="float: right; font-size:22px; color:red;" href="/Instructor/CourseDownvote/Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/fa314a/down.png" />@Model.downVote</a></b>}
+
+                        @if (Model.upVote.Equals(0))
+                        {<a style="float: right; font-size: 22px; color: gray;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/dotty/25/000000/up.png" />@Model.upVote</a>}
+
+                        @if (Model.upVote > 0)
+                        {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@Model.upVote</a></b>}
+                        <h4 style="color:darkorange">@item.uid</h4>
+                        <p style="text-align:justify; overflow:auto;">@item.comments</p>
+                    </div>
+                }
+            }
+
+            <h2>Your Answer</h2>
+
+            <div class="container-fluid" style="color:lightgreen; background-color:lightcyan; ">
+                @if (Model.downVote.Equals(0))
+                {<b><a style="float: right; font-size:22px; color:lightgray;" href="/Instructor/CourseDownvote/@Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/000000/down.png" />@Model.downVote</a></b>}
+
+                @if (Model.downVote > 0)
+                {<b><a style="float: right; font-size:22px; color:red;" href="/Instructor/CourseDownvote/Model.pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/fa314a/down.png" />@Model.downVote</a></b>}
+
+                @if (Model.upVote.Equals(0))
+                {<a style="float: right; font-size: 22px; color: gray;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/dotty/25/000000/up.png" />@Model.upVote</a>}
+
+                @if (Model.upVote > 0)
+                {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@Model.upVote</a></b>}
+
+            <form class="form-horizontal form-material" action="/Instructor/Comment" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="pid" value="" />
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <textarea class="form-control" name="comment" rows="6" cols="40" id="comment1" placeholder="Answer Here"></textarea>
+                    </div>
+                </div>
+
+                <button class="btn btn btn-success" style="background-color: goldenrod">Submit</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

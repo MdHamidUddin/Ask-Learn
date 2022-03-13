@@ -178,10 +178,13 @@
                             {
                                 foreach (var item in dataL)
                                 {
-                                    i++;
-                                    <h4>@i. @item.videoTitle</h4>
-                                    <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    if (item.videoLink!=null)
+                                    {
+                                        i++;
+                                        <h4>@i. @item.videoTitle</h4>
+                                        <iframe style="object-fit: cover" width="650" height="365" src="@item.videoLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+                                    }
                                 }
                                 i = 0;
                             }
@@ -202,9 +205,12 @@
                             {
                                 foreach (var item in dataL)
                                 {
-                                    i++;
-                                    <h4>@i. @item.imageTitle</h4>
-                                    <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+                                    if (item.image!=null)
+                                    {
+                                        i++;
+                                        <h4>@i. @item.imageTitle</h4>
+                                        <img style="max-height: 500px; object-fit: cover" src="~/@item.image" width="600" /> <br /><br />
+                                    }
 
                                 }
                                 i = 0;
@@ -231,8 +237,11 @@
                             {
                                 foreach (var item in dataL)
                                 {
-                                    i++;
-                                    <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+                                    if (item.docs!=null)
+                                    {
+                                        i++;
+                                        <b><a style="font-size:20px" href="/Instructor/PdfPreview/?doc=@item.docs">@i. @item.docTitle</a></b><br /><br />
+                                    }
 
                                 }
                                 i = 0;
@@ -286,10 +295,13 @@
                             {
                                 foreach (var item in quizes)
                                 {
-                                    i++;
+                                    if (item.questionLink!=null)
+                                    {
+                                        i++;
 
-                                    <p style="float:right">Total Marks @item.totalMarks</p>
-                                    <b><a style="font-size:20px" href="@item.questionLink">@i. @item.quizTitle</a></b><br /><hr />
+                                        <p style="float:right">Total Marks @item.totalMarks</p>
+                                        <b><a style="font-size:20px" href="@item.questionLink">@i. @item.quizTitle</a></b><br /><hr />
+                                    }
                                 }
                                 i = 0;
                             }

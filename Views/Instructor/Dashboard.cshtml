@@ -4,8 +4,10 @@
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
 }
 @{ 
+    int i = 0;
     int totalLearners = Model.LernerCount;
     int PostedCourseCount = Model.PostedCourseCount;
+    var posts = ViewBag.Posts;
 }
 <br /><br />
 <input type="text" name="name" value=@*@Model.name*@ style="color:red">
@@ -105,8 +107,30 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="white-box">
-                        @Session["uid"] <br />
-                        Total Courses Offered By You
+                        <div style="height: 400px; overflow: auto; ">
+                            <h3>Recent Posts</h3>
+                            @for (i = 0; i < 2; i++)
+                            {
+                        <div class="container-fluid" style="color:gray; background-color:lightcyan; ">
+                                @if (posts[i].downVote.Equals(0))
+                                {<b><a style="float: right; font-size:22px; color:lightgray;" href="/Instructor/CourseDownvote/@posts[i].pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/000000/down.png" />@posts[i].downVote</a></b>}
+
+                                @if (posts[i].downVote > 0)
+                                {<b><a style="float: right; font-size:22px; color:red;" href="/Instructor/CourseDownvote/@posts[i].pid">&nbsp;<img src="https://img.icons8.com/glyph-neue/22/fa314a/down.png" />@posts[i].downVote</a></b>}
+
+                                @if (posts[i].upVote.Equals(0))
+                                {<a style="float: right; font-size: 22px; color: gray;" href="/Instructor/CourseUpvote/@posts[i].pid"><img src="https://img.icons8.com/dotty/25/000000/up.png" />@posts[i].upVote</a>}
+
+                                @if (posts[i].upVote > 0)
+                                {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@posts[i].pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@posts[i].upVote</a></b>}
+                                <h4 style="color:darkorange">@posts[i].title</h4>
+                                <a class="btn btn-light" style="float:right; position:relative;" href="/Instructor/Comment/@posts[i].pid"><img src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/30/000000/external-comment-chat-flatart-icons-solid-flatarticons-2.png" />Reply</a>
+                                <p style="text-align:justify; overflow:auto;">@posts[i].details</p>
+                        </div>
+                        <br />
+                            }
+                            <a class="btn btn-danger" style="background-color:darkred; float:right;" href="/Instructor/PostList">Show All Posts</a>
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->
