@@ -17,7 +17,7 @@ namespace AskNLearn.Models
         public int cid { get; set; }
         public int pid { get; set; }
         public int uid { get; set; }
-        public byte[] comment1 { get; set; }
+        public string comment { get; set; }
         public Nullable<int> upVote { get; set; }
         public Nullable<int> downVote { get; set; }
         public System.DateTime dateTime { get; set; }

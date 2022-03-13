@@ -20,7 +20,7 @@ namespace AskNLearn.Models
         public System.DateTime detaTime { get; set; }
         public int quizId { get; set; }
     
-        public virtual EnrolledUser EnrolledUser { get; set; }
         public virtual Quize Quize { get; set; }
+        public virtual Quize Quize1 { get; set; }
     }
 }

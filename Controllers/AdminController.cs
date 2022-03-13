@@ -156,14 +156,14 @@ namespace AskNLearn.Controllers
 
             List<AdminDashboardModel> UserList = new List<AdminDashboardModel>();
             var data = (from u in dbObj.Users
-                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid 
+                        join ui in dbObj.UsersInfoes on u.uid equals ui.uid orderby u.userType
                         select new { u.name, u.uid, u.userType, u.username, u.email,u.approval, u.gender,u.dob, u.dateTime, ui.reputation,ui.eduInfo,ui.currentPosition }).ToList();
 
 
             foreach (var u in data)
             {
                 AdminDashboardModel obj = new AdminDashboardModel();
-                if(u.approval.Equals("active")|| u.approval.Equals("blocked"))
+                if(u.approval.Equals("active")|| u.approval.Equals("blocked") && u.approval!="pending")
                 {
                     obj.uid = u.uid;
                     obj.name = u.name;
@@ -233,7 +233,7 @@ namespace AskNLearn.Controllers
             foreach (var u in data)
             {
                 AdminDashboardModel obj = new AdminDashboardModel();
-                if (u.approval.Equals("active") || u.approval.Equals("blocked") && u.userType.Equals("Moderator"))
+                if (u.approval.Equals("active") || u.approval.Equals("blocked"))
                 {
                     obj.uid = u.uid;
                     obj.name = u.name;

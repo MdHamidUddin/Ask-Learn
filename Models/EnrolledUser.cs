@@ -14,11 +14,6 @@ namespace AskNLearn.Models
     
     public partial class EnrolledUser
     {
-        public EnrolledUser()
-        {
-            this.Marks = new HashSet<Mark>();
-        }
-    
         public int eid { get; set; }
         public int uid { get; set; }
         public int coid { get; set; }
@@ -26,6 +21,5 @@ namespace AskNLearn.Models
     
         public virtual Cours Cours { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Mark> Marks { get; set; }
     }
 }

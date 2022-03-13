@@ -47,6 +47,8 @@ namespace AskNLearn.Controllers
                         model.LernerCount++;
                     }
                 }
+                var posts = db.Posts.OrderByDescending(p=> p.pid).ToList();
+                ViewBag.Posts = posts;
                 return View(model);
             }
             else
@@ -297,7 +299,6 @@ namespace AskNLearn.Controllers
                 ViewBag.Course = crs;
                 return View();
             }
-            return View();
         }
         [HttpPost]
         public ActionResult UpdateCourse(DocumentsModel d)
@@ -323,10 +324,6 @@ namespace AskNLearn.Controllers
                     fileName = Path.Combine(Server.MapPath("~/Content/Instructor/Courses/Images/"), fileName);
                     d.ImageFile.SaveAs(fileName);
                 }
-                else
-                {
-                    d.image = "Content/Instructor/Courses/Images/noPropic.jpg";
-                }
                 //For Documents Upload
                 if (d.DocFile != null)
                 {
@@ -337,17 +334,16 @@ namespace AskNLearn.Controllers
                     fileName = Path.Combine(Server.MapPath("~/Content/Instructor/Courses/Documents/"), fileName);
                     d.DocFile.SaveAs(fileName);
                 }
-                else
-                {
-                    d.docs = "Content/Instructor/Courses/Documents/noPropic.jpg";
-                }
 
 
                 AskNLearnEntities db = new AskNLearnEntities();
                 Document doc = new Document();
                 doc.coid = d.coid;
                 doc.videoTitle = d.videoTitle;
-                doc.videoLink = videoLink;
+                if (!videoLink.Equals(""))
+                {
+                    doc.videoLink = videoLink;
+                }
                 doc.imageTitle = d.imageTitle;
                 doc.image = d.image;
                 doc.docTitle = d.docTitle;
@@ -364,6 +360,10 @@ namespace AskNLearn.Controllers
             AskNLearnEntities db = new AskNLearnEntities();
             if (Session["uid"] != null) {
             int uid = (int)Session["uid"];
+            var quiz = (from q in db.Quizes
+                            where q.coid.Equals(id)
+                            select q).ToList();
+            ViewBag.Quizes = quiz;
             var enrlchk = db.EnrolledUsers.Where(value => value.coid == id && value.uid == uid).FirstOrDefault();
             if (enrlchk != null || Session["userType"].Equals("Instructor"))
             {
@@ -538,5 +538,49 @@ namespace AskNLearn.Controllers
             db.SaveChanges();
             return RedirectToAction("UpdateCourse", new { id = q.coid });
         }
-    }
+        [HttpGet]
+        public ActionResult Comment(int id)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            var post = (from p in db.Posts
+                        join u in db.Users on p.uid equals u.uid
+                        where p.pid == id
+                        select new
+                        {
+                            p.pid,
+                            p.uid,
+                            p.title,
+                            p.details,
+                            p.upVote,
+                            p.downVote,
+                            p.dateTime,
+                            u.name
+                        }).FirstOrDefault();
+            PostModel pm = new PostModel();
+            pm.pid = post.pid;
+            pm.PostedbyUid = post.uid;
+            pm.title = post.title;
+            pm.details = post.details;
+            pm.Postedby = post.name;
+            pm.upVote = post.upVote;
+            pm.downVote = post.downVote;
+            pm.dateTime = post.dateTime;
+            var comments = db.Comments.ToList();
+            ViewBag.Comments = comments;
+            return View(pm);
+        }
+        [HttpPost]
+        public ActionResult Comment(Comment c)
+        {
+            AskNLearnEntities db = new AskNLearnEntities();
+            int uid = (int)Session["uid"];
+            c.uid = uid;
+            c.upVote = 1;
+            c.downVote = 0;
+            c.dateTime = DateTime.Now;
+            db.Comments.Add(c);
+            db.SaveChanges();
+            return RedirectToAction("Comment", new { id = c.pid });
+        }
+        }
 }
