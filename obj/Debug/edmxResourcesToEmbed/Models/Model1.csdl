@@ -7,7 +7,7 @@
     <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="pid" Type="Int32" Nullable="false" />
     <Property Name="uid" Type="Int32" Nullable="false" />
-    <Property Name="comment1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="commentValue" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="upVote" Type="Int32" />
     <Property Name="downVote" Type="Int32" />
     <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />

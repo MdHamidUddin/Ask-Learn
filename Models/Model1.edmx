@@ -12,7 +12,7 @@
           <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="pid" Type="int" Nullable="false" />
           <Property Name="uid" Type="int" Nullable="false" />
-          <Property Name="comment" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="commentValue" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="upVote" Type="int" />
           <Property Name="downVote" Type="int" />
           <Property Name="dateTime" Type="datetime" Nullable="false" />
@@ -310,7 +310,7 @@
           <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="pid" Type="Int32" Nullable="false" />
           <Property Name="uid" Type="Int32" Nullable="false" />
-          <Property Name="comment1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="commentValue" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="upVote" Type="Int32" />
           <Property Name="downVote" Type="Int32" />
           <Property Name="dateTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -630,7 +630,7 @@
                 <ScalarProperty Name="cid" ColumnName="cid" />
                 <ScalarProperty Name="pid" ColumnName="pid" />
                 <ScalarProperty Name="uid" ColumnName="uid" />
-                <ScalarProperty Name="comment1" ColumnName="comment" />
+                <ScalarProperty Name="commentValue" ColumnName="commentValue" />
                 <ScalarProperty Name="upVote" ColumnName="upVote" />
                 <ScalarProperty Name="downVote" ColumnName="downVote" />
                 <ScalarProperty Name="dateTime" ColumnName="dateTime" />

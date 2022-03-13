@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AskNLearn.Models.Entity.SignUpModel
+@{
     ViewBag.Title = "Signup";
     Layout = "~/Views/Shared/SignupLayout.cshtml";
 }
@@ -46,6 +47,7 @@
             <div class="col-12">
                 <div class="input-group">
                     <input style="font-size: 14px" type="text" class="form-control" name="name" id="name" placeholder="Your name" />
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -53,6 +55,7 @@
             <div class="col-12">
                 <div class="input-group">
                     <input style="font-size: 14px" type="email" class="form-control" name="email" id="email" placeholder="Your email" />
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -60,6 +63,7 @@
             <div class="col-12">
                 <div class="input-group">
                     <input style="font-size: 14px" type="text" class="form-control" name="eduInfo" id="eduInfo" placeholder="Educational Dgree" />
+                    @Html.ValidationMessageFor(model => model.eduInfo, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -67,6 +71,7 @@
             <div class="col-12">
                 <div class="input-group">
                     <input style="font-size: 14px" type="text" class="form-control" name="currentPosition" id="currentPosition" placeholder="Current Status" />
+                    @Html.ValidationMessageFor(model => model.currentPosition, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -89,7 +94,8 @@
 
             <div class="md-form md-outline input-with-post-icon datepicker">
                 <label for="date">Date of birth</label>
-                <input placeholder="Select date" type="date" id="date" class="form-control">
+                <input placeholder="Select date" type="date" name="dob" id="date" class="form-control">
+                @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
             </div>
 
             <div class="col-12">
@@ -100,6 +106,7 @@
                         </span>
                     </div>
                     <input style="font-size: 14px" type="text" class="form-control" name="username" id="username" placeholder="Your Username" />
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
                 </div>
 
             </div>
@@ -112,21 +119,22 @@
                         </span>
                     </div>
                     <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Your Password" />
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                 </div>
 
             </div>
 
             @*<div class="col-12">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
-                        </span>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <span><img src="https://img.icons8.com/color/29/000000/lock--v2.png" /></span>
+                            </span>
+                        </div>
+                        <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Confirm Password" />
                     </div>
-                    <input style="font-size: 14px" type="password" class="form-control" name="password" id="password" placeholder="Confirm Password" />
-                </div>
 
-            </div>*@
+                </div>*@
 
             <center><input style="font-size: 18px" class="col-6 btn-info btn-lg" type="submit" value="Submit" /></center><hr />
         </form>

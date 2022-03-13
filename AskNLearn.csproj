@@ -157,12 +157,14 @@
     <Compile Include="Models\Entity\UserPostModel.cs" />
     <Compile Include="Models\Entity\UsersLoginModel.cs" />
     <Compile Include="Models\Entity\UsersProfile.cs" />
+    <Compile Include="Models\Instructor\CommentModel.cs" />
     <Compile Include="Models\Instructor\CourseModel.cs" />
     <Compile Include="Models\Instructor\CourseViewModel.cs" />
     <Compile Include="Models\Instructor\DocumentsModel.cs" />
     <Compile Include="Models\Instructor\EnrolledListModel.cs" />
     <Compile Include="Models\Instructor\InsDashModel.cs" />
     <Compile Include="Models\Instructor\InstructorProfile.cs" />
+    <Compile Include="Models\Instructor\PostModel.cs" />
     <Compile Include="Models\Mark.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -1081,7 +1083,7 @@
     <Content Include="Views\Instructor\EnrolledUsersList.cshtml" />
     <Content Include="Views\Instructor\PostList.cshtml" />
     <Content Include="Views\Moderator\PostList.cshtml" />
-    <Content Include="Views\Shared\learnerlayout.cshtml" />
+    <Content Include="Views\Instructor\Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

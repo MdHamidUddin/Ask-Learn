@@ -3,6 +3,7 @@
     ViewBag.Title = "Comment";
     Layout = "~/Views/Shared/InstructorDashboard.cshtml";
     var comments=ViewBag.Comments;
+    int uid = (int)Session["uid"];
 }
 
 <div id="wrapper">
@@ -48,7 +49,7 @@
                         @if (Model.upVote > 0)
                         {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@Model.upVote</a></b>}
                         <h4 style="color:darkorange">@item.uid</h4>
-                        <p style="text-align:justify; overflow:auto;">@item.comments</p>
+                        <p style="text-align:justify; overflow:auto;">@item.commentValue</p>
                     </div>
                 }
             }
@@ -68,11 +69,16 @@
                 @if (Model.upVote > 0)
                 {<b><a style="float: right; font-size:22px;" href="/Instructor/CourseUpvote/@Model.pid"><img src="https://img.icons8.com/fluency/22/000000/up.png" />@Model.upVote</a></b>}
 
+                @{ DateTime time = DateTime.Now;}
             <form class="form-horizontal form-material" action="/Instructor/Comment" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="pid" value="" />
+                <input type="hidden" name="pid" value="@Model.pid" />
+                <input type="hidden" name="uid" value="@uid" />
+                <input type="hidden" name="upVote" value="1" />
+                <input type="hidden" name="downVote" value="0" />
+                <input type="hidden" name="dateTime" value="@time" />
                 <div class="form-group">
                     <div class="col-md-12">
-                        <textarea class="form-control" name="comment" rows="6" cols="40" id="comment1" placeholder="Answer Here"></textarea>
+                        <textarea class="form-control" name="commentValue" rows="6" cols="40" id="comment" placeholder="Answer Here"></textarea>
                     </div>
                 </div>
 

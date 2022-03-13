@@ -7,7 +7,7 @@
           <ScalarProperty Name="cid" ColumnName="cid" />
           <ScalarProperty Name="pid" ColumnName="pid" />
           <ScalarProperty Name="uid" ColumnName="uid" />
-          <ScalarProperty Name="comment1" ColumnName="comment" />
+          <ScalarProperty Name="commentValue" ColumnName="commentValue" />
           <ScalarProperty Name="upVote" ColumnName="upVote" />
           <ScalarProperty Name="downVote" ColumnName="downVote" />
           <ScalarProperty Name="dateTime" ColumnName="dateTime" />

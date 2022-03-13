@@ -109,7 +109,7 @@ namespace AskNLearn.Controllers
             else
             {
                 ViewBag.Message = "You Are Authorized As " + Session["userType"] + " You Cannot Acces This Page";
-                return RedirectToAction("Login", "Users");
+                return RedirectToAction("Login", "Users" , new { Message = ViewBag.Message });
             }
         }
         [HttpPost]
@@ -573,11 +573,11 @@ namespace AskNLearn.Controllers
         public ActionResult Comment(Comment c)
         {
             AskNLearnEntities db = new AskNLearnEntities();
-            int uid = (int)Session["uid"];
-            c.uid = uid;
-            c.upVote = 1;
-            c.downVote = 0;
-            c.dateTime = DateTime.Now;
+            //int uid = (int)Session["uid"];
+            //c.uid = uid;
+            //c.upVote = 1;
+            //c.downVote = 0;
+            //c.dateTime = DateTime.Now;
             db.Comments.Add(c);
             db.SaveChanges();
             return RedirectToAction("Comment", new { id = c.pid });

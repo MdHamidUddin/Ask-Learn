@@ -27,7 +27,9 @@ namespace AskNLearn.Models.Entity
         [Required]
         public string gender { get; set; }
         public string proPic { get; set; }
+        [Required (ErrorMessage ="Edu info needed")]
         public string eduInfo { get; set; }
+        [Required(ErrorMessage ="Current status needed")]
         public string currentPosition { get; set; }
         public int reputation { get; set; }
         public System.DateTime dateTime { get; set; }
